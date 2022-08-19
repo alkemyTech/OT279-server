@@ -11,9 +11,9 @@ namespace OngProject.Repositories
 {
     public class Repository<T> : IRepository<T> where T : Entity
     {
-        private readonly DbContext<T> _dbContext;
+        private readonly OngProject.DataAccess.DbContext _dbContext;
 
-        public Repository(DbContext<T> dbContext)
+        public Repository(OngProject.DataAccess.DbContext dbContext)
         {
             _dbContext = dbContext;
         }
