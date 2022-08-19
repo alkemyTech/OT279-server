@@ -5,7 +5,12 @@ using System.Threading.Tasks;
 
 namespace OngProject.DataAccess
 {
-    public class DbContext
+    public class OngDbContext : DbContext
     {
+        public OngDbContext(DbContextOptions<OngDbContext> options) : base(options)
+        {
+
+        }
+
     }
 }
