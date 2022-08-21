@@ -8,11 +8,11 @@ namespace OngProject.Core.Interfaces
 {
     interface IActivitiesService
     {
-        public List<Activities> GetAllActivities();
-        public Activities GetActivitiesById(int id);
-        public Activities CreateActivities(ActivitiesDTO activities);
-        public bool RemoveActivities(int id);
-        public Activities UpdateActivities(Activities activities);
+        public Task<List<Activities>> GetAllActivities();
+        public Task<Activities> GetActivitiesById(int id);
+        public Task<Activities> CreateActivities(ActivitiesDTO activities);
+        public Task<bool> RemoveActivities(int id);
+        public Task<Activities> UpdateActivities(int id, ActivitiesDTO activities);
  
     }
 }

@@ -7,27 +7,20 @@ using System.Threading.Tasks;
 
 namespace OngProject.Entities
 {
-    public class Activities
+    public class Activities : Entity
     {
-        [Key]
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
 
         [Required]
         [MaxLength(255)]
         public string Name { get; set; }
 
         [Required]
-
         [MaxLength(65535)]
         public string Content { get; set; }
 
         [Required]
         [MaxLength(255)]
         public string Image { get; set; }
-        
-        public DateTime DeletedAt { get; set; }
 
     }
 }
