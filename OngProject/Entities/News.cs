@@ -2,17 +2,17 @@
 
 namespace OngProject.Entities
 {
-    public class News
+    public class News : Entity
     {
-        [Required]
+        [Required(ErrorMessage = "Name is required")]
         [MaxLength(255)]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Content is required")]
         [MaxLength(65535)]
         public string Content { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Image is required")]
         [MaxLength(255)]
         public string Image { get; set; }
 
