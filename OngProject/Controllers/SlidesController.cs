@@ -78,11 +78,11 @@ namespace OngProject.Controllers
             var slide = await _service.UpdateSlide(id, slidesDTO);
             if (slide != null)
             {
-                return StatusCode(201, slide);
+                return Ok(slide);
             }
             else
             {
-                return StatusCode(400);
+                return NotFound(400);
             }
          }
 
