@@ -31,19 +31,18 @@ namespace OngProject.Entities
 
         [ForeignKey("Role")]
         public int RoleId { get; set; }
-
-        //public Role Role { get; set; }
+        public Role Role { get; set; }
 
         private User() { }
 
-        public User(string firstname, string lastname, string email, string password, string photo, int roleId)
+        public User(string firstname, string lastname, string email, string password, string photo, Role role)
         {
             FirstName = firstname;
             LastName = lastname;
             Email = email;
             Password = password;
             Photo = photo;
-            RoleId = roleId;
+            Role = role; 
         }
     }
 }
