@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
 {
-    public class RolesService : IRolesService
+    public class RolesBussiness : IRoleBussiness
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public RolesService(IUnitOfWork unitOfWork)
+        public RolesBussiness(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

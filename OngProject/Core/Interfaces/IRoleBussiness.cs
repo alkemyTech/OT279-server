@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Interfaces
 {
-    public interface IRolesService
+    public interface IRoleBussiness
     {
         Task<IEnumerable<object>> GetAll();
         Task<RoleDto> GetById();
