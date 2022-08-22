@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OngProject.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace OngProject.Repositories.Interfaces
@@ -8,7 +9,7 @@ namespace OngProject.Repositories.Interfaces
 
         // Lista de repositorios a implementar
 
-
+        IRepository<News> NewsRepository { get; }
         Task<int> Complete();
     }
 }

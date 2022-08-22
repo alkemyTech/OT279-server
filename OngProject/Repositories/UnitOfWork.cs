@@ -11,9 +11,12 @@ namespace OngProject.Repositories
         private readonly OngDbContext _context;
         private Repository<Category> _categoriesRepository;
 
+        public IRepository<News> NewsRepository { get; private set; }
+
         public UnitOfWork(OngDbContext context)
         {
             _context = context;
+            NewsRepository = new Repository<News>(context);
         }
 
         public async Task<int> Complete()
