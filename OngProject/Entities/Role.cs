@@ -3,18 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OngProject.Entities
 {
-    public class Role
+    public class Role : Entity
     {
-        // Id is not defined yet.
-
+        [Required(ErrorMessage ="Name is required.")]
         [MaxLength(255)]
         public string Name { get; set; }
 
+        [Required(ErrorMessage ="Description is required.")]
         [MaxLength(255)]
         public string Description { get; set; }
-
-        // UpdatedAt - Timestamp
-        // It is allowed to be null
-        public DateTime? UpdatedAt { get; set; }
     }
 }
