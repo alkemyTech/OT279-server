@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Repositories.Interfaces
 {
-    interface IRepository<T> where T : Entity
+    public interface IRepository<T> where T : Entity
     {
         Task<IEnumerable<T>> GetAll();
         Task<T> GetById(int id);
