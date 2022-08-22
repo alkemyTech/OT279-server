@@ -20,56 +20,31 @@ namespace OngProject.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllOrganization()
         {
-            var allOrganizations = await _organizationsService.GetAllOrganization();
-            if(allOrganizations != null)
-            {
-                return Ok(allOrganizations);
-            }
-            return BadRequest();
+            return NoContent();
         }
 
         [HttpGet]
         public async Task<IActionResult> GetByIdOrganization(int id)
         {
-            var organizationById = await _organizationsService.GetByIdOrganization(id);
-            if(organizationById != null)
-            {
-                return Ok(organizationById);
-            }
-            return BadRequest();
+            return NoContent();
         }
 
         [HttpPost]
         public async Task<IActionResult> InsertOrganization([FromBody] Organization organization)
         {
-            var newOrganization = await _organizationsService.InsertOrganization(organization);
-            if(newOrganization != null)
-            {
-                return Ok(newOrganization);
-            }
-            return BadRequest();
+            return NoContent();
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateOrganization(int id, [FromBody] Organization organization)
         {
-            var updateOrganization = await _organizationsService.UpdateOrganization(id, organization);
-            if(updateOrganization != null)
-            {
-                return Ok(updateOrganization);
-            }
-            return BadRequest();
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrganization(int id)
         {
-            bool Result = await _organizationsService.DeleteOrganization(id);
-            if (Result)
-            {
-                return Ok("Se elimino la Organizacion");
-            }
-            return BadRequest();
+            return NoContent();
         }
 
 
