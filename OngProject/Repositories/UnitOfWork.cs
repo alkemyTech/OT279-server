@@ -8,6 +8,7 @@ namespace OngProject.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly OngDbContext _context;
+        private CategoriesRepository _categoriesRepository;
 
         public UnitOfWork(OngDbContext context)
         {
@@ -23,6 +24,23 @@ namespace OngProject.Repositories
         {
             _context.Dispose();
             GC.SuppressFinalize(this);
+        }
+
+        public CategoriesRepository CategoriesRepo
+        {
+            get
+            {
+                if (_categoriesRepository == null)
+                {
+                    _categoriesRepository = new CategoriesRepository(_context);
+                }
+                return _categoriesRepository;
+            }
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
         }
     }
 }
