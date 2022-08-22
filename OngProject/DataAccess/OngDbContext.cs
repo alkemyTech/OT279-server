@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using OngProject.Entities;
 using System;
 using System.Collections.Generic;
