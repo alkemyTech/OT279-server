@@ -17,57 +17,29 @@ namespace OngProject.Core.Business
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Delete(int id)
+        public Task Delete()
         {
-            var existing = await _unitOfWork.RoleRepository.GetById(id);
-
-            if (existing == null)
-                throw new Exception("Role not found.");
-
-            // soft delete
-            existing.IsDeleted = true;
-
-            _unitOfWork.RoleRepository.Update(existing);
-            await _unitOfWork.Complete();
+            throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<RoleDto>> GetAll()
+        public Task<IEnumerable<object>> GetAll()
         {
-            // Mapper library must work at this point in order to return valid type ( RoleDto )
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public Task<RoleDto> GetById(int id)
+        public Task<RoleDto> GetById()
         {
-            // Mapper library must work at this point in order to return valid type ( RoleDto )
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public async Task Insert(RoleInsertDto entity)
+        public Task Insert()
         {
-            var toInsert = new Role
-            {
-                Name = entity.Name,
-                Description = entity.Description,
-            };
-
-            await _unitOfWork.RoleRepository.Insert(toInsert); 
-            await _unitOfWork.Complete();
+            throw new NotImplementedException();
         }
 
-        public async Task Update(int id, RoleUpdateDto entity)
+        public Task Update()
         {
-            var existing = await _unitOfWork.RoleRepository.GetById(id);
-
-            if (existing == null)
-                throw new Exception("Role not found.");
-
-            existing.Name = entity.Name;
-            existing.Description = entity.Description;
-            existing.LastModified = DateTime.UtcNow;
-
-            _unitOfWork.RoleRepository.Update(existing);
-            await _unitOfWork.Complete();
+            throw new NotImplementedException();
         }
     }
 }

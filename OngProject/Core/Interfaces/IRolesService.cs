@@ -7,10 +7,10 @@ namespace OngProject.Core.Interfaces
 {
     public interface IRolesService
     {
-        Task<IEnumerable<RoleDto>> GetAll();
-        Task<RoleDto> GetById(int id);
-        Task Insert(RoleInsertDto entity);
-        Task Delete(int id);
-        Task Update(int id, RoleUpdateDto entity);
+        Task<IEnumerable<object>> GetAll();
+        Task<RoleDto> GetById();
+        Task Insert();
+        Task Delete();
+        Task Update();
     }
 }
