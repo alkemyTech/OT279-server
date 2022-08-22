@@ -24,7 +24,10 @@ namespace OngProject.Core.Business
             if (existing == null)
                 throw new Exception("Role not found.");
 
-            await _unitOfWork._roleRepository.Delete(existing);
+            // soft delete
+            existing.IsDeleted = true;
+
+            _unitOfWork._roleRepository.Update(existing);
             await _unitOfWork.Complete();
         }
 
