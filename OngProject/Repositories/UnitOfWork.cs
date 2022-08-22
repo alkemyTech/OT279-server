@@ -9,12 +9,12 @@ namespace OngProject.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly OngDbContext _context;
-        public IRepository<Role> _roleRepository { get; }
+        public IRepository<Role> RoleRepository { get; }
 
         public UnitOfWork(OngDbContext context, IRepository<Role> roleRepository)
         {
             _context = context;
-            _roleRepository = roleRepository;
+            RoleRepository = roleRepository;
         }
 
 

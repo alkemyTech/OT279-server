@@ -8,7 +8,7 @@ namespace OngProject.Repositories.Interfaces
     {
 
         // Lista de repositorios a implementar
-        IRepository<Role> _roleRepository { get; }
+        IRepository<Role> RoleRepository { get; }
 
         Task<int> Complete();
     }

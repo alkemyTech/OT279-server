@@ -19,7 +19,7 @@ namespace OngProject.Core.Business
 
         public async Task Delete(int id)
         {
-            var existing = await _unitOfWork._roleRepository.GetById(id);
+            var existing = await _unitOfWork.RoleRepository.GetById(id);
 
             if (existing == null)
                 throw new Exception("Role not found.");
@@ -27,7 +27,7 @@ namespace OngProject.Core.Business
             // soft delete
             existing.IsDeleted = true;
 
-            _unitOfWork._roleRepository.Update(existing);
+            _unitOfWork.RoleRepository.Update(existing);
             await _unitOfWork.Complete();
         }
 
@@ -51,13 +51,13 @@ namespace OngProject.Core.Business
                 Description = entity.Description,
             };
 
-            await _unitOfWork._roleRepository.Insert(toInsert); 
+            await _unitOfWork.RoleRepository.Insert(toInsert); 
             await _unitOfWork.Complete();
         }
 
         public async Task Update(int id, RoleUpdateDto entity)
         {
-            var existing = await _unitOfWork._roleRepository.GetById(id);
+            var existing = await _unitOfWork.RoleRepository.GetById(id);
 
             if (existing == null)
                 throw new Exception("Role not found.");
@@ -66,7 +66,7 @@ namespace OngProject.Core.Business
             existing.Description = entity.Description;
             existing.LastModified = DateTime.UtcNow;
 
-            _unitOfWork._roleRepository.Update(existing);
+            _unitOfWork.RoleRepository.Update(existing);
             await _unitOfWork.Complete();
         }
     }
