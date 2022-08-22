@@ -7,7 +7,7 @@ namespace OngProject.Repositories.Interfaces
     {
 
         // Lista de repositorios a implementar
-
+        IRepository<Testimonials> TestimonialRepository { get; }
 
         Task<int> Complete();
     }
