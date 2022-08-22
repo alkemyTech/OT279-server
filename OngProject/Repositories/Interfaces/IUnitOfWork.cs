@@ -10,6 +10,7 @@ namespace OngProject.Repositories.Interfaces
         // Lista de repositorios a implementar
 
         IRepository<News> NewsRepository { get; }
+        IRepository<Activities> ActivitiesRepository { get; }
         Task<int> Complete();
     }
 }

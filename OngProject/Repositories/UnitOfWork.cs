@@ -10,7 +10,8 @@ namespace OngProject.Repositories
     {
         private readonly OngDbContext _context;
         private Repository<Category> _categoriesRepository;
-        private Repository<User> _usersRepository; 
+        private Repository<User> _usersRepository;
+        private IRepository<Activities> _activitiesRepository;
 
         public IRepository<News> NewsRepository { get; private set; }
 
@@ -52,6 +53,18 @@ namespace OngProject.Repositories
                     _usersRepository = new Repository<User>(_context);
                 }
                 return _usersRepository;
+            }
+        }
+
+        public IRepository<Activities> ActivitiesRepository
+        {
+            get
+            {
+                if (_activitiesRepository == null)
+                {
+                    _activitiesRepository = new Repository<Activities>(_context);
+                }
+                return _activitiesRepository;
             }
         }
 
