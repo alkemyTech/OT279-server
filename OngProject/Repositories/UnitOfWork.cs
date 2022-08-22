@@ -1,4 +1,5 @@
 ﻿using OngProject.DataAccess;
+using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
 using System;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace OngProject.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly OngDbContext _context;
-        private CategoriesRepository _categoriesRepository;
+        private Repository<Category> _categoriesRepository;
 
         public UnitOfWork(OngDbContext context)
         {
@@ -26,13 +27,13 @@ namespace OngProject.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public CategoriesRepository CategoriesRepo
+        public Repository<Category> CategoriesRepo
         {
             get
             {
                 if (_categoriesRepository == null)
                 {
-                    _categoriesRepository = new CategoriesRepository(_context);
+                    _categoriesRepository = new Repository<Category>(_context);
                 }
                 return _categoriesRepository;
             }
