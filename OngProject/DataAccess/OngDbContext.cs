@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OngProject.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace OngProject.DataAccess
 
         }
 
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Organization> Organizations { get; set; }
     }
 }
