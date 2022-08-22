@@ -2,7 +2,7 @@
 
 namespace OngProject.Entities
 {
-    public class Members
+    public class Members : Entity
     {
         //falta heredar de clase base Entity para obtener id, timestamps y softDeletes
         [MaxLength(255)]
