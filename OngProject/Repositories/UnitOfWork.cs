@@ -10,6 +10,7 @@ namespace OngProject.Repositories
     {
         private readonly OngDbContext _context;
         private Repository<Category> _categoriesRepository;
+        private Repository<User> _usersRepository; 
 
         public UnitOfWork(OngDbContext context)
         {
@@ -36,6 +37,18 @@ namespace OngProject.Repositories
                     _categoriesRepository = new Repository<Category>(_context);
                 }
                 return _categoriesRepository;
+            }
+        }
+
+        public Repository<User> UserRepository
+        {
+            get
+            {
+                if (_usersRepository == null)
+                {
+                    _usersRepository = new Repository<User>(_context);
+                }
+                return _usersRepository;
             }
         }
 
