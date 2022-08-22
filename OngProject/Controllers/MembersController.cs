@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using System;
 using System.Threading.Tasks;
 
 namespace OngProject.Controllers
@@ -9,8 +10,8 @@ namespace OngProject.Controllers
     [ApiController]
     public class MembersController : ControllerBase
     {
-        private readonly IMembersService _membersService;
-        public MembersController(IMembersService membersService)
+        private readonly IMembersBusiness _membersService;
+        public MembersController(IMembersBusiness membersService)
         {
             _membersService = membersService;
         }
@@ -18,73 +19,31 @@ namespace OngProject.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllMembers()
         {
-            var members = await _membersService.GetAllMembers();
-
-            if(members != null)
-            {
-                return Ok(members);
-            }
-            else
-            {
-                return NotFound();
-            }
+            throw new NotImplementedException();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateMember([FromBody] MemberDTO memberDTO)
+        public async Task<IActionResult> CreateMember()
         {
-            var member = await _membersService.CreateMember(memberDTO);
-
-            if(member != null)
-            {
-                return Ok(member);
-            }
-            else
-            {
-                return NotFound();
-            }
+            throw new NotImplementedException();
         }
 
         [HttpDelete]
-        public async Task<IActionResult> RemoveMember(int Id)
+        public async Task<IActionResult> RemoveMember()
         {
-            bool member = await _membersService.DeleteMember(Id);
-            if (member)
-            {
-                return Ok();
-            }
-            else
-            {
-                return NotFound();
-            }
+            throw new NotImplementedException();
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateMember(int Id, MemberDTO memberDTO)
+        public async Task<IActionResult> UpdateMember()
         {
-            var member = await _membersService.UpdateMember(Id, memberDTO);
-            if(member != null)
-            {
-                return Ok(member);
-            }
-            else
-            {
-                return NotFound(400);
-            }
+            throw new NotImplementedException();
         }
 
         [HttpGet("id")]
-        public async Task<IActionResult> GetMemberById(int Id)
+        public async Task<IActionResult> GetMemberById()
         {
-            var member = await _membersService.GetMemberById(Id);
-            if(member != null)
-            {
-                return Ok(member);
-            }
-            else
-            {
-                return NotFound();
-            }
+            throw new NotImplementedException();
         }
     }
 }
