@@ -10,10 +10,10 @@ namespace OngProject.Controllers
     [ApiController]
     public class MembersController : ControllerBase
     {
-        private readonly IMembersBusiness _membersService;
+        private readonly IMembersBusiness _membersBusiness;
         public MembersController(IMembersBusiness membersService)
         {
-            _membersService = membersService;
+            _membersBusiness = membersService;
         }
 
         [HttpGet]
