@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OngProject.Core.Interfaces
 {
     public interface IMembersBusiness
     {
-        public IEnumerable<Members> GetAll();
-        public Members GetById(int Id);
-        public void Insert(Members member);
-        public void Update(Members updatedMember);
-        public bool Delete(int Id);
+        public Task<List<Members>> GetAllMembers();
+        public Task<Members> GetMemberById(int Id);
+        public Task<Members> CreateMember(MemberDTO member);
+        public Task<bool> DeleteMember(int Id);
+        public Task<Members> Update(int Id, MemberDTO slideDTO);
     }
 }
