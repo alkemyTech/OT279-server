@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Interfaces
 {
-    public interface IMembersBusiness
+    public interface IMembersService
     {
         public Task<List<Members>> GetAllMembers();
         public Task<Members> GetMemberById(int Id);
