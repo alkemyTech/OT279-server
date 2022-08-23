@@ -13,6 +13,7 @@ namespace OngProject.Repositories
         private Repository<User> _usersRepository; 
 
         public IRepository<News> NewsRepository { get; private set; }
+        private IRepository<Testimonials> _testimonialsRepository;
 
         public UnitOfWork(OngDbContext context)
         {
@@ -52,6 +53,18 @@ namespace OngProject.Repositories
                     _usersRepository = new Repository<User>(_context);
                 }
                 return _usersRepository;
+            }
+        }
+
+        public IRepository<Testiomonials> TestiomonialsRepository
+        {
+            get
+            {
+                if (_testimonialsRepository == null)
+                {
+                    _testimonialsRepository = new Repository<Testimonials>(_context);
+                }
+                return _testimonialsRepository;
             }
         }
 
