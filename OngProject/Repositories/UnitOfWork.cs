@@ -1,4 +1,4 @@
-﻿using OngProject.DataAccess;
+using OngProject.DataAccess;
 using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
 using System;
@@ -9,6 +9,13 @@ namespace OngProject.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly OngDbContext _context;
+        public IRepository<Role> RoleRepository { get; }
+
+
+        public UnitOfWork(OngDbContext context, IRepository<Role> roleRepository)
+        {
+            _context = context;
+            RoleRepository = roleRepository;
 
         private IRepository<Organization> _organizationRepository;
         private Repository<Category> _categoriesRepository;
@@ -35,6 +42,7 @@ namespace OngProject.Repositories
                 return _organizationRepository;
             }
         }
+
 
 
         public async Task<int> Complete()
