@@ -8,8 +8,8 @@ namespace OngProject.Core.Interfaces
     {
         Task<List<News>> GetAllNews();
         Task<News> GetNewsById(int id);
-        Task<News> CreateNews(NewsDTO news);
+        Task<News> CreateNews(News news);
         public Task<bool> RemoveNews(int id);
-        public Task<News> UpdateNews(int id, NewsDTO news);
+        public Task<News> UpdateNews(int id, News news);
     }
 }

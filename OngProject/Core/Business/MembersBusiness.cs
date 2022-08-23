@@ -1,5 +1,6 @@
 ﻿using OngProject.Core.Interfaces;
 using OngProject.Entities;
+using OngProject.Repositories;
 using OngProject.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,36 +8,32 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
 {
-    public class RolesBussiness : IRoleBussiness
+    public class MembersBusiness : IMembersBusiness
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public RolesBussiness(IUnitOfWork unitOfWork)
+        public MembersBusiness(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public Task Delete()
+        public Task<List<Members>> GetAllMembers()
         {
             throw new NotImplementedException();
         }
-
-        public Task<IEnumerable<object>> GetAll()
+        public Task<Members> GetMemberById()
         {
             throw new NotImplementedException();
         }
-
-        public Task<Role> GetById()
+        public Task<Members> CreateMember()
         {
             throw new NotImplementedException();
         }
-
-        public Task Insert()
+        public Task<bool> DeleteMember()
         {
             throw new NotImplementedException();
         }
-
-        public Task Update()
+        public Task<Members> UpdateMember()
         {
             throw new NotImplementedException();
         }
