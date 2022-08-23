@@ -39,7 +39,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSlide([FromBody] SlidesDTO slidesDTO)
+        public async Task<IActionResult> CreateSlide([FromBody] Slides slidesDTO)
         {
 
             var slide = await _service.CreateSlide(slidesDTO);
@@ -73,7 +73,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateSlide([FromQuery(Name = "id")] int id, [FromBody] SlidesDTO slidesDTO)
+        public async Task<IActionResult> UpdateSlide([FromQuery(Name = "id")] int id, [FromBody] Slides slidesDTO)
         {
             var slide = await _service.UpdateSlide(id, slidesDTO);
             if (slide != null)

@@ -8,8 +8,8 @@ namespace OngProject.Core.Interfaces
     {
         public Task<List<Category>> GetAllCategories();
         public Task<Category> GetCategoryById(int id);
-        public Task<Category> CreateCategory(CategoryDTO category);
+        public Task<Category> CreateCategory(Category category);
         public Task<bool> RemoveCategory(int id);
-        public Task<Category> UpdateCategory(int id, CategoryDTO categoryDTO);
+        public Task<Category> UpdateCategory(int id, Category categoryDTO);
     }
 }

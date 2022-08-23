@@ -31,12 +31,12 @@ namespace OngProject.Core.Business
             throw new System.NotImplementedException();
         }
 
-        public Task<Organization> InsertOrganization(OrganizationDTO organization)
+        public Task<Organization> InsertOrganization(Organization organization)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<Organization> UpdateOrganization(int id, OrganizationDTO organization)
+        public Task<Organization> UpdateOrganization(int id, Organization organization)
         {
             throw new System.NotImplementedException();
         }

@@ -27,7 +27,7 @@ namespace OngProject.Core.Business
             throw new NotImplementedException();
         }
 
-        public Task<RoleDto> GetById()
+        public Task<Role> GetById()
         {
             throw new NotImplementedException();
         }
