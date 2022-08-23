@@ -1,4 +1,5 @@
 ﻿using OngProject.Core.Interfaces;
+using OngProject.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,6 +8,12 @@ namespace OngProject.Core.Business
 {
     public class MembersBusiness : IMembersBusiness
     {
+        private readonly UnitOfWork _unitOfWork;
+        public MembersBusiness(UnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
         public Task<List<Members>> GetAllMembers()
         {
             throw new NotImplementedException();
