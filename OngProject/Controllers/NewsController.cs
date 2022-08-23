@@ -83,7 +83,7 @@ namespace OngProject.Controllers
         }
 
         [HttpGet("id")]
-        public async Task<IActionResult> GetNewsById([FromQuery(Name = "id")] int id)
+        public async Task<IActionResult> GetNewById([FromQuery(Name = "id")] int id)
         {
 
             var news = await _service.GetNewsById(id);
