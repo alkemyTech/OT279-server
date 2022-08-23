@@ -12,9 +12,9 @@ namespace OngProject.Controllers
     {
         private readonly IOrganizationsService _organizationsService;
 
-        public OrganizationsController(IOrganizationsService organizationsService)
+        public OrganizationsController(IOrganizationsService service)
         {
-            _organizationsService = organizationsService;
+            _organizationsService = service;
         }
 
         [HttpGet]
@@ -23,7 +23,7 @@ namespace OngProject.Controllers
             return NoContent();
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdOrganization(int id)
         {
             return NoContent();

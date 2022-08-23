@@ -7,17 +7,17 @@ namespace OngProject.Entities
     {
         [Required]
         [MaxLength(255)]
-        [Column(TypeName = "varchar")]
+        //[Column(TypeName = "varchar")]
         public string Name { get; set; }
 
 
         [MaxLength(255)]
-        [Column(TypeName = "varchar")]
+        //[Column(TypeName = "varchar")]
         public string Image { get; set; }
 
 
         [MaxLength(65535)]
-        [Column(TypeName = "varchar")]
+        //[Column(TypeName = "varchar")]
         public string Content { get; set; }
     }
 }

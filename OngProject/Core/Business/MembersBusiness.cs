@@ -10,12 +10,12 @@ namespace OngProject.Core.Business
 {
     public class MembersBusiness : IMembersBusiness
     {
-        private readonly IUnitOfWork _unitOfWork;
+        //private readonly IUnitOfWork _unitOfWork;
 
-        public MembersBusiness(UnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        //public MembersBusiness(UnitOfWork unitOfWork)
+        //{
+        //    _unitOfWork = unitOfWork;
+        //}
 
         public Task<List<Members>> GetAllMembers()
         {

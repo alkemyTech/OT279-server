@@ -1,32 +1,33 @@
 ﻿using OngProject.Core.Interfaces;
 using OngProject.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
 {
-    public class TestimonialsBusiness : ITestimonialsService
+    public class NewsService : INewsService
     {
-        public Task<bool> Delete(int id)
+        public Task<News> CreateNews(News news)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<System.Collections.Generic.List<Testimonials>> GetAll()
+        public Task<List<News>> GetAllNews()
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<Testimonials> GetById(int id)
+        public Task<News> GetNewsById(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<Testimonials> Insert(Testimonials testimonials)
+        public Task<bool> RemoveNews(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<Testimonials> Update(int id, Testimonials testimonials)
+        public Task<News> UpdateNews(int id, News news)
         {
             throw new System.NotImplementedException();
         }

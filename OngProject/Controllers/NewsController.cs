@@ -16,16 +16,16 @@ namespace OngProject.Controllers
         {
             _service = service;
         }
-       
+
         [HttpGet]
         public async Task<IActionResult> GetAllNews()
         {
 
-            var slides = await _service.GetAllNews();
+            var news = await _service.GetAllNews();
 
-            if (slides != null)
+            if (news != null)
             {
-                return Ok(slides);
+                return Ok(news);
             }
             else
             {
@@ -38,11 +38,11 @@ namespace OngProject.Controllers
         public async Task<IActionResult> CreateNews([FromBody] News newsDTO)
         {
 
-            var slide = await _service.CreateNews(newsDTO);
+            var news = await _service.CreateNews(newsDTO);
 
-            if (slide != null)
+            if (news != null)
             {
-                return Ok(slide);
+                return Ok(news);
             }
             else
             {
@@ -55,9 +55,9 @@ namespace OngProject.Controllers
         public async Task<IActionResult> RemoveNews([FromQuery(Name = "id")] int id)
         {
 
-            bool slide = await _service.RemoveNews(id);
+            bool news = await _service.RemoveNews(id);
 
-            if (slide)
+            if (news)
             {
                 return Ok();
             }
@@ -71,26 +71,26 @@ namespace OngProject.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateNews([FromQuery(Name = "id")] int id, [FromBody] News newsDTO)
         {
-            var slide = await _service.UpdateNews(id, newsDTO);
-            if (slide != null)
+            var news = await _service.UpdateNews(id, newsDTO);
+            if (news != null)
             {
-                return Ok(slide);
+                return Ok(news);
             }
             else
             {
                 return NotFound(400);
             }
-         }
+        }
 
         [HttpGet("id")]
-        public async Task<IActionResult> GetNewsById([FromQuery(Name = "id")] int id)
+        public async Task<IActionResult> GetNewById([FromQuery(Name = "id")] int id)
         {
 
-            var slide = await _service.GetNewsById(id);
+            var news = await _service.GetNewsById(id);
 
-            if (slide != null)
+            if (news != null)
             {
-                return Ok(slide);
+                return Ok(news);
             }
             else
             {

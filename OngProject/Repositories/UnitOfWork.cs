@@ -20,7 +20,7 @@ namespace OngProject.Repositories
 
         private IRepository<Members> _membersRepository;
         private IRepository<Organization> _organizationRepository;
-        private Repository<Category> _categoriesRepository;
+        private IRepository<Category> _categoriesRepository;
         private IRepository<User> _usersRepository;
         private IRepository<Activities> _activitiesRepository;
 
@@ -58,7 +58,7 @@ namespace OngProject.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public Repository<Category> CategoriesRepo
+        public IRepository<Category> CategoriesRepo
         {
             get
             {

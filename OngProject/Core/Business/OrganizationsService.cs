@@ -10,12 +10,12 @@ namespace OngProject.Core.Business
 {
     public class OrganizationsService : IOrganizationsService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        //private readonly IUnitOfWork _unitOfWork;
 
-        public OrganizationsService(UnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        //public OrganizationsService(UnitOfWork unitOfWork)
+        //{
+        //    _unitOfWork = unitOfWork;
+        //}
 
         public Task<bool> DeleteOrganization(int id)
         {

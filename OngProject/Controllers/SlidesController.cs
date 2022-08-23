@@ -20,7 +20,7 @@ namespace OngProject.Controllers
         {
             _service = service;
         }
-       
+
         [HttpGet]
         public async Task<IActionResult> GetAllSlides()
         {
@@ -84,7 +84,7 @@ namespace OngProject.Controllers
             {
                 return NotFound(400);
             }
-         }
+        }
 
         [HttpGet("id")]
         public async Task<IActionResult> GetSlideById([FromQuery(Name = "id")] int id)
