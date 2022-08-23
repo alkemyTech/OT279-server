@@ -2,6 +2,7 @@
 using OngProject.Core.Models.DTOs;
 using OngProject.Entities;
 using OngProject.Repositories;
+using OngProject.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace OngProject.Core.Business
 {
     public class OrganizationsService : IOrganizationsService
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public OrganizationsService(UnitOfWork unitOfWork)
         {

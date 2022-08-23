@@ -1,5 +1,4 @@
 ﻿using OngProject.Core.Interfaces;
-using OngProject.Core.Models.DTOs.RoleDTOs;
 using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
 using System;
@@ -27,7 +26,7 @@ namespace OngProject.Core.Business
             throw new NotImplementedException();
         }
 
-        public Task<RoleDto> GetById()
+        public Task<Role> GetById()
         {
             throw new NotImplementedException();
         }

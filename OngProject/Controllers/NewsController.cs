@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using OngProject.Entities;
 using System.Threading.Tasks;
 
 namespace OngProject.Controllers
@@ -34,7 +35,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateNews([FromBody] NewsDTO newsDTO)
+        public async Task<IActionResult> CreateNews([FromBody] News newsDTO)
         {
 
             var slide = await _service.CreateNews(newsDTO);
@@ -68,7 +69,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateNews([FromQuery(Name = "id")] int id, [FromBody] NewsDTO newsDTO)
+        public async Task<IActionResult> UpdateNews([FromQuery(Name = "id")] int id, [FromBody] News newsDTO)
         {
             var slide = await _service.UpdateNews(id, newsDTO);
             if (slide != null)

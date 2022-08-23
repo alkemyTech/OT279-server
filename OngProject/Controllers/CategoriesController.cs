@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using OngProject.Entities;
 using System.Threading.Tasks;
 
 namespace OngProject.Controllers
@@ -32,7 +33,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory([FromBody] CategoryDTO categoryDTO)
+        public async Task<IActionResult> CreateCategory([FromBody] Category categoryDTO)
         {
 
             var category = await _service.CreateCategory(categoryDTO);
@@ -66,7 +67,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateCategory([FromQuery(Name = "id")] int id, [FromBody] CategoryDTO categoryDTO)
+        public async Task<IActionResult> UpdateCategory([FromQuery(Name = "id")] int id, [FromBody] Category categoryDTO)
         {
             var category = await _service.UpdateCategory(id, categoryDTO);
             if (category != null)

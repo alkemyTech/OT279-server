@@ -10,8 +10,8 @@ namespace OngProject.Core.Interfaces
     {
         public Task<List<Slides>> GetAllSlides();
         public Task<Slides> GetSlideById(int id);
-        public Task<Slides> CreateSlide(SlidesDTO slide);
+        public Task<Slides> CreateSlide(Slides slide);
         public Task<bool> RemoveSlide(int id);
-        public Task<Slides> UpdateSlide(int id, SlidesDTO slideDTO);
+        public Task<Slides> UpdateSlide(int id, Slides slideDTO);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OngProject.Core.Interfaces;
+using OngProject.Entities;
 using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
