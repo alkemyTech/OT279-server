@@ -19,7 +19,7 @@ namespace OngProject.Repositories
 
         private IRepository<Organization> _organizationRepository;
         private Repository<Category> _categoriesRepository;
-        private Repository<User> _usersRepository;
+        private IRepository<User> _usersRepository;
         private IRepository<Activities> _activitiesRepository;
 
         public IRepository<News> NewsRepository { get; private set; }
@@ -68,7 +68,7 @@ namespace OngProject.Repositories
             }
         }
 
-        public Repository<User> UserRepository
+        public IRepository<User> UserRepository
         {
             get
             {
