@@ -8,6 +8,9 @@ namespace OngProject.Repositories.Interfaces
     {
 
         // Lista de repositorios a implementar
+        public IRepository<Organization> OrganizationRepository { get; }
+
+
 
         IRepository<News> NewsRepository { get; }
         Task<int> Complete();

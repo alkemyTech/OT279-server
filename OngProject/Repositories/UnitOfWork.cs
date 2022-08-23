@@ -9,6 +9,8 @@ namespace OngProject.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly OngDbContext _context;
+
+        private IRepository<Organization> _organizationRepository;
         private Repository<Category> _categoriesRepository;
         private Repository<User> _usersRepository; 
 
@@ -19,6 +21,19 @@ namespace OngProject.Repositories
             _context = context;
             NewsRepository = new Repository<News>(context);
         }
+        
+        public IRepository<Organization> OrganizationRepository
+        {
+            get
+            {
+                if (_organizationRepository == null)
+                {
+                    _organizationRepository = new Repository<Organization>(_context);
+                }
+                return _organizationRepository;
+            }
+        }
+
 
         public async Task<int> Complete()
         {
