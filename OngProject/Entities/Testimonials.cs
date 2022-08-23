@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OngProject.Entities
 {
-    public class Testimony : Entity
+    public class Testimonials : Entity
     {
         [Required]
         [MaxLength(255)]

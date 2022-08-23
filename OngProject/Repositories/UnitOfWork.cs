@@ -24,7 +24,7 @@ namespace OngProject.Repositories
         private IRepository<Activities> _activitiesRepository;
 
         public IRepository<News> NewsRepository { get; private set; }
-        private IRepository<Testimony> _testimonialsRepository;
+        private IRepository<Testimonials> _testimonialsRepository;
 
         public UnitOfWork(OngDbContext context)
         {
@@ -82,13 +82,13 @@ namespace OngProject.Repositories
         }
 
 
-        public IRepository<Testimony> TestiomonialsRepository
+        public IRepository<Testimonials> TestiomonialsRepository
         {
             get
             {
                 if (_testimonialsRepository == null)
                 {
-                    _testimonialsRepository = new Repository<Testimony>(_context);
+                    _testimonialsRepository = new Repository<Testimonials>(_context);
                 }
                 return _testimonialsRepository;
              }
