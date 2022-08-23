@@ -20,7 +20,7 @@ namespace OngProject.Controllers
         {
             _service = service;
         }
-       
+
         [HttpGet]
         public async Task<IActionResult> GetAllSlides()
         {
@@ -39,7 +39,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSlide([FromBody] SlidesDTO slidesDTO)
+        public async Task<IActionResult> CreateSlide([FromBody] Slides slidesDTO)
         {
 
             var slide = await _service.CreateSlide(slidesDTO);
@@ -73,7 +73,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateSlide([FromQuery(Name = "id")] int id, [FromBody] SlidesDTO slidesDTO)
+        public async Task<IActionResult> UpdateSlide([FromQuery(Name = "id")] int id, [FromBody] Slides slidesDTO)
         {
             var slide = await _service.UpdateSlide(id, slidesDTO);
             if (slide != null)
@@ -84,7 +84,7 @@ namespace OngProject.Controllers
             {
                 return NotFound(400);
             }
-         }
+        }
 
         [HttpGet("id")]
         public async Task<IActionResult> GetSlideById([FromQuery(Name = "id")] int id)

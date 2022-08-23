@@ -33,7 +33,7 @@ namespace OngProject.Core.Interfaces
         /// <param name="user">
         ///     Entity a eliminar en la base de datos
         /// </param>
-        Task<User> Delete(User user);
+        Task<bool> Delete(int id);
         
         /// <summary>
         ///     Actualiza un usuario en la base de datos.
@@ -42,6 +42,6 @@ namespace OngProject.Core.Interfaces
         ///     Entity a actualizar en la base de datos
         /// </param>
 
-        Task<User> Update(User user);
+        Task<User> Update(int id, User user);
     }
 }

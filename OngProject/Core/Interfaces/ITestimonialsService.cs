@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using OngProject.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace OngProject.Core.Interfaces
@@ -8,7 +9,7 @@ namespace OngProject.Core.Interfaces
         Task<List<Testimonials>> GetAll();
         Task<Testimonials> GetById(int id);
         Task<Testimonials> Insert(Testimonials testimonials);
-        Task<bool> Delete(Testimonials testimonials);
-        Task<Testimonials> Update(Testimonials testimonials);
+        Task<bool> Delete(int id);
+        Task<Testimonials> Update(int id, Testimonials testimonials);
     }
 }

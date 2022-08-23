@@ -16,10 +16,12 @@ namespace OngProject.Repositories
         {
             _context = context;
             RoleRepository = roleRepository;
+        }
 
+        private IRepository<Members> _membersRepository;
         private IRepository<Organization> _organizationRepository;
-        private Repository<Category> _categoriesRepository;
-        private Repository<User> _usersRepository;
+        private IRepository<Category> _categoriesRepository;
+        private IRepository<User> _usersRepository;
         private IRepository<Activities> _activitiesRepository;
 
         public IRepository<News> NewsRepository { get; private set; }
@@ -56,7 +58,7 @@ namespace OngProject.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public Repository<Category> CategoriesRepo
+        public IRepository<Category> CategoriesRepo
         {
             get
             {
@@ -68,7 +70,7 @@ namespace OngProject.Repositories
             }
         }
 
-        public Repository<User> UserRepository
+        public IRepository<User> UserRepository
         {
             get
             {
@@ -81,7 +83,7 @@ namespace OngProject.Repositories
         }
 
 
-        public IRepository<Testiomonials> TestiomonialsRepository
+        public IRepository<Testimonials> TestiomonialsRepository
         {
             get
             {
@@ -102,6 +104,18 @@ namespace OngProject.Repositories
                     _activitiesRepository = new Repository<Activities>(_context);
                 }
                 return _activitiesRepository;
+            }
+        }
+
+        public IRepository<Members> MembersRepository
+        {
+            get
+            {
+                if (_membersRepository == null)
+                {
+                    _membersRepository = new Repository<Members>(_context);
+                }
+                return _membersRepository;
             }
         }
 
