@@ -18,6 +18,7 @@ namespace OngProject.Repositories
             RoleRepository = roleRepository;
         }
 
+        private IRepository<Members> _membersRepository;
         private IRepository<Organization> _organizationRepository;
         private Repository<Category> _categoriesRepository;
         private IRepository<User> _usersRepository;
@@ -103,6 +104,18 @@ namespace OngProject.Repositories
                     _activitiesRepository = new Repository<Activities>(_context);
                 }
                 return _activitiesRepository;
+            }
+        }
+
+        public IRepository<Members> MembersRepository
+        {
+            get
+            {
+                if (_membersRepository == null)
+                {
+                    _membersRepository = new Repository<Members>(_context);
+                }
+                return _membersRepository;
             }
         }
 
