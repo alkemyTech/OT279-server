@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OngProject.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace OngProject.Repositories.Interfaces
@@ -7,8 +8,14 @@ namespace OngProject.Repositories.Interfaces
     {
 
         // Lista de repositorios a implementar
+        public IRepository<Role> RoleRepository { get; }
+        public IRepository<Organization> OrganizationRepository { get; }
 
+        public IRepository<Members> MembersRepository { get; }
+        IRepository<News> NewsRepository { get; }
 
+        IRepository<Testiomonials> TestiomonialsRepository { get; }
+        IRepository<Activities> ActivitiesRepository { get; }
         Task<int> Complete();
     }
 }
