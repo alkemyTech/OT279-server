@@ -9,11 +9,17 @@ namespace OngProject.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly OngDbContext _context;
+
         private IRepository<Organization> _organizationRepository;
+        private Repository<Category> _categoriesRepository;
+        private Repository<User> _usersRepository; 
+
+        public IRepository<News> NewsRepository { get; private set; }
 
         public UnitOfWork(OngDbContext context)
         {
             _context = context;
+            NewsRepository = new Repository<News>(context);
         }
         
         public IRepository<Organization> OrganizationRepository
@@ -38,6 +44,35 @@ namespace OngProject.Repositories
         {
             _context.Dispose();
             GC.SuppressFinalize(this);
+        }
+
+        public Repository<Category> CategoriesRepo
+        {
+            get
+            {
+                if (_categoriesRepository == null)
+                {
+                    _categoriesRepository = new Repository<Category>(_context);
+                }
+                return _categoriesRepository;
+            }
+        }
+
+        public Repository<User> UserRepository
+        {
+            get
+            {
+                if (_usersRepository == null)
+                {
+                    _usersRepository = new Repository<User>(_context);
+                }
+                return _usersRepository;
+            }
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
         }
     }
 }

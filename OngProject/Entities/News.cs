@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OngProject.Entities
 {
@@ -16,8 +17,8 @@ namespace OngProject.Entities
         [MaxLength(255)]
         public string Image { get; set; }
 
-        // Falta agregar Entidad Categoria
-        //public int CategoriaId { get; set; }
-        //public Category Category { get; set; }
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }
