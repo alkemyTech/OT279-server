@@ -16,6 +16,7 @@ namespace OngProject.Repositories
         {
             _context = context;
             RoleRepository = roleRepository;
+        }
 
         private IRepository<Organization> _organizationRepository;
         private Repository<Category> _categoriesRepository;
@@ -81,7 +82,7 @@ namespace OngProject.Repositories
         }
 
 
-        public IRepository<Testiomonials> TestiomonialsRepository
+        public IRepository<Testimonials> TestiomonialsRepository
         {
             get
             {

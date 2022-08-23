@@ -11,10 +11,8 @@ namespace OngProject.Repositories.Interfaces
         // Lista de repositorios a implementar
         public IRepository<Role> RoleRepository { get; }
         public IRepository<Organization> OrganizationRepository { get; }
-
         IRepository<News> NewsRepository { get; }
-
-        IRepository<Testiomonials> TestiomonialsRepository { get; }
+        IRepository<Testimonials> TestiomonialsRepository { get; }
         IRepository<Activities> ActivitiesRepository { get; }
         Task<int> Complete();
     }
