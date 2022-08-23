@@ -35,7 +35,6 @@ namespace OngProject
             services.AddDbContext<OngDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OngConnection")));
             services.AddControllers();
             services.AddScoped<IMembersBusiness, MembersBusiness>();
-            services.AddScoped<IMembersRepository, MembersRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OngProject", Version = "v1" });
