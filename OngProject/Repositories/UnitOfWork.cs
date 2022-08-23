@@ -9,8 +9,11 @@ namespace OngProject.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly OngDbContext _context;
+
+        private IRepository<Organization> _organizationRepository;
         private Repository<Category> _categoriesRepository;
-        private Repository<User> _usersRepository; 
+        private Repository<User> _usersRepository;
+        private IRepository<Activities> _activitiesRepository;
 
         public IRepository<News> NewsRepository { get; private set; }
         private IRepository<Testimonials> _testimonialsRepository;
@@ -20,6 +23,19 @@ namespace OngProject.Repositories
             _context = context;
             NewsRepository = new Repository<News>(context);
         }
+        
+        public IRepository<Organization> OrganizationRepository
+        {
+            get
+            {
+                if (_organizationRepository == null)
+                {
+                    _organizationRepository = new Repository<Organization>(_context);
+                }
+                return _organizationRepository;
+            }
+        }
+
 
         public async Task<int> Complete()
         {
@@ -56,6 +72,7 @@ namespace OngProject.Repositories
             }
         }
 
+
         public IRepository<Testiomonials> TestiomonialsRepository
         {
             get
@@ -65,6 +82,18 @@ namespace OngProject.Repositories
                     _testimonialsRepository = new Repository<Testimonials>(_context);
                 }
                 return _testimonialsRepository;
+             }
+            }
+
+        public IRepository<Activities> ActivitiesRepository
+        {
+            get
+            {
+                if (_activitiesRepository == null)
+                {
+                    _activitiesRepository = new Repository<Activities>(_context);
+                }
+                return _activitiesRepository;
             }
         }
 
