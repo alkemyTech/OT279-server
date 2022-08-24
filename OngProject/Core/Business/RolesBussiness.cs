@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
 {
-    public class RolesBussiness : IRoleBussiness
+    public class RolesBusiness : IRolesBusiness
     {
         private readonly IUnitOfWork _unitOfWork;
 

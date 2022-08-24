@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Interfaces
 {
-    public interface ITestimonialsService
+    public interface ITestimonialsBusiness
     {
         Task<List<Testimonials>> GetAll();
         Task<Testimonials> GetById(int id);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Interfaces
 {
-    public interface ISlidesService
+    public interface ISlidesBusiness
     {
         public Task<List<Slides>> GetAllSlides();
         public Task<Slides> GetSlideById(int id);

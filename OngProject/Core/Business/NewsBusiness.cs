@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
 {
-    public class NewsService : INewsService
+    public class NewsBusiness : INewsBusiness
     {
         public Task<News> CreateNews(News news)
         {

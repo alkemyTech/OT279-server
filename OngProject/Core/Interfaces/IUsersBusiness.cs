@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Interfaces
 {
-    public interface IUserService
+    public interface IUsersBusiness
     {
         /// <summary>
         ///     Obtiene todos los usuarios

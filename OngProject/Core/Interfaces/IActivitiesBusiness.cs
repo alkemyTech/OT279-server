@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Interfaces
 {
-    public interface IActivitiesService
+    public interface IActivitiesBusiness
     {
         public Task<List<Activities>> GetAllActivities();
         public Task<Activities> GetActivitiesById(int id);

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Interfaces
 {
-    public interface INewsService
+    public interface INewsBusiness
     {
         Task<List<News>> GetAllNews();
         Task<News> GetNewsById(int id);

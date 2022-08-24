@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Interfaces
 {
-    public interface ICategoriesService
+    public interface ICategoriesBusiness
     {
         public Task<List<Category>> GetAllCategories();
         public Task<Category> GetCategoryById(int id);

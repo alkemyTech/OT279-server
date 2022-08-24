@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Interfaces
 {
-    public interface IOrganizationsService
+    public interface IOrganizationsBusiness
     {
         public Task<List<Organization>> GetAllOrganization();
 
