@@ -11,7 +11,7 @@ namespace OngProject.Core.Business
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public RolesBussiness(IUnitOfWork unitOfWork)
+        public RolesBusiness(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

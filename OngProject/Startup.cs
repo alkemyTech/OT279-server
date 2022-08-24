@@ -35,13 +35,13 @@ namespace OngProject
             services.AddDbContext<OngDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OngConnection")));
             services.AddControllers();
 
-            services.AddScoped<IUserBusiness, UserBusiness>();
+            services.AddScoped<IUsersBusiness, UsersBusiness>();
             services.AddScoped<IActivitiesBusiness, ActivitiesBusiness>();
             services.AddScoped<IMembersBusiness, MembersBusiness>();
             services.AddScoped<INewsBusiness, NewsBusiness>();
             services.AddScoped<IOrganizationsBusiness, OrganizationsBusiness>();
-            services.AddScoped<IRoleBusiness, RoleBusiness>();
-            services.AddScoped<ICategoriesBusiness, CategoryBusiness>();
+            services.AddScoped<IRolesBusiness, RolesBusiness>();
+            services.AddScoped<ICategoriesBusiness, CategoriesBusiness>();
             services.AddScoped<ISlidesBusiness, SlidesBusiness>();
             services.AddScoped<ITestimonialsBusiness, TestimonialsBusiness>();
 

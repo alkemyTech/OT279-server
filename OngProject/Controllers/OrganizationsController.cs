@@ -10,9 +10,9 @@ namespace OngProject.Controllers
     [ApiController]
     public class OrganizationsController : ControllerBase
     {
-        private readonly IOrganizationsService _organizationsService;
+        private readonly IOrganizationsBusiness _organizationsService;
 
-        public OrganizationsController(IOrganizationsService service)
+        public OrganizationsController(IOrganizationsBusiness service)
         {
             _organizationsService = service;
         }
