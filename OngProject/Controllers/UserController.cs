@@ -13,9 +13,9 @@ namespace OngProject.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _service;
+        private readonly IUsersBusiness _service;
 
-        public UserController(IUserService service)
+        public UserController(IUsersBusiness service)
         {
             _service = service;
         }

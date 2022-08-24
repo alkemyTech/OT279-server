@@ -14,9 +14,9 @@ namespace OngProject.Controllers
     public class SlidesController : ControllerBase
     {
 
-        private readonly ISlidesService _service;
+        private readonly ISlidesBusiness _service;
 
-        public SlidesController(ISlidesService service)
+        public SlidesController(ISlidesBusiness service)
         {
             _service = service;
         }

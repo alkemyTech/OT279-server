@@ -10,8 +10,8 @@ namespace OngProject.Controllers
     [ApiController]
     public class TestimonialsController : ControllerBase
     {
-        private readonly ITestimonialsService _service;
-        public TestimonialsController(ITestimonialsService service)
+        private readonly ITestimonialsBusiness _service;
+        public TestimonialsController(ITestimonialsBusiness service)
         {
             _service = service;
         }
