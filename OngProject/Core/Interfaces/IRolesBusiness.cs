@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Interfaces
 {
-    public interface IRoleBussiness
+    public interface IRolesBusiness
     {
         Task<IEnumerable<object>> GetAll();
         Task<Role> GetById();

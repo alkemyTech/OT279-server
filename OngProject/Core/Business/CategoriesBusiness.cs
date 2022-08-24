@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
 {
-    public class CategoryBusiness : ICategoriesService
+    public class CategoriesBusiness : ICategoriesBusiness
     {
         public Task<Category> CreateCategory(Category category)
         {

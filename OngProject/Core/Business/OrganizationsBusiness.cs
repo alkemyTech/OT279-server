@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
 {
-    public class OrganizationsService : IOrganizationsService
+    public class OrganizationsBusiness : IOrganizationsBusiness
     {
         //private readonly IUnitOfWork _unitOfWork;
 

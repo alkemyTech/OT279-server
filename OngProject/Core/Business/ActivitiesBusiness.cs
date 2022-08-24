@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
 {
-    public class ActivitiesBusiness : IActivitiesService
+    public class ActivitiesBusiness : IActivitiesBusiness
     {
         public Task<Activities> CreateActivities(Activities activities)
         {

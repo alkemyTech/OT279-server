@@ -1,43 +1,35 @@
 ﻿using OngProject.Core.Interfaces;
 using OngProject.Entities;
+using OngProject.Repositories.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System;
-using OngProject.Repositories.Interfaces;
 
 namespace OngProject.Core.Business
 {
-    public class UserBusiness : IUserService
+    public class SlidesBusiness : ISlidesBusiness
     {
-
-        private readonly IUnitOfWork _unitOfWork;
-
-        public UserBusiness(IUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
-
-        public Task<bool> Delete(int id)
+        public Task<Slides> CreateSlide(Slides slide)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<User>> GetAll()
+        public Task<List<Slides>> GetAllSlides()
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> GetById(int id)
+        public Task<Slides> GetSlideById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> Insert(User user)
+        public Task<bool> RemoveSlide(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> Update(int id, User user)
+        public Task<Slides> UpdateSlide(int id, Slides slideDTO)
         {
             throw new NotImplementedException();
         }

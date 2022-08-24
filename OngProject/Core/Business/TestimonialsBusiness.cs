@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
 {
-    public class TestimonialsBusiness : ITestimonialsService
+    public class TestimonialsBusiness : ITestimonialsBusiness
     {
         public Task<bool> Delete(int id)
         {
