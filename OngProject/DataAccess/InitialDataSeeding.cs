@@ -43,6 +43,16 @@ namespace OngProject.DataAccess
                     new Activities { Id = 4, Name = "Activities 04", Image = "url_img", Content = "this is a content - activities 04", IsDeleted = false, LastModified = DateTime.UtcNow }
 
                 );
+
+
+            modelBuilder.Entity<Testimonials>()
+                .HasData(
+                    new Testimonials { Id = 1, Name = "Testimonials01", Image = "url_image_testimonials01", Content = "Content testimonials01", IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Testimonials { Id = 2, Name = "Testimonials02", Image = "url_image_testimonials02", Content = "Content testimonials02", IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Testimonials { Id = 3, Name = "Testimonials03", Image = "url_image_testimonials03", Content = "Content testimonials03", IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Testimonials { Id = 4, Name = "Testimonials04", Image = "url_image_testimonials04", Content = "Content testimonials04", IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Testimonials { Id = 5, Name = "Testimonials05", Image = "url_image_testimonials05", Content = "Content testimonials05", IsDeleted = false, LastModified = DateTime.UtcNow }
+                );
         }
     }
 }
