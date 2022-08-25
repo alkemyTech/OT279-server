@@ -22,9 +22,15 @@ namespace OngProject.Core.Business
             throw new NotImplementedException();
         }
 
-        public Task<List<User>> GetAll()
+        public async Task<List<User>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = await _unitOfWork.UserRepository.GetAll();
+            List<User> _listAux = new List<User>();
+            foreach (var user in result)
+            {
+                _listAux.Add(user);
+            }
+            return _listAux; 
         }
 
         public Task<User> GetById(int id)
