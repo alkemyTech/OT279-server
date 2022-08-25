@@ -9,8 +9,8 @@ namespace OngProject.Controllers
     [ApiController]
     public class CategoriesController: ControllerBase
     {
-        private readonly ICategoriesService _service;
-        public CategoriesController(ICategoriesService service)
+        private readonly ICategoriesBusiness _service;
+        public CategoriesController(ICategoriesBusiness service)
         {
             _service = service;
         }

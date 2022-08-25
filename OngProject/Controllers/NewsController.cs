@@ -10,9 +10,9 @@ namespace OngProject.Controllers
     public class NewsController : ControllerBase
     {
 
-        private readonly INewsService _service;
+        private readonly INewsBusiness _service;
 
-        public NewsController(INewsService service)
+        public NewsController(INewsBusiness service)
         {
             _service = service;
         }

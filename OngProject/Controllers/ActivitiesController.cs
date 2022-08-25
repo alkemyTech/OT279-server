@@ -10,8 +10,8 @@ namespace OngProject.Controllers
     [ApiController]
     public class ActivitiesController : ControllerBase
     {
-        private IActivitiesService _service;
-        public ActivitiesController(IActivitiesService service)
+        private IActivitiesBusiness _service;
+        public ActivitiesController(IActivitiesBusiness service)
         {
             _service = service;
         }

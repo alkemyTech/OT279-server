@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using OngProject.Repositories.Interfaces;
+using OngProject.Core.Models.DTOs.UserDTO;
+using OngProject.Core.Helper;
+using Microsoft.AspNetCore.Identity;
+using OngProject.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace OngProject.Core.Business
 {
@@ -11,10 +16,11 @@ namespace OngProject.Core.Business
     {
 
         private readonly IUnitOfWork _unitOfWork;
-
-        public UsersBusiness(IUnitOfWork unitOfWork)
+        private readonly OngDbContext _context;
+        public UsersBusiness(IUnitOfWork unitOfWork, OngDbContext context)
         {
             _unitOfWork = unitOfWork;
+            _context = context;
         }
 
         public Task<bool> Delete(int id)
@@ -32,9 +38,22 @@ namespace OngProject.Core.Business
             throw new NotImplementedException();
         }
 
-        public Task<User> Insert(User user)
+        public async Task<User> Insert(UserRegisterDTO userDTO)
         {
-            throw new NotImplementedException();
+            User user = await GetByEmail(userDTO.Email);
+            if (user == null)
+            {
+                string encriptedPassword = ApiHelper.GetSHA256(user.Password);
+                userDTO.Password = encriptedPassword;
+                await _unitOfWork.UserRepository.Insert(user);
+                return user;
+            }
+            return null;
+        }
+
+        public async Task<User> GetByEmail(string email)
+        {
+            return await _context.Set<User>().FirstOrDefaultAsync(x => x.Email == email);
         }
 
         public Task<User> Update(int id, User user)

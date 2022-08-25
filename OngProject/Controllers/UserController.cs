@@ -15,9 +15,9 @@ namespace OngProject.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _service;
+        private readonly IUsersBusiness _service;
 
-        public UserController(IUserService service)
+        public UserController(IUsersBusiness service)
         {
             _service = service;
         }
@@ -50,20 +50,16 @@ namespace OngProject.Controllers
             }
             else
             {
-                string encriptedPassword = ApiHelper.GetSHA256(userDTO.Password);
-                userDTO.Password = encriptedPassword;
                 var user = await _service.Insert(userDTO);
-
                 if (user != null)
                 {
-                    return Ok();
+                    return Ok(user);
                 }
                 else
                 {
                     return NotFound();
                 }
             }
-
         }
 
         [HttpDelete]
