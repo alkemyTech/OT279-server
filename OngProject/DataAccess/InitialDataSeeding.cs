@@ -27,11 +27,11 @@ namespace OngProject.DataAccess
 
             modelBuilder.Entity<Members>()
                 .HasData(
-                    new Members { Id = 1, Name = "Name01", Image = "url_image_name01", Description = "Description Name01", FacebookUrl = "url_facebook_name01", InstagramUrl = "url_instagram_name01", LinkedinUrl = "url_linkedIn_name01", IsDeleted = false, LastModified = DateTime.UtcNow},
-                    new Members { Id = 2, Name = "Name02", Image = "url_image_name02", Description = "Description Name02", FacebookUrl = "url_facebook_name02", InstagramUrl = "url_instagram_name02", LinkedinUrl = "url_linkedIn_name02", IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new Members { Id = 3, Name = "Name03", Image = "url_image_name03", Description = "Description Name03", FacebookUrl = "url_facebook_name03", InstagramUrl = "url_instagram_name03", LinkedinUrl = "url_linkedIn_name03", IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new Members { Id = 4, Name = "Name04", Image = "url_image_name04", Description = "Description Name04", FacebookUrl = "url_facebook_name04", InstagramUrl = "url_instagram_name04", LinkedinUrl = "url_linkedIn_name04", IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new Members { Id = 5, Name = "Name05", Image = "url_image_name05", Description = "Description Name05", FacebookUrl = "url_facebook_name05", InstagramUrl = "url_instagram_name05", LinkedinUrl = "url_linkedIn_name05", IsDeleted = false, LastModified = DateTime.UtcNow }
+                    new Members { Id = 1, Name = "Members01", Image = "url_image_members01", Description = "Description members01", FacebookUrl = "url_facebook_members01", InstagramUrl = "url_instagram_members01", LinkedinUrl = "url_linkedIn_members01", IsDeleted = false, LastModified = DateTime.UtcNow},
+                    new Members { Id = 2, Name = "Members02", Image = "url_image_members02", Description = "Description members02", FacebookUrl = "url_facebook_members02", InstagramUrl = "url_instagram_members02", LinkedinUrl = "url_linkedIn_members02", IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Members { Id = 3, Name = "Members03", Image = "url_image_members03", Description = "Description members03", FacebookUrl = "url_facebook_members03", InstagramUrl = "url_instagram_members03", LinkedinUrl = "url_linkedIn_members03", IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Members { Id = 4, Name = "Members04", Image = "url_image_members04", Description = "Description members04", FacebookUrl = "url_facebook_members04", InstagramUrl = "url_instagram_members04", LinkedinUrl = "url_linkedIn_members04", IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Members { Id = 5, Name = "Members05", Image = "url_image_members05", Description = "Description members05", FacebookUrl = "url_facebook_members05", InstagramUrl = "url_instagram_members05", LinkedinUrl = "url_linkedIn_members05", IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
         }
     }
