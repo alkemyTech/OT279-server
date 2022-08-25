@@ -13,6 +13,10 @@ namespace OngProject.DataAccess
         {
 
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Seeding();
+        }
 
         public DbSet<Activities> Activities { get; set; }
         public DbSet<Category> Categories { get; set; }
