@@ -8,7 +8,7 @@ namespace OngProject.Core.Interfaces
 {
     public interface ISlidesBusiness
     {
-        public Task<List<Slides>> GetAllSlides();
+        public Task<IEnumerable<Slides>> GetAllSlides();
         public Task<Slides> GetSlideById(int id);
         public Task<Slides> CreateSlide(Slides slide);
         public Task<bool> RemoveSlide(int id);

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using OngProject.Core.Interfaces;
 using OngProject.Entities;
+using OngProject.Core.Models.DTOs;
 
 namespace OngProject.Controllers
 {
@@ -29,7 +30,19 @@ namespace OngProject.Controllers
 
             if (slides != null)
             {
-                return Ok(slides);
+                var slidesOrderImage = new List<SlidesOrderImageDTO>() { };
+
+                foreach (var slide in slides)
+                {
+                    var slideDTO = new SlidesOrderImageDTO()
+                    {
+                        ImageUrl = slide.ImageUrl,
+                        Order = slide.Order
+                    };
+
+                    slidesOrderImage.Add(slideDTO);
+                }
+                return Ok(slidesOrderImage);
             }
             else
             {

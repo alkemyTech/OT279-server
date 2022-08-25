@@ -9,14 +9,20 @@ namespace OngProject.Core.Business
 {
     public class SlidesBusiness : ISlidesBusiness
     {
+        private readonly IUnitOfWork _unitOfWork;
+        public SlidesBusiness(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
         public Task<Slides> CreateSlide(Slides slide)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<Slides>> GetAllSlides()
+        public Task<IEnumerable<Slides>> GetAllSlides()
         {
-            throw new NotImplementedException();
+            return _unitOfWork.SlidesRepository.GetAll();
         }
 
         public Task<Slides> GetSlideById(int id)

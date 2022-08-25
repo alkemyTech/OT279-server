@@ -13,7 +13,7 @@ namespace OngProject.Repositories.Interfaces
         public IRepository<Organization> OrganizationRepository { get; }
         public IRepository<Members> MembersRepository { get; }
         public IRepository<User> UserRepository { get; }
-
+        public IRepository<Slides> SlidesRepository { get; }
         IRepository<News> NewsRepository { get; }
         IRepository<Testimonials> TestiomonialsRepository { get; }
         IRepository<Activities> ActivitiesRepository { get; }

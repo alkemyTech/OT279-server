@@ -34,7 +34,6 @@ namespace OngProject.DataAccess
                     new Members { Id = 5, Name = "Members05", Image = "url_image_members05", Description = "Description members05", FacebookUrl = "url_facebook_members05", InstagramUrl = "url_instagram_members05", LinkedinUrl = "url_linkedIn_members05", IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
 
-
             modelBuilder.Entity<Testimonials>()
                 .HasData(
                     new Testimonials { Id = 1, Name = "Testimonials01", Image = "url_image_testimonials01", Content = "Content testimonials01", IsDeleted = false, LastModified = DateTime.UtcNow },
@@ -42,6 +41,15 @@ namespace OngProject.DataAccess
                     new Testimonials { Id = 3, Name = "Testimonials03", Image = "url_image_testimonials03", Content = "Content testimonials03", IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Testimonials { Id = 4, Name = "Testimonials04", Image = "url_image_testimonials04", Content = "Content testimonials04", IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Testimonials { Id = 5, Name = "Testimonials05", Image = "url_image_testimonials05", Content = "Content testimonials05", IsDeleted = false, LastModified = DateTime.UtcNow }
+                );
+
+            modelBuilder.Entity<Slides>()
+                .HasData(
+                    new Slides { Id = 1, ImageUrl = "url_image01", Text = "text_slide01", Order = 1, OrganizationId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Slides { Id = 2, ImageUrl = "url_image02", Text = "text_slide02", Order = 2, OrganizationId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Slides { Id = 3, ImageUrl = "url_image03", Text = "text_slide03", Order = 3, OrganizationId = 3, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Slides { Id = 4, ImageUrl = "url_image04", Text = "text_slide04", Order = 4, OrganizationId = 4, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Slides { Id = 5, ImageUrl = "url_image05", Text = "text_slide05", Order = 5, OrganizationId = 5, IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
         }
     }
