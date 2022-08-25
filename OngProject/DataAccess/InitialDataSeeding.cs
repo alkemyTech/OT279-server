@@ -25,12 +25,23 @@ namespace OngProject.DataAccess
                     new News { Id = 4, Name = "News04", Image = "url_img", Content = "this is a content - news 04", CategoryId = 1, IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
 
+
+            modelBuilder.Entity<Members>()
+                .HasData(
+                    new Members { Id = 1, Name = "Members01", Image = "url_image_members01", Description = "Description members01", FacebookUrl = "url_facebook_members01", InstagramUrl = "url_instagram_members01", LinkedinUrl = "url_linkedIn_members01", IsDeleted = false, LastModified = DateTime.UtcNow},
+                    new Members { Id = 2, Name = "Members02", Image = "url_image_members02", Description = "Description members02", FacebookUrl = "url_facebook_members02", InstagramUrl = "url_instagram_members02", LinkedinUrl = "url_linkedIn_members02", IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Members { Id = 3, Name = "Members03", Image = "url_image_members03", Description = "Description members03", FacebookUrl = "url_facebook_members03", InstagramUrl = "url_instagram_members03", LinkedinUrl = "url_linkedIn_members03", IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Members { Id = 4, Name = "Members04", Image = "url_image_members04", Description = "Description members04", FacebookUrl = "url_facebook_members04", InstagramUrl = "url_instagram_members04", LinkedinUrl = "url_linkedIn_members04", IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Members { Id = 5, Name = "Members05", Image = "url_image_members05", Description = "Description members05", FacebookUrl = "url_facebook_members05", InstagramUrl = "url_instagram_members05", LinkedinUrl = "url_linkedIn_members05", IsDeleted = false, LastModified = DateTime.UtcNow }
+              );
+
             modelBuilder.Entity<Activities>()
                 .HasData(
                     new Activities { Id = 1, Name = "Activities 01", Image = "url_img", Content = "this is a content - activities 01", IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Activities { Id = 2, Name = "Activities 02", Image = "url_img", Content = "this is a content - activities 02", IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Activities { Id = 3, Name = "Activities 03", Image = "url_img", Content = "this is a content - activities 03", IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Activities { Id = 4, Name = "Activities 04", Image = "url_img", Content = "this is a content - activities 04", IsDeleted = false, LastModified = DateTime.UtcNow }
+
                 );
         }
     }
