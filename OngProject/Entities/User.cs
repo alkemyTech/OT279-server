@@ -15,7 +15,6 @@ namespace OngProject.Entities
         [Display(Name = "Last_Name")]
         public string LastName { get; set; }
 
-
         [Required, MaxLength(320)]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -23,7 +22,6 @@ namespace OngProject.Entities
         [Required, MaxLength(20)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-
 
         [MaxLength(255)]
         [Display(Name = "Photo")]

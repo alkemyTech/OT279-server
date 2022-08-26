@@ -1,4 +1,5 @@
-﻿using OngProject.Entities;
+﻿using OngProject.Core.Models.DTOs.UserDTO;
+using OngProject.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace OngProject.Core.Interfaces
         /// <summary>
         ///     Obtiene todos los usuarios
         /// </summary>
-        Task<List<User>> GetAll();
+        Task<List<ViewUserDTO>> GetAll();
      
         /// <summary>
         ///     Obtiene un usuario en especifico. 
