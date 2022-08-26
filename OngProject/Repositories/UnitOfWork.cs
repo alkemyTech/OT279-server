@@ -58,7 +58,7 @@ namespace OngProject.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public IRepository<Category> CategoriesRepo
+        public IRepository<Category> CategoriesRepository
         {
             get
             {
@@ -117,11 +117,6 @@ namespace OngProject.Repositories
                 }
                 return _membersRepository;
             }
-        }
-
-        public void Save()
-        {
-            _context.SaveChanges();
         }
     }
 }
