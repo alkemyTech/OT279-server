@@ -16,16 +16,6 @@ namespace OngProject.Core.Business
             _s3Client = s3Client;
         }
 
-        public async Task CreateBucket(string bucketName)
-        {
-            var existing = await _s3Client.DoesS3BucketExistAsync(bucketName);
-
-            if (existing)
-                throw new System.Exception($"A bucket with the name: {bucketName} already exists.");
-
-            await _s3Client.PutBucketAsync(bucketName);
-        }
-
         public async Task<GetObjectResponse> GetObject(string bucketName, string objectName)
         {
             var existing = await _s3Client.DoesS3BucketExistAsync(bucketName);
@@ -50,6 +40,8 @@ namespace OngProject.Core.Business
                 BucketName = bucketName,
                 Key = uniqueObjectName,
                 InputStream = file.OpenReadStream(),
+                //  ↓↓ Pone los archivos subidos al bucket con acceso publico
+                CannedACL = new S3CannedACL("public-read")
             };
 
             request.Metadata.Add("Content-Type", file.ContentType);

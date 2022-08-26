@@ -8,10 +8,6 @@ namespace OngProject.Core.Interfaces
 {
     public interface IAmazonS3Client
     {
-        // Crea un espacio en disco en los servidores de Amazon S3.
-        // Un Bucket puede considerarse como una carpeta remota.
-        Task CreateBucket(string bucketName);
-
         // Almacena un archivo en un Bucket(Carpeta remota)
         // Devuelve el nuevo nombre del archivo asignado automáticamente.
         // Dicho nombre puede ser usado para ser guardado en la base de datos local.
