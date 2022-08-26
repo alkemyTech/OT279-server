@@ -23,6 +23,7 @@ namespace OngProject.Repositories
         private IRepository<Category> _categoriesRepository;
         private IRepository<User> _usersRepository;
         private IRepository<Activities> _activitiesRepository;
+        private IRepository<Comments> _commentsRepository;
 
         public IRepository<News> NewsRepository { get; private set; }
         private IRepository<Testimonials> _testimonialsRepository;
@@ -116,6 +117,18 @@ namespace OngProject.Repositories
                     _membersRepository = new Repository<Members>(_context);
                 }
                 return _membersRepository;
+            }
+        }
+
+        public IRepository<Comments> CommentsRepository
+        {
+            get
+            {
+                if (_commentsRepository == null)
+                {
+                    _commentsRepository = new Repository<Comments>(_context);
+                }
+                return _commentsRepository;
             }
         }
 
