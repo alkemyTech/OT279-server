@@ -33,7 +33,7 @@ namespace OngProject.Entities
         public int RoleId { get; set; }
         public Role Role { get; set; }
 
-        private User() { }
+        public User() { }
 
         public User(string firstname, string lastname, string email, string password, string photo, Role role)
         {
