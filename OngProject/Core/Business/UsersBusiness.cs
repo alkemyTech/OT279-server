@@ -60,7 +60,17 @@ namespace OngProject.Core.Business
 
         public async Task<User> GetByEmail(string email)
         {
-            return await _context.Set<User>().FirstOrDefaultAsync(x => x.Email == email);
+            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+        }
+
+        public async Task<User> ValidateUser(User user, string password)
+        {
+            string encriptedPassword = ApiHelper.GetSHA256(password);
+            if (user.Password != encriptedPassword)
+            {
+                return null;
+            }
+            return user;
         }
 
         public Task<User> Update(int id, User user)

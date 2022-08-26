@@ -44,5 +44,26 @@ namespace OngProject.Core.Interfaces
         /// </param>
 
         Task<User> Update(int id, User user);
+        
+        /// <summary>
+        ///     Obtiene un usuario en especifico
+        /// </summary>
+        /// <param name="email">
+        ///     Email del usuario en la base de datos
+        /// </param>
+
+        Task<User> GetByEmail(string email);
+
+        /// <summary>
+        ///     Valida el user y password para logearse. 
+        /// </summary>
+        /// <param name="user">
+        ///     Usuario encontrado en la DB 
+        /// </param>
+        /// <param name="password">
+        ///     Password a validar
+        /// </param>
+        Task<User> ValidateUser(User user, string password);
+
     }
 }
