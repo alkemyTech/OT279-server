@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OngProject.Core.Helper;
 using OngProject.Core.Interfaces;
 using OngProject.Core.Models.DTOs.UserDTO;
 using OngProject.Entities;
@@ -38,21 +39,27 @@ namespace OngProject.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] User userDTO)
+
+
+        [HttpPost("/auth/register")]
+        public async Task<IActionResult> CreateUser([FromBody] UserRegisterDTO userDTO)
         {
-
-            var user = await _service.Insert(userDTO);
-
-            if (user != null)
+            if (!ModelState.IsValid)
             {
-                return Ok(user);
+                return BadRequest(string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)));
             }
             else
             {
-                return NotFound();
+                var user = await _service.Insert(userDTO);
+                if (user != null)
+                {
+                    return Ok(user);
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
-
         }
 
         [HttpDelete]
