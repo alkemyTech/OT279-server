@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using OngProject.Repositories.Interfaces;
+using OngProject.Core.Models.DTOs.UserDTO;
 
 namespace OngProject.Core.Business
 {
@@ -22,13 +23,13 @@ namespace OngProject.Core.Business
             throw new NotImplementedException();
         }
 
-        public async Task<List<User>> GetAll()
+        public async Task<List<ViewUserDTO>> GetAll()
         {
             var result = await _unitOfWork.UserRepository.GetAll();
-            List<User> _listAux = new List<User>();
+            List<ViewUserDTO> _listAux = new List<ViewUserDTO>();
             foreach (var user in result)
             {
-                _listAux.Add(user);
+                _listAux.Add(new ViewUserDTO(user));
             }
             return _listAux; 
         }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using OngProject.Core.Models.DTOs.UserDTO;
 using OngProject.Entities;
 using System;
 using System.Collections.Generic;
