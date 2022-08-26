@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Helper;
 using OngProject.Core.Interfaces;
@@ -22,21 +23,20 @@ namespace OngProject.Controllers
             _service = service;
         }
 
+        //[Authorize(Roles = "Administrador")]
         [HttpGet]
-        public async Task<IActionResult> GetAllUser()
+        [Route("/users")]
+        public async Task<IActionResult> GetAllUsers()
         {
-
-            var user = await _service.GetAll();
-
-            if (user != null)
+            var _listUsers = await _service.GetAll();
+            if (_listUsers.Count > 0)
             {
-                return Ok(user);
+                return Ok(_listUsers);
             }
             else
             {
-                return NotFound();
+                return NoContent();
             }
-
         }
 
 

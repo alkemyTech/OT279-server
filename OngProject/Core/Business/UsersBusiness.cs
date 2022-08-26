@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using OngProject.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace OngProject.Core.Business
 {
     public class UsersBusiness : IUsersBusiness
@@ -28,9 +29,15 @@ namespace OngProject.Core.Business
             throw new NotImplementedException();
         }
 
-        public Task<List<User>> GetAll()
+        public async Task<List<ViewUserDTO>> GetAll()
         {
-            throw new NotImplementedException();
+            var result = await _unitOfWork.UserRepository.GetAll();
+            List<ViewUserDTO> _listAux = new List<ViewUserDTO>();
+            foreach (var user in result)
+            {
+                _listAux.Add(new ViewUserDTO(user));
+            }
+            return _listAux; 
         }
 
         public Task<User> GetById(int id)

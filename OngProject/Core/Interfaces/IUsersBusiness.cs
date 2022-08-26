@@ -10,7 +10,7 @@ namespace OngProject.Core.Interfaces
         /// <summary>
         ///     Obtiene todos los usuarios
         /// </summary>
-        Task<List<User>> GetAll();
+        Task<List<ViewUserDTO>> GetAll();
      
         /// <summary>
         ///     Obtiene un usuario en especifico. 
