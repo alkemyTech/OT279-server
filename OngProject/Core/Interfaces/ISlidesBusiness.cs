@@ -1,4 +1,5 @@
-﻿using OngProject.Entities;
+﻿using OngProject.Core.Models.DTOs;
+using OngProject.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace OngProject.Core.Interfaces
 {
     public interface ISlidesBusiness
     {
-        public Task<IEnumerable<Slides>> GetAllSlides();
+        public Task<IEnumerable<SlidesOrderImageDTO>> GetAllSlides();
         public Task<Slides> GetSlideById(int id);
         public Task<Slides> CreateSlide(Slides slide);
         public Task<bool> RemoveSlide(int id);
