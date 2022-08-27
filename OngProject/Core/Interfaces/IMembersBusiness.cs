@@ -6,7 +6,7 @@ namespace OngProject.Core.Interfaces
 {
     public interface IMembersBusiness
     {
-        public Task<List<Members>> GetAllMembers();
+        public Task<List<MembersDTO>> GetAllMembers();
         public Task<Members> GetMemberById();
         public Task<Members> CreateMember();
         public Task<bool> DeleteMember();

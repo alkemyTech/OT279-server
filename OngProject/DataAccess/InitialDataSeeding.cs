@@ -25,7 +25,7 @@ namespace OngProject.DataAccess
                     new News { Id = 4, Name = "News04", Image = "url_img", Content = "this is a content - news 04", CategoryId = 1, IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
 
-
+            
             modelBuilder.Entity<Members>()
                 .HasData(
                     new Members { Id = 1, Name = "Members01", Image = "url_image_members01", Description = "Description members01", FacebookUrl = "url_facebook_members01", InstagramUrl = "url_instagram_members01", LinkedinUrl = "url_linkedIn_members01", IsDeleted = false, LastModified = DateTime.UtcNow},
@@ -53,6 +53,15 @@ namespace OngProject.DataAccess
                     new Testimonials { Id = 5, Name = "Testimonials05", Image = "url_image_testimonials05", Content = "Content testimonials05", IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
 
+
+
+            modelBuilder.Entity<Role>()
+                .HasData(
+                    new Role { Id = 1, Name = "admin", Description = "System Administrator", IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Role { Id = 2, Name = "user", Description = "System User", IsDeleted = false, LastModified = DateTime.UtcNow }
+                );
+
+
             modelBuilder.Entity<Slides>()
                 .HasData(
                     new Slides { Id = 1, ImageUrl = "url_image01", Text = "text_slide01", Order = 1, OrganizationId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
@@ -63,6 +72,7 @@ namespace OngProject.DataAccess
                  );
 
             
+
             modelBuilder.Entity<User>()
                 .HasData(
                     new User { Id = 1, FirstName = "FirstName01", LastName = "LastName01", Email="mail1@mail.com", Password="123456", Photo = "https://via.placeholder.com/300?text=User+1", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
