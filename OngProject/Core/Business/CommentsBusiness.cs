@@ -1,4 +1,5 @@
 ﻿using OngProject.Core.Interfaces;
+using OngProject.Core.Models.DTOs;
 using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
 using System.Collections.Generic;
@@ -20,13 +21,24 @@ namespace OngProject.Core.Business
             throw new System.NotImplementedException();
         }
 
-        public async Task<IEnumerable<Comments>> GetAll()
+        public async Task<IEnumerable<CommentGetDto>> GetAll()
         {
             var comments = await _unitOfWork.CommentsRepository.GetAll();
             var commentOrd = comments.OrderByDescending(x => x.LastModified);
             IEnumerable<Comments> ordenby = commentOrd;
+
+            List<CommentGetDto> listComment = new();
             
-            return ordenby;
+            foreach (var comment in ordenby)
+            {
+                CommentGetDto commentDto = new()
+                {
+                    Body = comment.Body
+                };
+                listComment.Add(commentDto);
+            }
+
+            return listComment;
         }
 
         public Task<Comments> GetById(int id)

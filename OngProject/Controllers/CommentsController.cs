@@ -22,19 +22,9 @@ namespace OngProject.Controllers
         {
             try
             {
-                List<CommentGetDto> listComment = new();
                 var comments = await _service.GetAll();
-  
                 if (comments == null) return NotFound();
-                foreach (var comment in comments)
-                {
-                    CommentGetDto commentDto = new()
-                    {
-                        Body = comment.Body
-                    };
-                    listComment.Add(commentDto);
-                }
-                return Ok(listComment);
+                return Ok(comments);
             }
             catch (System.Exception ex)
             {
