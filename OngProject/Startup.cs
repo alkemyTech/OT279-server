@@ -12,6 +12,7 @@ using Microsoft.OpenApi.Models;
 using OngProject.Core.Business;
 using OngProject.Core.Interfaces;
 using OngProject.DataAccess;
+using OngProject.Entities;
 using OngProject.Repositories;
 using OngProject.Repositories.Interfaces;
 using System;
@@ -38,6 +39,7 @@ namespace OngProject
 
             services.AddScoped<IUsersBusiness, UsersBusiness>();
             services.AddScoped<IActivitiesBusiness, ActivitiesBusiness>();
+            services.AddScoped<IContactsBusiness, ContactsBusiness>();
             services.AddScoped<IMembersBusiness, MembersBusiness>();
             services.AddScoped<INewsBusiness, NewsBusiness>();
             services.AddScoped<IOrganizationsBusiness, OrganizationsBusiness>();
@@ -45,8 +47,12 @@ namespace OngProject
             services.AddScoped<ICategoriesBusiness, CategoriesBusiness>();
             services.AddScoped<ISlidesBusiness, SlidesBusiness>();
             services.AddScoped<ITestimonialsBusiness, TestimonialsBusiness>();
+            services.AddScoped<ICommentsBusiness, CommentsBusiness>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRepository<Members>, Repository<Members>>();
+
+            services.AddScoped<IRepository<Contacts>, Repository<Contacts>>();
 
             // AWS stuff.
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());

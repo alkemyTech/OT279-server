@@ -1,4 +1,5 @@
 ﻿using OngProject.Core.Interfaces;
+using OngProject.Core.Mapper;
 using OngProject.Entities;
 using OngProject.Repositories;
 using OngProject.Repositories.Interfaces;
@@ -10,16 +11,27 @@ namespace OngProject.Core.Business
 {
     public class MembersBusiness : IMembersBusiness
     {
-        //private readonly IUnitOfWork _unitOfWork;
-
-        //public MembersBusiness(UnitOfWork unitOfWork)
-        //{
-        //    _unitOfWork = unitOfWork;
-        //}
-
-        public Task<List<Members>> GetAllMembers()
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Members> _repository;
+        public MembersBusiness(IUnitOfWork unitOfWork, IRepository<Members> repository)
         {
-            throw new NotImplementedException();
+            this._unitOfWork = unitOfWork;
+            this._repository = repository;
+        }
+
+        public async Task<List<MembersDTO>> GetAllMembers()
+        {
+            List<Members> membersList;
+            List<MembersDTO> membersDTOList = new List<MembersDTO>();
+
+            membersList = (List<Members>) await _repository.GetAll();
+
+            foreach (Members m in membersList)
+            {
+                membersDTOList.Add(MembersMapper.MembersToMembersDTO(m));
+            }
+
+            return membersDTOList;
         }
         public Task<Members> GetMemberById()
         {
