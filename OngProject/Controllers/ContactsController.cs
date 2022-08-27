@@ -16,6 +16,7 @@ namespace OngProject.Controllers
             _contactsBusiness = business;
         }
 
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAllMembers()
         {
