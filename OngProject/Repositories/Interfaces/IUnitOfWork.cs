@@ -17,6 +17,7 @@ namespace OngProject.Repositories.Interfaces
         IRepository<News> NewsRepository { get; }
         IRepository<Testimonials> TestiomonialsRepository { get; }
         IRepository<Activities> ActivitiesRepository { get; }
+        IRepository<Comments> CommentsRepository { get; }
 
         Task<int> Complete();
     }
