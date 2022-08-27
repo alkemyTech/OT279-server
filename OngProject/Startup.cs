@@ -39,6 +39,7 @@ namespace OngProject
 
             services.AddScoped<IUsersBusiness, UsersBusiness>();
             services.AddScoped<IActivitiesBusiness, ActivitiesBusiness>();
+            services.AddScoped<IContactsBusiness, ContactsBusiness>();
             services.AddScoped<IMembersBusiness, MembersBusiness>();
             services.AddScoped<INewsBusiness, NewsBusiness>();
             services.AddScoped<IOrganizationsBusiness, OrganizationsBusiness>();
@@ -50,6 +51,8 @@ namespace OngProject
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IRepository<Members>, Repository<Members>>();
+
+            services.AddScoped<IRepository<Contacts>, Repository<Contacts>>();
 
             // AWS stuff.
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
