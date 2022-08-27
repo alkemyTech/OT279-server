@@ -53,6 +53,15 @@ namespace OngProject.DataAccess
                     new Testimonials { Id = 4, Name = "Testimonials04", Image = "url_image_testimonials04", Content = "Content testimonials04", IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Testimonials { Id = 5, Name = "Testimonials05", Image = "url_image_testimonials05", Content = "Content testimonials05", IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
+            
+            modelBuilder.Entity<User>()
+                .HasData(
+                    new User { Id = 1, FirstName = "FirstName01", LastName = "LastName01", Email="mail1@mail.com", Password="123456", Photo = "https://via.placeholder.com/300?text=User+1", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new User { Id = 2, FirstName = "FirstName02", LastName = "LastName02", Email = "mail2@mail.com", Password = "123456", Photo = "https://via.placeholder.com/300?text=User+2", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new User { Id = 3, FirstName = "FirstName03", LastName = "LastName03", Email = "mail3@mail.com", Password = "123456", Photo = "https://via.placeholder.com/300?text=User+3", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new User { Id = 4, FirstName = "FirstName04", LastName = "LastName04", Email = "mail4@mail.com", Password = "123456", Photo = "https://via.placeholder.com/300?text=User+4", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new User { Id = 5, FirstName = "FirstName05", LastName = "LastName05", Email = "mail5@mail.com", Password = "123456", Photo = "https://via.placeholder.com/300?text=User+5", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow }
+                );
         }
     }
 }

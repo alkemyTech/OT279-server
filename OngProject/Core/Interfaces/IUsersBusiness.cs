@@ -1,4 +1,5 @@
-﻿using OngProject.Entities;
+﻿using OngProject.Core.Models.DTOs.UserDTO;
+using OngProject.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace OngProject.Core.Interfaces
         /// <summary>
         ///     Obtiene todos los usuarios
         /// </summary>
-        Task<List<User>> GetAll();
+        Task<List<ViewUserDTO>> GetAll();
      
         /// <summary>
         ///     Obtiene un usuario en especifico. 
@@ -25,7 +26,7 @@ namespace OngProject.Core.Interfaces
         /// <param name="user">
         ///     Entity a ingresar en la base de datos
         /// </param>
-        Task<User> Insert(User user);
+        Task<User> Insert(UserRegisterDTO userDTO);
         
         /// <summary>
         ///     Elimina un usuario en la base de datos

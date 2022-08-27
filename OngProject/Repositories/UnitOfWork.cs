@@ -59,7 +59,7 @@ namespace OngProject.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public IRepository<Category> CategoriesRepo
+        public IRepository<Category> CategoriesRepository
         {
             get
             {
@@ -120,6 +120,7 @@ namespace OngProject.Repositories
             }
         }
 
+
         public IRepository<Comments> CommentsRepository
         {
             get
@@ -136,5 +137,6 @@ namespace OngProject.Repositories
         {
             _context.SaveChanges();
         }
+
     }
 }
