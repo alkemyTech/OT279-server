@@ -1,3 +1,4 @@
+using Amazon.S3;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -44,8 +45,13 @@ namespace OngProject
             services.AddScoped<ICategoriesBusiness, CategoriesBusiness>();
             services.AddScoped<ISlidesBusiness, SlidesBusiness>();
             services.AddScoped<ITestimonialsBusiness, TestimonialsBusiness>();
+            services.AddScoped<ICommentsBusiness, CommentsBusiness>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // AWS stuff.
+            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
+            services.AddAWSService<IAmazonS3>();
             
             services.AddSwaggerGen(c =>
             {
