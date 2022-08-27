@@ -2,7 +2,7 @@
 
 namespace OngProject.Entities
 {
-    public class Contact : Entity
+    public class Contacts : Entity
     {
         [Required, MaxLength(255)]
         [Display(Name = "Name")]
@@ -20,7 +20,7 @@ namespace OngProject.Entities
         [Display(Name = "Message")]
         public string Message { get; set; }
        
-        private Contact() { }
+        /*public Contact() { }
 
         public Contact(string name, int phone, string email, string message)
         {
@@ -28,6 +28,6 @@ namespace OngProject.Entities
             Phone = phone;
             Email = email;
             Message = message;
-        }
+        }*/
     }
 }

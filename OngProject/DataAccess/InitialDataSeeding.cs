@@ -25,6 +25,13 @@ namespace OngProject.DataAccess
                     new News { Id = 4, Name = "News04", Image = "url_img", Content = "this is a content - news 04", CategoryId = 1, IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
 
+            // Not required in User Story. Must be added to endpoint test (US-78)
+
+            modelBuilder.Entity<Role>()
+                .HasData(
+                    new Role { Id = 1, Name = "admin", Description = "System Administrator", IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Role { Id = 2, Name = "user", Description = "System User", IsDeleted = false, LastModified = DateTime.UtcNow }
+                );
 
             modelBuilder.Entity<Members>()
                 .HasData(
@@ -62,6 +69,17 @@ namespace OngProject.DataAccess
                     new User { Id = 4, FirstName = "FirstName04", LastName = "LastName04", Email = "mail4@mail.com", Password = "123456", Photo = "https://via.placeholder.com/300?text=User+4", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
                     new User { Id = 5, FirstName = "FirstName05", LastName = "LastName05", Email = "mail5@mail.com", Password = "123456", Photo = "https://via.placeholder.com/300?text=User+5", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
+
+            // Not required in User Story. Must be added to endpoint test (Features/US-70)
+
+            modelBuilder.Entity<Contacts>()
+                .HasData(
+                    new Contacts { Id = 1, Name = "ContactName01", Email = "contact01@mail.com", Message = "message01", Phone = 11111111, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Contacts { Id = 2, Name = "ContactName02", Email = "contact02@mail.com", Message = "message02", Phone = 22222222, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Contacts { Id = 3, Name = "ContactName03", Email = "contact03@mail.com", Message = "message03", Phone = 33333333, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Contacts { Id = 4, Name = "ContactName04", Email = "contact04@mail.com", Message = "message04", Phone = 44444444, IsDeleted = false, LastModified = DateTime.UtcNow }
+                );
+
         }
     }
 }
