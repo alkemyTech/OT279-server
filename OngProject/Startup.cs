@@ -47,8 +47,10 @@ namespace OngProject
             services.AddScoped<ICategoriesBusiness, CategoriesBusiness>();
             services.AddScoped<ISlidesBusiness, SlidesBusiness>();
             services.AddScoped<ITestimonialsBusiness, TestimonialsBusiness>();
+            services.AddScoped<ICommentsBusiness, CommentsBusiness>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRepository<Members>, Repository<Members>>();
 
             services.AddScoped<IRepository<Contacts>, Repository<Contacts>>();
 

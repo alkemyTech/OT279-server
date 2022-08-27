@@ -13,10 +13,15 @@ namespace OngProject.Repositories.Interfaces
         public IRepository<Organization> OrganizationRepository { get; }
         public IRepository<Members> MembersRepository { get; }
         public IRepository<User> UserRepository { get; }
-        IRepository<Category> CategoriesRepository { get; }
+
+        public IRepository<Slides> SlidesRepository { get; }
+
+        public IRepository<Category> CategoriesRepository { get; }
+
         IRepository<News> NewsRepository { get; }
         IRepository<Testimonials> TestiomonialsRepository { get; }
         IRepository<Activities> ActivitiesRepository { get; }
+        IRepository<Comments> CommentsRepository { get; }
 
         Task<int> Complete();
     }
