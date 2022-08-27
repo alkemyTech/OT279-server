@@ -44,7 +44,6 @@ namespace OngProject.DataAccess
 
                 );
 
-
             modelBuilder.Entity<Testimonials>()
                 .HasData(
                     new Testimonials { Id = 1, Name = "Testimonials01", Image = "url_image_testimonials01", Content = "Content testimonials01", IsDeleted = false, LastModified = DateTime.UtcNow },
@@ -55,11 +54,24 @@ namespace OngProject.DataAccess
                 );
 
 
+
             modelBuilder.Entity<Role>()
                 .HasData(
                     new Role { Id = 1, Name = "admin", Description = "System Administrator", IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Role { Id = 2, Name = "user", Description = "System User", IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
+
+
+            modelBuilder.Entity<Slides>()
+                .HasData(
+                    new Slides { Id = 1, ImageUrl = "url_image01", Text = "text_slide01", Order = 1, OrganizationId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Slides { Id = 2, ImageUrl = "url_image02", Text = "text_slide02", Order = 2, OrganizationId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Slides { Id = 3, ImageUrl = "url_image03", Text = "text_slide03", Order = 3, OrganizationId = 3, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Slides { Id = 4, ImageUrl = "url_image04", Text = "text_slide04", Order = 4, OrganizationId = 4, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Slides { Id = 5, ImageUrl = "url_image05", Text = "text_slide05", Order = 5, OrganizationId = 5, IsDeleted = false, LastModified = DateTime.UtcNow }
+                 );
+
+            
 
             modelBuilder.Entity<User>()
                 .HasData(
@@ -68,6 +80,7 @@ namespace OngProject.DataAccess
                     new User { Id = 3, FirstName = "FirstName03", LastName = "LastName03", Email = "mail3@mail.com", Password = "123456", Photo = "https://via.placeholder.com/300?text=User+3", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
                     new User { Id = 4, FirstName = "FirstName04", LastName = "LastName04", Email = "mail4@mail.com", Password = "123456", Photo = "https://via.placeholder.com/300?text=User+4", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
                     new User { Id = 5, FirstName = "FirstName05", LastName = "LastName05", Email = "mail5@mail.com", Password = "123456", Photo = "https://via.placeholder.com/300?text=User+5", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow }
+
                 );
         }
     }
