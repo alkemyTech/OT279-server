@@ -19,7 +19,16 @@ namespace OngProject.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllMembers()
         {
-            throw new NotImplementedException();
+            var membersDTO = await _membersBusiness.GetAllMembers();
+
+            if (membersDTO != null)
+            {
+                return Ok(membersDTO);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]

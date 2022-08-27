@@ -12,6 +12,7 @@ using Microsoft.OpenApi.Models;
 using OngProject.Core.Business;
 using OngProject.Core.Interfaces;
 using OngProject.DataAccess;
+using OngProject.Entities;
 using OngProject.Repositories;
 using OngProject.Repositories.Interfaces;
 using System;
@@ -47,6 +48,7 @@ namespace OngProject
             services.AddScoped<ITestimonialsBusiness, TestimonialsBusiness>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRepository<Members>, Repository<Members>>();
 
             // AWS stuff.
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
