@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using OngProject.Core.Business;
 using OngProject.Core.Interfaces;
+using OngProject.Core.Mapper;
 using OngProject.DataAccess;
 using OngProject.Repositories;
 using OngProject.Repositories.Interfaces;
@@ -47,6 +48,8 @@ namespace OngProject
             services.AddScoped<ITestimonialsBusiness, TestimonialsBusiness>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddAutoMapper(typeof(EntityMapper));
+
 
             // AWS stuff.
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());

@@ -19,5 +19,6 @@ namespace OngProject.Repositories.Interfaces
         IRepository<Activities> ActivitiesRepository { get; }
 
         Task<int> Complete();
+        void SaveChanges();
     }
 }
