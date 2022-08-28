@@ -79,7 +79,7 @@ namespace OngProject.Controllers
                 else
                 {
                     //3. Si existe usuario con el mail ingresado, comparar passwords encriptadas 
-                    var user = _service.ValidateUser(userToLogin, userLoginDTO.Password);
+                    var user = await _service.ValidateUser(userToLogin, userLoginDTO.Password);
                     //4. Si la password ingresada es correcta, retorna el usuario, por lo contrario retorna false. 
                     if (user == null)
                     {
