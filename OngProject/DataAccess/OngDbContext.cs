@@ -20,7 +20,7 @@ namespace OngProject.DataAccess
 
         public DbSet<Activities> Activities { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Contact> Contacts{ get; set; }
+        public DbSet<Contacts> Contacts{ get; set; }
         public DbSet<Members> Members { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Organization> Organizations { get; set; }
