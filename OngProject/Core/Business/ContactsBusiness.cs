@@ -12,26 +12,26 @@ namespace OngProject.Core.Business
     public class ContactsBusiness : IContactsBusiness
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ContactsBusiness(IUnitOfWork unitOfWork) //, IRepository<Contacts> repository
+        private readonly IRepository<Contacts> _repository;
+        public ContactsBusiness(IUnitOfWork unitOfWork, IRepository<Contacts> repository)
         {
             _unitOfWork = unitOfWork;
-            //_repository = repository;
+            _repository = repository;
         }
 
         public async Task<List<ContactsDTO>> GetAllContacts()
         {
-            //List<Contacts> contactsList;
-            //List<ContactsDTO> contactsDTOList = new List<ContactsDTO>();
+            List<Contacts> contactsList;
+            List<ContactsDTO> contactsDTOList = new List<ContactsDTO>();
 
-            //contactsList = (List<Contacts>) await _repository.GetAll();
+            contactsList = (List<Contacts>) await _repository.GetAll();
 
-            //foreach (Contacts c in contactsList)
-            //{
-            //    contactsDTOList.Add(ContactsMapper.ContactsToContactsDTO(c));
-            //}
+            foreach (Contacts c in contactsList)
+            {
+                contactsDTOList.Add(ContactsMapper.ContactsToContactsDTO(c));
+            }
 
-            //return contactsDTOList;
-            return new List<ContactsDTO>();
+            return contactsDTOList;
         }
     }
 }

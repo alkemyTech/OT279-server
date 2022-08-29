@@ -53,8 +53,7 @@ namespace OngProject.Controllers
                 var user = await _service.Insert(userDTO);
                 if (user != null)
                 {
-                    var token = _service.GetToken(user);
-                    return Ok(token);
+                    return Ok(user);
                 }
                 else
                 {

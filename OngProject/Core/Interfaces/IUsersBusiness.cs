@@ -44,7 +44,5 @@ namespace OngProject.Core.Interfaces
         /// </param>
 
         Task<User> Update(int id, User user);
-
-        string GetToken(UserRegisterDTO user);
     }
 }
