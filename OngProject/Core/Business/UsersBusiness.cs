@@ -9,7 +9,12 @@ using OngProject.Core.Helper;
 using Microsoft.AspNetCore.Identity;
 using OngProject.DataAccess;
 using Microsoft.EntityFrameworkCore;
-
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace OngProject.Core.Business
 {
@@ -18,10 +23,12 @@ namespace OngProject.Core.Business
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly OngDbContext _context;
-        public UsersBusiness(IUnitOfWork unitOfWork, OngDbContext context)
+        private readonly IConfiguration _config;
+        public UsersBusiness(IUnitOfWork unitOfWork, OngDbContext context, IConfiguration config)
         {
             _unitOfWork = unitOfWork;
             _context = context;
+            _config = config;
         }
 
         public Task<bool> Delete(int id)
@@ -67,5 +74,32 @@ namespace OngProject.Core.Business
         {
             throw new NotImplementedException();
         }
+
+        public string GetToken(User user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var key = Encoding.ASCII.GetBytes(_config["Jwt:Key"]);
+
+            var authClaims = new List<Claim> 
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role?.Name),
+            };
+
+            var authSigningKey = new SymmetricSecurityKey(key);
+
+            var token = new JwtSecurityToken
+            (
+                expires: DateTime.Now.AddHours(1),
+                claims: authClaims,
+                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+            );
+
+            return tokenHandler.WriteToken(token);
+        }
+
+        
     }
 }
