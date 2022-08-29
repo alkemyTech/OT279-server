@@ -4,11 +4,29 @@ using OngProject.Entities;
 
 namespace OngProject.Core.Mapper
 {
-    public class EntityMapper : Profile
+    public class EntityMapper 
     {
-        public EntityMapper()
+        public User FromRegisterDtoToUser(UserRegisterDTO register)
         {
-            CreateMap<User, UserRegisterDTO>().ReverseMap();
+            var user = new User()
+            {
+                FirstName = register.FirstName,
+                LastName = register.LastName,
+                Email = register.Email,
+                Password = register.Password
+            };
+            return user;
+        }
+
+        public UserRegisterDTO FromUserToUserDto(User user)
+        {
+            var userDto = new UserRegisterDTO()
+            {
+                FirstName = $"{user.FirstName} {user.LastName}",
+                Email = user.Email,
+                Password = user.Password
+            };
+            return userDto;
         }
     }
 }
