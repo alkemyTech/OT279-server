@@ -65,5 +65,13 @@ namespace OngProject.Core.Interfaces
         /// </param>
         Task<User> ValidateUser(User user, string password);
 
+        /// <summary>
+        ///     Devuelve el token generado para un usuario
+        /// </summary>
+        /// <param name="user">
+        ///     Usuario al que se le otorgara el token
+        /// </param>
+        string GetToken(User user);
+
     }
 }

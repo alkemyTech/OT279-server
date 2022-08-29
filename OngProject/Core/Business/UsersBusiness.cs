@@ -73,8 +73,8 @@ namespace OngProject.Core.Business
             var mapper = new EntityMapper();
             var user = mapper.FromRegisterDtoToUser(userDTO);
 
-            var userExists = ExistsUserEmail(user.Email);
-            if (!userExists)
+            var userExists = GetByEmail(user.Email);
+            if (userExists == null)
             {
                 user.Password = ApiHelper.GetSHA256(user.Password);
                 user.Role = await _unitOfWork.RoleRepository.GetById(2);
@@ -88,9 +88,9 @@ namespace OngProject.Core.Business
             return null;
         }
 
-        public bool ExistsUserEmail(string email)
+        public async Task<User> GetByEmail(string email)
         {
-            return await _context.Set<User>().FirstOrDefaultAsync(x => x.Email == email);
+            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
         }
 
         public async Task<User> ValidateUser(User user, string password)
@@ -129,7 +129,6 @@ namespace OngProject.Core.Business
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
             );
-
             return tokenHandler.WriteToken(token);
         }
 

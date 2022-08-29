@@ -23,7 +23,7 @@ namespace OngProject.Controllers
             _service = service;
         }
 
-        //[Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         [HttpGet]
         [Route("/users")]
         public async Task<IActionResult> GetAllUsers()
@@ -80,12 +80,12 @@ namespace OngProject.Controllers
                 {
                     //3. Si existe usuario con el mail ingresado, comparar passwords encriptadas 
                     var user = await _service.ValidateUser(userToLogin, userLoginDTO.Password);
-                    //4. Si la password ingresada es correcta, retorna el usuario, por lo contrario retorna false. 
+                    //4. Si la password ingresada es correcta, retorna el token otorgado al usuario, por lo contrario retorna false. 
                     if (user == null)
                     {
                         return Ok(false);
                     }
-                    return Ok(user);
+                    return Ok(_service.GetToken(user));
                 }
             }
         }
