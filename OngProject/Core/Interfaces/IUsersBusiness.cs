@@ -26,7 +26,7 @@ namespace OngProject.Core.Interfaces
         /// <param name="user">
         ///     Entity a ingresar en la base de datos
         /// </param>
-        Task<User> Insert(UserRegisterDTO userDTO);
+        Task<UserRegisterDTO> Insert(UserRegisterDTO userDTO);
         
         /// <summary>
         ///     Elimina un usuario en la base de datos

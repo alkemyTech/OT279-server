@@ -19,7 +19,7 @@ namespace OngProject.Entities
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required, MaxLength(20)]
+        [Required, MaxLength(320)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 

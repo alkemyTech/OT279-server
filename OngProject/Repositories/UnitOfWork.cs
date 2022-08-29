@@ -11,13 +11,6 @@ namespace OngProject.Repositories
         private readonly OngDbContext _context;
         public IRepository<Role> RoleRepository { get; }
 
-
-        public UnitOfWork(OngDbContext context, IRepository<Role> roleRepository)
-        {
-            _context = context;
-            RoleRepository = roleRepository;
-        }
-
         private IRepository<Members> _membersRepository;
         private IRepository<Organization> _organizationRepository;
         private IRepository<Category> _categoriesRepository;
@@ -34,6 +27,7 @@ namespace OngProject.Repositories
         {
             _context = context;
             NewsRepository = new Repository<News>(context);
+            RoleRepository = new Repository<Role>(context);
         }
         
         public IRepository<Slides> SlidesRepository
@@ -71,6 +65,11 @@ namespace OngProject.Repositories
         {
             _context.Dispose();
             GC.SuppressFinalize(this);
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
 
         public IRepository<Category> CategoriesRepository
