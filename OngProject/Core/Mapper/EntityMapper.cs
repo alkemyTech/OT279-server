@@ -1,11 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using OngProject.Core.Models.DTOs.UserDTO;
+using OngProject.Entities;
 
 namespace OngProject.Core.Mapper
 {
-    public class EntityMapper
+    public class EntityMapper 
     {
+        public User FromRegisterDtoToUser(UserRegisterDTO register)
+        {
+            var user = new User()
+            {
+                FirstName = register.FirstName,
+                LastName = register.LastName,
+                Email = register.Email,
+                Password = register.Password
+            };
+            return user;
+        }
+
+        public UserRegisterDTO FromUserToUserDto(User user)
+        {
+            var userDto = new UserRegisterDTO()
+            {
+                FirstName = $"{user.FirstName} {user.LastName}",
+                Email = user.Email,
+                Password = user.Password
+            };
+            return userDto;
+        }
     }
 }
