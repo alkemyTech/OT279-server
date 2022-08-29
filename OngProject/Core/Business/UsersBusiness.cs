@@ -98,7 +98,7 @@ namespace OngProject.Core.Business
             throw new NotImplementedException();
         }
 
-        public string GetToken(User user)
+        public string GetToken(UserRegisterDTO user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -106,9 +106,9 @@ namespace OngProject.Core.Business
 
             var authClaims = new List<Claim> 
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                //new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role?.Name),
+                //new Claim(ClaimTypes.Role, user.Role?.Name),
             };
 
             var authSigningKey = new SymmetricSecurityKey(key);
