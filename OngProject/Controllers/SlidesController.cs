@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using OngProject.Core.Interfaces;
 using OngProject.Entities;
+using OngProject.Core.Models.DTOs;
 
 namespace OngProject.Controllers
 {

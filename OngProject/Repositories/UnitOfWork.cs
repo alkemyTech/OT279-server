@@ -16,6 +16,9 @@ namespace OngProject.Repositories
         private IRepository<Category> _categoriesRepository;
         private IRepository<User> _usersRepository;
         private IRepository<Activities> _activitiesRepository;
+        private IRepository<Slides> _slidesRepository;
+
+        private IRepository<Comments> _commentsRepository;
 
         public IRepository<News> NewsRepository { get; private set; }
         private IRepository<Testimonials> _testimonialsRepository;
@@ -27,6 +30,18 @@ namespace OngProject.Repositories
             RoleRepository = new Repository<Role>(context);
         }
         
+        public IRepository<Slides> SlidesRepository
+        {
+            get
+            {
+                if (_slidesRepository == null)
+                {
+                    _slidesRepository = new Repository<Slides>(_context);
+                }
+                return _slidesRepository;
+            }
+        }
+
         public IRepository<Organization> OrganizationRepository
         {
             get
@@ -117,5 +132,24 @@ namespace OngProject.Repositories
                 return _membersRepository;
             }
         }
+
+
+        public IRepository<Comments> CommentsRepository
+        {
+            get
+            {
+                if (_commentsRepository == null)
+                {
+                    _commentsRepository = new Repository<Comments>(_context);
+                }
+                return _commentsRepository;
+            }
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
+
     }
 }
