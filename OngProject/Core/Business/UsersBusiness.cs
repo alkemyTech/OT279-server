@@ -11,6 +11,7 @@ using OngProject.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using AutoMapper;
+using OngProject.Core.Mapper;
 
 namespace OngProject.Core.Business
 {
@@ -50,7 +51,9 @@ namespace OngProject.Core.Business
 
         public async Task<UserRegisterDTO> Insert(UserRegisterDTO userDTO)
         {
-            var user = _mapper.Map<User>(userDTO);
+            var mapper = new EntityMapper();
+            var user = mapper.FromRegisterDtoToUser(userDTO);
+
             var userExists = ExistsUserEmail(user.Email);
             if (!userExists)
             {
@@ -60,10 +63,14 @@ namespace OngProject.Core.Business
                 await _unitOfWork.UserRepository.Insert(user);
                 _unitOfWork.SaveChanges();
 
-                var dto = _mapper.Map<UserRegisterDTO>(user);
+                var dto = mapper.FromUserToUserDto(user);
                 return dto;
+            } 
+            else
+            {
+                throw new Exception("User already exists!");
+                return null;
             }
-            return null;
         }
 
         public bool ExistsUserEmail(string email)
