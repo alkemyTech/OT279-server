@@ -9,12 +9,18 @@ using OngProject.Core.Helper;
 using Microsoft.AspNetCore.Identity;
 using OngProject.DataAccess;
 using Microsoft.EntityFrameworkCore;
+
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+
+using System.Linq;
+using AutoMapper;
+using OngProject.Core.Mapper;
+
 
 namespace OngProject.Core.Business
 {
@@ -23,12 +29,22 @@ namespace OngProject.Core.Business
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly OngDbContext _context;
+
         private readonly IConfiguration _config;
         public UsersBusiness(IUnitOfWork unitOfWork, OngDbContext context, IConfiguration config)
         {
             _unitOfWork = unitOfWork;
             _context = context;
             _config = config;
+         }
+
+        private readonly IMapper _mapper;
+        public UsersBusiness(IUnitOfWork unitOfWork, OngDbContext context, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _context = context;
+            _mapper = mapper;
+
         }
 
         public Task<bool> Delete(int id)
@@ -52,22 +68,29 @@ namespace OngProject.Core.Business
             throw new NotImplementedException();
         }
 
-        public async Task<User> Insert(UserRegisterDTO userDTO)
+        public async Task<UserRegisterDTO> Insert(UserRegisterDTO userDTO)
         {
-            User user = await GetByEmail(userDTO.Email);
-            if (user == null)
+            var mapper = new EntityMapper();
+            var user = mapper.FromRegisterDtoToUser(userDTO);
+
+            var userExists = ExistsUserEmail(user.Email);
+            if (!userExists)
             {
-                string encriptedPassword = ApiHelper.GetSHA256(user.Password);
-                userDTO.Password = encriptedPassword;
+                user.Password = ApiHelper.GetSHA256(user.Password);
+                user.Role = await _unitOfWork.RoleRepository.GetById(2);
+
                 await _unitOfWork.UserRepository.Insert(user);
-                return user;
+                _unitOfWork.SaveChanges();
+
+                var dto = mapper.FromUserToUserDto(user);
+                return dto;
             }
             return null;
         }
 
-        public async Task<User> GetByEmail(string email)
+        public bool ExistsUserEmail(string email)
         {
-            return await _context.Set<User>().FirstOrDefaultAsync(x => x.Email == email);
+            return  _context.Set<User>().Any(x => x.Email == email);
         }
 
         public Task<User> Update(int id, User user)

@@ -10,7 +10,7 @@ namespace OngProject.DataAccess
         {
             modelBuilder.Entity<Category>()
                 .HasData(
-                   new Category { Id = 1, Name = "category1", Image = "url img", Description = "description category1", IsDeleted = false, LastModified = DateTime.UtcNow},
+                   new Category { Id = 1, Name = "category1", Image = "url img", Description = "description category1", IsDeleted = false, LastModified = DateTime.UtcNow },
                    new Category { Id = 2, Name = "category2", Image = "url img", Description = "description category2", IsDeleted = false, LastModified = DateTime.UtcNow },
                    new Category { Id = 3, Name = "category3", Image = "url img", Description = "description category3", IsDeleted = false, LastModified = DateTime.UtcNow },
                    new Category { Id = 4, Name = "category4", Image = "url img", Description = "description category4", IsDeleted = false, LastModified = DateTime.UtcNow },
@@ -37,7 +37,7 @@ namespace OngProject.DataAccess
 
             modelBuilder.Entity<Members>()
                 .HasData(
-                    new Members { Id = 1, Name = "Members01", Image = "url_image_members01", Description = "Description members01", FacebookUrl = "url_facebook_members01", InstagramUrl = "url_instagram_members01", LinkedinUrl = "url_linkedIn_members01", IsDeleted = false, LastModified = DateTime.UtcNow},
+                    new Members { Id = 1, Name = "Members01", Image = "url_image_members01", Description = "Description members01", FacebookUrl = "url_facebook_members01", InstagramUrl = "url_instagram_members01", LinkedinUrl = "url_linkedIn_members01", IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Members { Id = 2, Name = "Members02", Image = "url_image_members02", Description = "Description members02", FacebookUrl = "url_facebook_members02", InstagramUrl = "url_instagram_members02", LinkedinUrl = "url_linkedIn_members02", IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Members { Id = 3, Name = "Members03", Image = "url_image_members03", Description = "Description members03", FacebookUrl = "url_facebook_members03", InstagramUrl = "url_instagram_members03", LinkedinUrl = "url_linkedIn_members03", IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Members { Id = 4, Name = "Members04", Image = "url_image_members04", Description = "Description members04", FacebookUrl = "url_facebook_members04", InstagramUrl = "url_instagram_members04", LinkedinUrl = "url_linkedIn_members04", IsDeleted = false, LastModified = DateTime.UtcNow },
@@ -61,47 +61,6 @@ namespace OngProject.DataAccess
                     new Testimonials { Id = 4, Name = "Testimonials04", Image = "url_image_testimonials04", Content = "Content testimonials04", IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Testimonials { Id = 5, Name = "Testimonials05", Image = "url_image_testimonials05", Content = "Content testimonials05", IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
-
-
-
-            modelBuilder.Entity<Role>()
-                .HasData(
-                    new Role { Id = 1, Name = "admin", Description = "System Administrator", IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new Role { Id = 2, Name = "user", Description = "System User", IsDeleted = false, LastModified = DateTime.UtcNow }
-                );
-
-
-            modelBuilder.Entity<Slides>()
-                .HasData(
-                    new Slides { Id = 1, ImageUrl = "url_image01", Text = "text_slide01", Order = 1, OrganizationId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new Slides { Id = 2, ImageUrl = "url_image02", Text = "text_slide02", Order = 2, OrganizationId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new Slides { Id = 3, ImageUrl = "url_image03", Text = "text_slide03", Order = 3, OrganizationId = 3, IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new Slides { Id = 4, ImageUrl = "url_image04", Text = "text_slide04", Order = 4, OrganizationId = 4, IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new Slides { Id = 5, ImageUrl = "url_image05", Text = "text_slide05", Order = 5, OrganizationId = 5, IsDeleted = false, LastModified = DateTime.UtcNow }
-                 );
-
-            
-
-            modelBuilder.Entity<User>()
-                .HasData(
-                    new User { Id = 1, FirstName = "FirstName01", LastName = "LastName01", Email="mail1@mail.com", Password="123456", Photo = "https://via.placeholder.com/300?text=User+1", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new User { Id = 2, FirstName = "FirstName02", LastName = "LastName02", Email = "mail2@mail.com", Password = "123456", Photo = "https://via.placeholder.com/300?text=User+2", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new User { Id = 3, FirstName = "FirstName03", LastName = "LastName03", Email = "mail3@mail.com", Password = "123456", Photo = "https://via.placeholder.com/300?text=User+3", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new User { Id = 4, FirstName = "FirstName04", LastName = "LastName04", Email = "mail4@mail.com", Password = "123456", Photo = "https://via.placeholder.com/300?text=User+4", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new User { Id = 5, FirstName = "FirstName05", LastName = "LastName05", Email = "mail5@mail.com", Password = "123456", Photo = "https://via.placeholder.com/300?text=User+5", RoleId = 1, IsDeleted = false, LastModified = DateTime.UtcNow }
-
-                );
-
-            // Not required in User Story. Must be added to endpoint test (Features/US-70)
-
-            modelBuilder.Entity<Contacts>()
-                .HasData(
-                    new Contacts { Id = 1, Name = "ContactName01", Email = "contact01@mail.com", Message = "message01", Phone = 11111111, IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new Contacts { Id = 2, Name = "ContactName02", Email = "contact02@mail.com", Message = "message02", Phone = 22222222, IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new Contacts { Id = 3, Name = "ContactName03", Email = "contact03@mail.com", Message = "message03", Phone = 33333333, IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new Contacts { Id = 4, Name = "ContactName04", Email = "contact04@mail.com", Message = "message04", Phone = 44444444, IsDeleted = false, LastModified = DateTime.UtcNow }
-                );
-
         }
     }
 }

@@ -24,5 +24,6 @@ namespace OngProject.Repositories.Interfaces
         IRepository<Comments> CommentsRepository { get; }
 
         Task<int> Complete();
+        void SaveChanges();
     }
 }
