@@ -17,6 +17,7 @@ namespace OngProject.Repositories.Interfaces
         public IRepository<Slides> SlidesRepository { get; }
 
         public IRepository<Category> CategoriesRepository { get; }
+        public IRepository<Contacts> ContactsRepository { get; }
 
         IRepository<News> NewsRepository { get; }
         IRepository<Testimonials> TestiomonialsRepository { get; }

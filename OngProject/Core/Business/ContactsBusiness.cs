@@ -12,11 +12,9 @@ namespace OngProject.Core.Business
     public class ContactsBusiness : IContactsBusiness
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IRepository<Contacts> _repository;
-        public ContactsBusiness(IUnitOfWork unitOfWork, IRepository<Contacts> repository)
+        public ContactsBusiness(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _repository = repository;
         }
 
         public async Task<List<ContactsDTO>> GetAllContacts()
@@ -24,7 +22,7 @@ namespace OngProject.Core.Business
             List<Contacts> contactsList;
             List<ContactsDTO> contactsDTOList = new List<ContactsDTO>();
 
-            contactsList = (List<Contacts>) await _repository.GetAll();
+            contactsList = (List<Contacts>)await _unitOfWork.ContactsRepository.GetAll();
 
             foreach (Contacts c in contactsList)
             {

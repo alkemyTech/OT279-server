@@ -17,7 +17,7 @@ namespace OngProject.Repositories
         private IRepository<User> _usersRepository;
         private IRepository<Activities> _activitiesRepository;
         private IRepository<Slides> _slidesRepository;
-
+        private IRepository<Contacts> _contactsRepository;
         private IRepository<Comments> _commentsRepository;
 
         public IRepository<News> NewsRepository { get; private set; }
@@ -81,6 +81,18 @@ namespace OngProject.Repositories
                     _categoriesRepository = new Repository<Category>(_context);
                 }
                 return _categoriesRepository;
+            }
+        }
+
+        public IRepository<Contacts> ContactsRepository
+        {
+            get
+            {
+                if (_contactsRepository == null)
+                {
+                    _contactsRepository = new Repository<Contacts>(_context);
+                }
+                return _contactsRepository;
             }
         }
 

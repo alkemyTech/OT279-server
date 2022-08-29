@@ -55,7 +55,6 @@ namespace OngProject
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-
             // AWS stuff.
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonS3>();
