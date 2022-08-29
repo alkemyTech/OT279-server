@@ -65,12 +65,8 @@ namespace OngProject.Core.Business
 
                 var dto = mapper.FromUserToUserDto(user);
                 return dto;
-            } 
-            else
-            {
-                throw new Exception("User already exists!");
-                return null;
             }
+            return null;
         }
 
         public bool ExistsUserEmail(string email)
