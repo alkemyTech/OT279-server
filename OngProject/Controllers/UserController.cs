@@ -17,10 +17,12 @@ namespace OngProject.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUsersBusiness _service;
+        private readonly IAuthBusiness _authBusiness;
 
-        public UserController(IUsersBusiness service)
+        public UserController(IUsersBusiness service, IAuthBusiness authBusiness)
         {
             _service = service;
+            _authBusiness = authBusiness;
         }
 
         [Authorize(Roles = "Administrador")]
@@ -85,7 +87,7 @@ namespace OngProject.Controllers
                     {
                         return Ok(false);
                     }
-                    return Ok(_service.GetToken(user));
+                    return Ok(_authBusiness.GetToken(user));
                 }
             }
         }
