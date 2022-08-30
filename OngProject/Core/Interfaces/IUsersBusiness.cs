@@ -21,12 +21,12 @@ namespace OngProject.Core.Interfaces
         Task<User> GetById(int id);
         
         /// <summary>
-        ///     Inserta un usuario en la base de datos
+        ///     Inserta un usuario en la base de datos. Devuelve el token jwt
         /// </summary>
         /// <param name="user">
         ///     Entity a ingresar en la base de datos
         /// </param>
-        Task<UserRegisterDTO> Insert(UserRegisterDTO userDTO);
+        Task<string> Insert(UserRegisterDTO userDTO);
         
         /// <summary>
         ///     Elimina un usuario en la base de datos
