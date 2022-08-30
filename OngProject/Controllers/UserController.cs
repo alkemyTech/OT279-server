@@ -17,13 +17,15 @@ namespace OngProject.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUsersBusiness _service;
+        private readonly IAuthBusiness _authBusiness;
 
-        public UserController(IUsersBusiness service)
+        public UserController(IUsersBusiness service, IAuthBusiness authBusiness)
         {
             _service = service;
+            _authBusiness = authBusiness;
         }
 
-        //[Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         [HttpGet]
         [Route("/users")]
         public async Task<IActionResult> GetAllUsers()
@@ -38,8 +40,6 @@ namespace OngProject.Controllers
                 return NoContent();
             }
         }
-
-
 
         [HttpPost("/auth/register")]
         public async Task<IActionResult> CreateUser([FromBody] UserRegisterDTO userDTO)
@@ -62,12 +62,40 @@ namespace OngProject.Controllers
             }
         }
 
+        [HttpPost("/auth/login")]
+        public async Task<IActionResult> LoginUser([FromBody] UserLoginDTO userLoginDTO)
+        {
+            // 1. Valida si el campo email y password fueron enviados correctamente en la peticion
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)));
+            }
+            else
+            {
+                // 2. Verifica si existe un usuario con el mail ingresado
+                var userToLogin = await _service.GetByEmail(userLoginDTO.Email);
+                if (userToLogin == null)
+                {
+                    return BadRequest("No existe un usuario con el mail ingresado");
+                }
+                else
+                {
+                    //3. Si existe usuario con el mail ingresado, comparar passwords encriptadas 
+                    var user = await _service.ValidateUser(userToLogin, userLoginDTO.Password);
+                    //4. Si la password ingresada es correcta, retorna el token otorgado al usuario, por lo contrario retorna false. 
+                    if (user == null)
+                    {
+                        return Ok(false);
+                    }
+                    return Ok(_authBusiness.GetToken(user));
+                }
+            }
+        }
+
         [HttpDelete]
         public async Task<IActionResult> RemoveUser([FromQuery(Name = "id")] int id)
         {
-
             bool user = await _service.Delete(id);
-
             if (user)
             {
                 return Ok();
@@ -76,7 +104,6 @@ namespace OngProject.Controllers
             {
                 return NotFound();
             }
-
         }
 
         [HttpPut]
@@ -96,9 +123,7 @@ namespace OngProject.Controllers
         [HttpGet("id")]
         public async Task<IActionResult> GetUserById([FromQuery(Name = "id")] int id)
         {
-
             var user = await _service.GetById(id);
-
             if (user != null)
             {
                 return Ok(user);
@@ -107,8 +132,6 @@ namespace OngProject.Controllers
             {
                 return NotFound();
             }
-
         }
-
     }
 }

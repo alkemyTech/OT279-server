@@ -52,6 +52,7 @@ namespace OngProject
             services.AddScoped<ISlidesBusiness, SlidesBusiness>();
             services.AddScoped<ITestimonialsBusiness, TestimonialsBusiness>();
             services.AddScoped<ICommentsBusiness, CommentsBusiness>();
+            services.AddScoped<IAuthBusiness, AuthBusiness>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
