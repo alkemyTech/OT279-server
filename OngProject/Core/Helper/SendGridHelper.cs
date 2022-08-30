@@ -16,7 +16,7 @@ namespace OngProject.Core.Helper
         {
             _config = configuration;
         }
-        public async Task<bool> WelcomeEmail(string email)
+        public async Task WelcomeEmail(string email)
         {
             var apiKey = _config["SendGrid:ApiKey"];
             var emailToSendGrid = _config["SendGrid:Email"];
@@ -32,7 +32,6 @@ namespace OngProject.Core.Helper
                 var htmlContent = GetTemplate(welcomeTitle, welcomeContent);
                 var msg = MailHelper.CreateSingleEmail(from_email, to_email, subject, "", htmlContent);
                 await client.SendEmailAsync(msg).ConfigureAwait(false);
-                return true;
             }
             catch (Exception ex)
             {
