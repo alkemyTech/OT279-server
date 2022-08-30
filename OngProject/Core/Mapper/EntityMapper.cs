@@ -22,7 +22,9 @@ namespace OngProject.Core.Mapper
         {
             var userDto = new UserRegisterDTO()
             {
-                FirstName = $"{user.FirstName} {user.LastName}",
+                //FirstName = $"{user.FirstName} {user.LastName}",
+                FirstName = user.FirstName,
+                LastName = user.LastName,
                 Email = user.Email,
                 Password = user.Password
             };
