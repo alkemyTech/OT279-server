@@ -78,7 +78,7 @@ namespace OngProject.Core.Business
             {
                 user.Password = ApiHelper.GetSHA256(user.Password);
                 user.Role = await _unitOfWork.RoleRepository.GetById(2);
-                //user.RoleId = user.Role.Id;
+                user.RoleId = user.Role.Id;
 
                 await _unitOfWork.UserRepository.Insert(user);
                 _unitOfWork.SaveChanges();
@@ -92,9 +92,8 @@ namespace OngProject.Core.Business
         public async Task<User> GetByEmail(string email)
         {
             return await _context.Users
-               // .Include(x=> x.Role)
-               // .FirstOrDefaultAsync(x => x.Email == email);
-               .Where(x => x.Email == email).FirstOrDefaultAsync();
+               .Include(x => x.Role)
+               .FirstOrDefaultAsync(x => x.Email == email);
         }
 
         public async Task<User> ValidateUser(User user, string password)

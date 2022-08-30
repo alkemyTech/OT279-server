@@ -53,7 +53,9 @@ namespace OngProject.Controllers
                 var user = await _service.Insert(userDTO);
                 if (user != null)
                 {
-                    return Ok(user);
+                    var userDB = await _service.GetByEmail(user.Email);
+                    var token = _authBusiness.GetToken(userDB);
+                    return Ok(token);
                 }
                 else
                 {
