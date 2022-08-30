@@ -73,11 +73,12 @@ namespace OngProject.Core.Business
             var mapper = new EntityMapper();
             var user = mapper.FromRegisterDtoToUser(userDTO);
 
-            var userExists = GetByEmail(user.Email);
+            var userExists = await this.GetByEmail(user.Email);
             if (userExists == null)
             {
                 user.Password = ApiHelper.GetSHA256(user.Password);
                 user.Role = await _unitOfWork.RoleRepository.GetById(2);
+                //user.RoleId = user.Role.Id;
 
                 await _unitOfWork.UserRepository.Insert(user);
                 _unitOfWork.SaveChanges();
@@ -91,8 +92,9 @@ namespace OngProject.Core.Business
         public async Task<User> GetByEmail(string email)
         {
             return await _context.Users
-                .Include(x=> x.Role)
-                .FirstOrDefaultAsync(x => x.Email == email);
+               // .Include(x=> x.Role)
+               // .FirstOrDefaultAsync(x => x.Email == email);
+               .Where(x => x.Email == email).FirstOrDefaultAsync();
         }
 
         public async Task<User> ValidateUser(User user, string password)

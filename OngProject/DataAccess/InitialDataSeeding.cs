@@ -25,14 +25,11 @@ namespace OngProject.DataAccess
                     new News { Id = 4, Name = "News04", Image = "url_img", Content = "this is a content - news 04", CategoryId = 1, IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
 
-
-          
-
-            //modelBuilder.Entity<Role>()
-            //    .HasData(
-            //        new Role { Id = 1, Name = "admin", Description = "System Administrator", IsDeleted = false, LastModified = DateTime.UtcNow },
-            //        new Role { Id = 2, Name = "user", Description = "System User", IsDeleted = false, LastModified = DateTime.UtcNow }
-            //    );
+            modelBuilder.Entity<Role>()
+                .HasData(
+                    new Role { Id = 1, Name = "Admin", Description = "System Administrator", IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Role { Id = 2, Name = "User", Description = "System User", IsDeleted = false, LastModified = DateTime.UtcNow }
+                );
 
 
             modelBuilder.Entity<Members>()
