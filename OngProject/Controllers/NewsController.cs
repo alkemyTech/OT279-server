@@ -98,6 +98,21 @@ namespace OngProject.Controllers
             }
 
         }
+        [HttpGet("{id}/comments")]
+        public async Task<IActionResult> GetNewByIdComments( int id)
+        {
+            var news = await _service.GetNewsByIdComments(id);
+
+            if (news != null)
+            {  
+                return Ok(news);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+        }
 
     }
 }
