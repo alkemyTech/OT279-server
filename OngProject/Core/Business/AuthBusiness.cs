@@ -28,7 +28,7 @@ namespace OngProject.Core.Business
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role?.Name),
+                new Claim(ClaimTypes.Role, user.Role.Name),
             };
 
             var authSigningKey = new SymmetricSecurityKey(key);

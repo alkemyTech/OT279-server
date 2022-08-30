@@ -90,7 +90,9 @@ namespace OngProject.Core.Business
 
         public async Task<User> GetByEmail(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+            return await _context.Users
+                .Include(x=> x.Role)
+                .FirstOrDefaultAsync(x => x.Email == email);
         }
 
         public async Task<User> ValidateUser(User user, string password)
