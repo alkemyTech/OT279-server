@@ -26,7 +26,7 @@ namespace OngProject.DataAccess
                 );
 
 
-          
+
 
             modelBuilder.Entity<Role>()
                 .HasData(
