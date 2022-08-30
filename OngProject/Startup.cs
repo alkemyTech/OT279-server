@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OngProject.Core.Business;
+using OngProject.Core.Helper;
 using OngProject.Core.Interfaces;
 using OngProject.Core.Mapper;
 using OngProject.DataAccess;
@@ -53,7 +54,7 @@ namespace OngProject
             services.AddScoped<ITestimonialsBusiness, TestimonialsBusiness>();
             services.AddScoped<ICommentsBusiness, CommentsBusiness>();
             services.AddScoped<IAuthBusiness, AuthBusiness>();
-
+            services.AddScoped<ISendGridBusiness, SendGridHelper>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 
