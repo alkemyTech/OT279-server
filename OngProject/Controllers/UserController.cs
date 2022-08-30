@@ -50,10 +50,12 @@ namespace OngProject.Controllers
             }
             else
             {
-                var user = await _service.Insert(userDTO);
-                if (user != null)
+                var token = await _service.Insert(userDTO);
+                if (token != "")
                 {
-                    return Ok(user);
+                    //var userDB = await _service.GetByEmail(user.Email);
+                    //var token = _authBusiness.GetToken(userDB);
+                    return Ok(token);
                 }
                 else
                 {

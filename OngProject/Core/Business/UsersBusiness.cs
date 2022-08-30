@@ -29,22 +29,13 @@ namespace OngProject.Core.Business
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly OngDbContext _context;
+        private readonly IAuthBusiness _authBusiness;
 
-        private readonly IConfiguration _config;
-        public UsersBusiness(IUnitOfWork unitOfWork, OngDbContext context, IConfiguration config)
+        public UsersBusiness(IUnitOfWork unitOfWork, OngDbContext context, IAuthBusiness authBusiness) //no se deberia utilizar OngDbContext
         {
             _unitOfWork = unitOfWork;
             _context = context;
-            _config = config;
-        }
-
-        private readonly IMapper _mapper;
-        public UsersBusiness(IUnitOfWork unitOfWork, OngDbContext context, IMapper mapper)
-        {
-            _unitOfWork = unitOfWork;
-            _context = context;
-            _mapper = mapper;
-
+            _authBusiness = authBusiness;
         }
 
         public Task<bool> Delete(int id)
@@ -68,7 +59,7 @@ namespace OngProject.Core.Business
             throw new NotImplementedException();
         }
 
-        public async Task<UserRegisterDTO> Insert(UserRegisterDTO userDTO)
+        public async Task<string> Insert(UserRegisterDTO userDTO)
         {
             var mapper = new EntityMapper();
             var user = mapper.FromRegisterDtoToUser(userDTO);
@@ -78,23 +69,22 @@ namespace OngProject.Core.Business
             {
                 user.Password = ApiHelper.GetSHA256(user.Password);
                 user.Role = await _unitOfWork.RoleRepository.GetById(2);
-                //user.RoleId = user.Role.Id;
+                user.RoleId = user.Role.Id;
 
                 await _unitOfWork.UserRepository.Insert(user);
                 _unitOfWork.SaveChanges();
 
-                var dto = mapper.FromUserToUserDto(user);
-                return dto;
+                var userDB = await this.GetByEmail(user.Email);
+                return _authBusiness.GetToken(userDB);
             }
-            return null;
+            return "";
         }
 
         public async Task<User> GetByEmail(string email)
         {
             return await _context.Users
-               // .Include(x=> x.Role)
-               // .FirstOrDefaultAsync(x => x.Email == email);
-               .Where(x => x.Email == email).FirstOrDefaultAsync();
+               .Include(x => x.Role)
+               .FirstOrDefaultAsync(x => x.Email == email);
         }
 
         public async Task<User> ValidateUser(User user, string password)
