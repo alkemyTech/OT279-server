@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using OngProject.Core.Models.DTOs;
+using OngProject.Core.Mapper;
 
 namespace OngProject.Core.Business
 {
@@ -34,13 +35,11 @@ namespace OngProject.Core.Business
         {
             var comments = await _unitOfWork.CommentsRepository.GetAll();
             var commentForNews = comments.Where(x=>x.NewsId==id);
+            
             List<CommentGetDto> listComment = new();
             foreach (var comment in commentForNews)
             {
-                CommentGetDto commentDto = new()
-                {
-                    Body = comment.Body
-                };
+                var commentDto = CommentsMapper.CommentsToCommentsDTO(comment);
                 listComment.Add(commentDto);
             }
             return listComment;
