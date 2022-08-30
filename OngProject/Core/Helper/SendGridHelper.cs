@@ -28,7 +28,7 @@ namespace OngProject.Core.Helper
             {
                 var client = new SendGridClient(apiKey);
                 var from_email = new EmailAddress(emailToSendGrid, "Comision 279 Alkemy");
-                var to_email = new EmailAddress("ezecaliguri@gmail.com", "Example User");
+                var to_email = new EmailAddress(email, "Example User");
                 var htmlContent = GetTemplate(welcomeTitle, welcomeContent);
                 var msg = MailHelper.CreateSingleEmail(from_email, to_email, subject, "", htmlContent);
                 await client.SendEmailAsync(msg).ConfigureAwait(false);
