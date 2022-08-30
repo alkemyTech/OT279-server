@@ -18,11 +18,13 @@ namespace OngProject.Controllers
     {
         private readonly IUsersBusiness _service;
         private readonly IAuthBusiness _authBusiness;
+        private readonly ISendGridBusiness _sendGridBusiness;
 
-        public UserController(IUsersBusiness service, IAuthBusiness authBusiness)
+        public UserController(IUsersBusiness service, IAuthBusiness authBusiness, ISendGridBusiness sendGridBusiness)
         {
             _service = service;
             _authBusiness = authBusiness;
+            _sendGridBusiness = sendGridBusiness;
         }
 
         [Authorize(Roles = "Administrador")]
@@ -51,10 +53,12 @@ namespace OngProject.Controllers
             else
             {
                 var token = await _service.Insert(userDTO);
-                if (token != "")
+
+                if (token != null)
                 {
                     //var userDB = await _service.GetByEmail(user.Email);
                     //var token = _authBusiness.GetToken(userDB);
+                    await _sendGridBusiness.WelcomeEmail(userDTO.Email);
                     return Ok(token);
                 }
                 else
