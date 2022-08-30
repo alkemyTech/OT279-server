@@ -17,6 +17,8 @@ namespace OngProject.DataAccess
                    new Category { Id = 5, Name = "category5", Image = "url img", Description = "description category5", IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
 
+
+
             modelBuilder.Entity<News>()
                 .HasData(
                     new News { Id = 1, Name = "News01", Image = "url_img", Content = "this is a content - news 01", CategoryId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
@@ -25,14 +27,11 @@ namespace OngProject.DataAccess
                     new News { Id = 4, Name = "News04", Image = "url_img", Content = "this is a content - news 04", CategoryId = 1, IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
 
-
-          
-
-            //modelBuilder.Entity<Role>()
-            //    .HasData(
-            //        new Role { Id = 1, Name = "admin", Description = "System Administrator", IsDeleted = false, LastModified = DateTime.UtcNow },
-            //        new Role { Id = 2, Name = "user", Description = "System User", IsDeleted = false, LastModified = DateTime.UtcNow }
-            //    );
+            modelBuilder.Entity<Role>()
+                .HasData(
+                    new Role { Id = 1, Name = "Admin", Description = "System Administrator", IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Role { Id = 2, Name = "User", Description = "System User", IsDeleted = false, LastModified = DateTime.UtcNow }
+                );
 
 
             modelBuilder.Entity<Members>()
@@ -60,6 +59,14 @@ namespace OngProject.DataAccess
                     new Testimonials { Id = 3, Name = "Testimonials03", Image = "url_image_testimonials03", Content = "Content testimonials03", IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Testimonials { Id = 4, Name = "Testimonials04", Image = "url_image_testimonials04", Content = "Content testimonials04", IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Testimonials { Id = 5, Name = "Testimonials05", Image = "url_image_testimonials05", Content = "Content testimonials05", IsDeleted = false, LastModified = DateTime.UtcNow }
+                );
+
+            modelBuilder.Entity<Contacts>()
+                .HasData(
+                    new Contacts { Id = 1, Name = "ContactName01", Email = "contact01@mail.com", Message = "message01", Phone = 11111111, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Contacts { Id = 2, Name = "ContactName02", Email = "contact02@mail.com", Message = "message02", Phone = 22222222, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Contacts { Id = 3, Name = "ContactName03", Email = "contact03@mail.com", Message = "message03", Phone = 33333333, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Contacts { Id = 4, Name = "ContactName04", Email = "contact04@mail.com", Message = "message04", Phone = 44444444, IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
         }
     }

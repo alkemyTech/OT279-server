@@ -23,6 +23,8 @@ namespace OngProject.Repositories.Interfaces
         IRepository<Activities> ActivitiesRepository { get; }
         IRepository<Comments> CommentsRepository { get; }
 
+        IRepository<Contacts> ContactsRepository { get; }
+
         Task<int> Complete();
         void SaveChanges();
     }

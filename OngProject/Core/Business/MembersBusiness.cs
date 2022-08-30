@@ -12,11 +12,9 @@ namespace OngProject.Core.Business
     public class MembersBusiness : IMembersBusiness
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IRepository<Members> _repository;
-        public MembersBusiness(IUnitOfWork unitOfWork, IRepository<Members> repository)
+        public MembersBusiness(IUnitOfWork unitOfWork)
         {
-            this._unitOfWork = unitOfWork;
-            this._repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<List<MembersDTO>> GetAllMembers()
@@ -24,7 +22,7 @@ namespace OngProject.Core.Business
             List<Members> membersList;
             List<MembersDTO> membersDTOList = new List<MembersDTO>();
 
-            membersList = (List<Members>) await _repository.GetAll();
+            membersList = (List<Members>) await _unitOfWork.MembersRepository.GetAll();
 
             foreach (Members m in membersList)
             {
