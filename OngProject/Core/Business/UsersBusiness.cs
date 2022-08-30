@@ -36,7 +36,7 @@ namespace OngProject.Core.Business
             _unitOfWork = unitOfWork;
             _context = context;
             _config = config;
-         }
+        }
 
         private readonly IMapper _mapper;
         public UsersBusiness(IUnitOfWork unitOfWork, OngDbContext context, IMapper mapper)
@@ -60,7 +60,7 @@ namespace OngProject.Core.Business
             {
                 _listAux.Add(new ViewUserDTO(user));
             }
-            return _listAux; 
+            return _listAux;
         }
 
         public Task<User> GetById(int id)
@@ -73,8 +73,8 @@ namespace OngProject.Core.Business
             var mapper = new EntityMapper();
             var user = mapper.FromRegisterDtoToUser(userDTO);
 
-            var userExists = ExistsUserEmail(user.Email);
-            if (!userExists)
+            var userExists = GetByEmail(user.Email);
+            if (userExists == null)
             {
                 user.Password = ApiHelper.GetSHA256(user.Password);
                 user.Role = await _unitOfWork.RoleRepository.GetById(2);
@@ -88,41 +88,26 @@ namespace OngProject.Core.Business
             return null;
         }
 
-        public bool ExistsUserEmail(string email)
+        public async Task<User> GetByEmail(string email)
         {
-            return  _context.Set<User>().Any(x => x.Email == email);
+            return await _context.Users
+                .Include(x=> x.Role)
+                .FirstOrDefaultAsync(x => x.Email == email);
+        }
+
+        public async Task<User> ValidateUser(User user, string password)
+        {
+            string encriptedPassword = ApiHelper.GetSHA256(password);
+            if (user.Password != encriptedPassword)
+            {
+                return null;
+            }
+            return user;
         }
 
         public Task<User> Update(int id, User user)
         {
             throw new NotImplementedException();
         }
-
-        public string GetToken(User user)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            var key = Encoding.ASCII.GetBytes(_config["Jwt:Key"]);
-
-            var authClaims = new List<Claim> 
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role?.Name),
-            };
-
-            var authSigningKey = new SymmetricSecurityKey(key);
-
-            var token = new JwtSecurityToken
-            (
-                expires: DateTime.Now.AddHours(1),
-                claims: authClaims,
-                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-            );
-
-            return tokenHandler.WriteToken(token);
-        }
-
-        
     }
 }
