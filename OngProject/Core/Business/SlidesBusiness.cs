@@ -50,9 +50,17 @@ namespace OngProject.Core.Business
             return new SlideDTO(slide);
         }
 
-        public Task<bool> RemoveSlide(int id)
+        public async Task<bool> RemoveSlide(int id)
         {
-            throw new NotImplementedException();
+            var existing = await _unitOfWork.SlidesRepository.GetById(id);
+
+            if (existing == null)
+                throw new Exception("Slide not found.");
+
+            await _unitOfWork.SlidesRepository.Delete(existing);
+            _unitOfWork.SaveChanges();
+
+            return true;
         }
 
         public Task<Slides> UpdateSlide(int id, Slides slideDTO)
