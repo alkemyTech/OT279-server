@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using OngProject.Core.Models.DTOs.TestimonialDTO;
 using OngProject.Entities;
 using System.Threading.Tasks;
 
@@ -34,7 +35,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTestimonials([FromBody] Testimonials testDTO)
+        public async Task<IActionResult> CreateTestimonials([FromBody] TestimonialInsertDto testDTO)
         {
 
             var test = await _service.Insert(testDTO);
