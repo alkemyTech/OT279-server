@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using OngProject.Core.Models.DTOs;
 using OngProject.Core.Mapper;
+using System;
 
 namespace OngProject.Core.Business
 {
@@ -45,9 +46,22 @@ namespace OngProject.Core.Business
             return listComment;
         }
 
-        public Task<bool> RemoveNews(int id)
+        public async Task<bool> RemoveNews(int id)
         {
-            throw new System.NotImplementedException();
+            var news = await _unitOfWork.NewsRepository.GetById(id);
+            if(news != null)
+            {
+                try
+                {
+                    await _unitOfWork.NewsRepository.Delete(news);
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+                return true;
+            }
+            return false;
         }
 
         public Task<News> UpdateNews(int id, News news)
