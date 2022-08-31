@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AmazonS3Client = OngProject.Core.Business.AmazonS3Client;
 
 namespace OngProject
 {
@@ -61,6 +62,7 @@ namespace OngProject
             // AWS stuff.
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonS3>();
+            services.AddScoped<IAmazonS3Client, AmazonS3Client>();
 
             services.AddAuthentication(x =>
             {
