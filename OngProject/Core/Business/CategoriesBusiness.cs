@@ -1,4 +1,5 @@
-﻿using OngProject.Core.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
+using OngProject.Core.Interfaces;
 using OngProject.Core.Models.DTOs;
 using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
@@ -33,9 +34,14 @@ namespace OngProject.Core.Business
             return categoriesDTO;
         }
 
-        public Task<Category> GetCategoryById(int id)
+        public async Task<Category> GetCategoryById(int id)
         {
-            throw new System.NotImplementedException();
+            var listaCategorias = await _unitOfWork.CategoriesRepository.GetById(id);
+            if(listaCategorias != null)
+            {
+                return listaCategorias;
+            }
+            return null;
         }
 
         public Task<bool> RemoveCategory(int id)
