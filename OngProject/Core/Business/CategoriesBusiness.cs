@@ -2,6 +2,7 @@
 using OngProject.Core.Models.DTOs;
 using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -33,14 +34,22 @@ namespace OngProject.Core.Business
             return categoriesDTO;
         }
 
-        public Task<Category> GetCategoryById(int id)
+        public async Task<Category> GetCategoryById(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<bool> RemoveCategory(int id)
+        public async Task<bool> RemoveCategory(int id)
         {
-            throw new System.NotImplementedException();
+            var existing = await _unitOfWork.CategoriesRepository.GetById(id);
+
+            if (existing == null)
+                throw new Exception("Category not found.");
+
+            await _unitOfWork.CategoriesRepository.Delete(existing);
+            _unitOfWork.SaveChanges();
+
+            return true;
         }
 
         public Task<Category> UpdateCategory(int id, Category categoryDTO)
