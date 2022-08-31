@@ -38,7 +38,7 @@ namespace OngProject.Core.Business
             _authBusiness = authBusiness;
         }
 
-        public async Task<bool> Delete(int id)
+        public Task<bool> Delete(int id)
         {
             throw new NotImplementedException();
         }
