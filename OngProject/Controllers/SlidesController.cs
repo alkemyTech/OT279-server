@@ -39,6 +39,20 @@ namespace OngProject.Controllers
 
         }
 
+        [HttpGet("id")]
+        public async Task<IActionResult> GetSlideById([FromQuery] int id)
+        {
+            var slide = await _service.GetSlideById(id);
+            if (slide != null)
+            {
+                return Ok(slide);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateSlide([FromBody] Slides slidesDTO)
         {
@@ -86,23 +100,5 @@ namespace OngProject.Controllers
                 return NotFound(400);
             }
         }
-
-        [HttpGet("id")]
-        public async Task<IActionResult> GetSlideById([FromQuery(Name = "id")] int id)
-        {
-
-            var slide = await _service.GetSlideById(id);
-
-            if (slide != null)
-            {
-                return Ok(slide);
-            }
-            else
-            {
-                return NotFound();
-            }
-
-        }
-
     }
 }
