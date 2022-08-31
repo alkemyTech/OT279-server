@@ -46,6 +46,7 @@ namespace OngProject.Core.Business
                 try
                 {
                     await _unitOfWork.UserRepository.Delete(user);
+                    _unitOfWork.SaveChanges();
                 }
                 catch(Exception ex)
                 {
