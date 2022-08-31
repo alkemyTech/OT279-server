@@ -40,9 +40,14 @@ namespace OngProject.Core.Business
             return slidesOrderImage;
         }
 
-        public Task<Slides> GetSlideById(int id)
+        public async Task<SlideDTO> GetSlideById(int id)
         {
-            throw new NotImplementedException();
+            var slide =  await _unitOfWork.SlidesRepository.GetById(id);
+            if (slide == null)
+            {
+                return null;
+            }
+            return new SlideDTO(slide);
         }
 
         public Task<bool> RemoveSlide(int id)
