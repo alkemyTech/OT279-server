@@ -16,7 +16,6 @@ namespace OngProject.Controllers
     {
 
         private readonly ISlidesBusiness _service;
-
         public SlidesController(ISlidesBusiness service)
         {
             _service = service;
@@ -54,20 +53,10 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSlide([FromBody] Slides slidesDTO)
+        public async Task<IActionResult> CreateSlide([FromBody] SlideDTO slidesDTO)
         {
-
-            var slide = await _service.CreateSlide(slidesDTO);
-
-            if (slide != null)
-            {
-                return Ok(slide);
-            }
-            else
-            {
-                return NotFound();
-            }
-
+            await _service.CreateSlide(slidesDTO);
+            return NoContent();
         }
 
         [HttpDelete]

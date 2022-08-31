@@ -10,12 +10,12 @@ namespace OngProject.Core.Business
 {
     public class OrganizationsBusiness : IOrganizationsBusiness
     {
-        //private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        //public OrganizationsService(UnitOfWork unitOfWork)
-        //{
-        //    _unitOfWork = unitOfWork;
-        //}
+        public OrganizationsBusiness(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
         public Task<bool> DeleteOrganization(int id)
         {
@@ -27,9 +27,9 @@ namespace OngProject.Core.Business
             throw new System.NotImplementedException();
         }
 
-        public Task<Organization> GetByIdOrganization(int id)
+        public async Task<Organization> GetByIdOrganization(int id)
         {
-            throw new System.NotImplementedException();
+            return await _unitOfWork.OrganizationRepository.GetById(id);   
         }
 
         public Task<Organization> InsertOrganization(Organization organization)
