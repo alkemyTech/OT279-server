@@ -59,7 +59,7 @@ namespace OngProject.Controllers
 
             if (news)
             {
-                return Ok();
+                return Ok("News deleted");
             }
             else
             {
