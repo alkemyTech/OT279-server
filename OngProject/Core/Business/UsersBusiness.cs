@@ -40,20 +40,7 @@ namespace OngProject.Core.Business
 
         public async Task<bool> Delete(int id)
         {
-            var user = await _unitOfWork.UserRepository.GetById(id);
-            if(user != null)
-            {
-                try
-                {
-                    _unitOfWork.UserRepository.Delete(user);
-                }
-                catch(Exception ex)
-                {
-                    throw ex;
-                }
-                return true;
-            }
-            return false;
+            throw new NotImplementedException();
         }
 
         public async Task<List<ViewUserDTO>> GetAll()

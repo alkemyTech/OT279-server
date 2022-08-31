@@ -54,6 +54,7 @@ namespace OngProject.Core.Business
                 try
                 {
                     await _unitOfWork.NewsRepository.Delete(news);
+                    _unitOfWork.SaveChanges();
                 }
                 catch(Exception ex)
                 {
