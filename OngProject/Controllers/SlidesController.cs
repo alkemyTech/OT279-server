@@ -70,21 +70,18 @@ namespace OngProject.Controllers
 
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> RemoveSlide([FromQuery(Name = "id")] int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveSlide(int id)
         {
-
-            bool slide = await _service.RemoveSlide(id);
-
-            if (slide)
+            try
             {
+                bool slide = await _service.RemoveSlide(id);
                 return Ok();
             }
-            else
+            catch (Exception err)
             {
-                return NotFound();
+                return BadRequest(err.Message);
             }
-
         }
 
         [HttpPut]
