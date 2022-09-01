@@ -38,9 +38,19 @@ namespace OngProject.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> RemoveMember()
+        public async Task<IActionResult> RemoveMember([FromQuery(Name = "id")] int id)
         {
-            throw new NotImplementedException();
+            var members = await _membersBusiness.GetMemberById(id);
+
+            if (members != null)
+            {
+                var flag = await _membersBusiness.DeleteMember(members);
+                return Ok(flag);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPut]
