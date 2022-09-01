@@ -19,7 +19,7 @@ namespace OngProject.Repositories.Interfaces
         public IRepository<Category> CategoriesRepository { get; }
 
         IRepository<News> NewsRepository { get; }
-        IRepository<Testimonials> TestiomonialsRepository { get; }
+        public IRepository<Testimonials> TestimonialsRepository { get; }
         IRepository<Activities> ActivitiesRepository { get; }
         IRepository<Comments> CommentsRepository { get; }
 

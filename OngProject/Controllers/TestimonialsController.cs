@@ -54,11 +54,12 @@ namespace OngProject.Controllers
         public async Task<IActionResult> RemoveTestimonials([FromQuery(Name = "id")] int id)
         {
 
-            bool test = await _service.Delete(id);
+            var testimonials = await _service.GetById(id);
 
-            if (test)
+            if (testimonials != null)
             {
-                return Ok();
+                var flag = await _service.DeleteTestimonials(testimonials);
+                return Ok(flag);
             }
             else
             {

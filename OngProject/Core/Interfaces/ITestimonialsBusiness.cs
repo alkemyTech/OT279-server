@@ -9,7 +9,7 @@ namespace OngProject.Core.Interfaces
         Task<List<Testimonials>> GetAll();
         Task<Testimonials> GetById(int id);
         Task<Testimonials> Insert(Testimonials testimonials);
-        Task<bool> Delete(int id);
+        public Task<bool> DeleteTestimonials(Testimonials testimonials);
         Task<Testimonials> Update(int id, Testimonials testimonials);
     }
 }
