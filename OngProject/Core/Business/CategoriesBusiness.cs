@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
 using OngProject.Core.Models.DTOs;
+using OngProject.Core.Models.DTOs.CategoriesDTO;
 using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
 using System.Collections.Generic;
@@ -21,24 +22,31 @@ namespace OngProject.Core.Business
             throw new System.NotImplementedException();
         }
 
-        public async Task<List<CategoriesGetDTO>> GetAllCategories()
+        public async Task<List<GetNameCategoriesDTO>> GetAllCategories()
         {
-            var categoriesDTO = new List<CategoriesGetDTO>();
+            var categoriesDTO = new List<GetNameCategoriesDTO>();
             var categories = await _unitOfWork.CategoriesRepository.GetAll();
 
             foreach(var category in categories)
             {
-                categoriesDTO.Add(new CategoriesGetDTO { Name = category.Name });
+                categoriesDTO.Add(new GetNameCategoriesDTO { Name = category.Name });
             }
 
             return categoriesDTO;
         }
 
-        public async Task<Category> GetCategoryById(int id)
+        public async Task<GetCategoriesDTO> GetCategoryById(int id)
         {
-            var listaCategorias = await _unitOfWork.CategoriesRepository.GetById(id);
-            if(listaCategorias != null)
+            var Categorias = await _unitOfWork.CategoriesRepository.GetById(id);
+            
+            if(Categorias != null)
             {
+                GetCategoriesDTO listaCategorias = new GetCategoriesDTO
+                {
+                    Name = Categorias.Name,
+                    Image = Categorias.Image,
+                    Description = Categorias.Description
+                };
                 return listaCategorias;
             }
             return null;
