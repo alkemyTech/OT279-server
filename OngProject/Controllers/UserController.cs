@@ -104,7 +104,7 @@ namespace OngProject.Controllers
             bool user = await _service.Delete(id);
             if (user)
             {
-                return Ok();
+                return Ok("User deleted " + user);
             }
             else
             {
