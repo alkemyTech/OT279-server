@@ -43,6 +43,14 @@ namespace OngProject.DataAccess
                     new Members { Id = 5, Name = "Members05", Image = "url_image_members05", Description = "Description members05", FacebookUrl = "url_facebook_members05", InstagramUrl = "url_instagram_members05", LinkedinUrl = "url_linkedIn_members05", IsDeleted = false, LastModified = DateTime.UtcNow }
               );
 
+            modelBuilder.Entity<Organization>()
+                .HasData(
+                    new Organization { Id = 1, Name = "Organization 1", Email = "Email1@mail.com", Address = "Address 1", WelcomeText = "WelcomeText 1", AboutUsText = "AboutUsText 1", Image = "image_1", FacebookUrl = "facebook_url_1", InstagramUrl = "instagram_url_1", LinkedinUrl = "linkedin_url_1", Phone = 11111111, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Organization { Id = 2, Name = "Organization 2", Email = "Email2@mail.com", Address = "Address 2", WelcomeText = "WelcomeText 2", AboutUsText = "AboutUsText 2", Image = "image_2", FacebookUrl = "facebook_url_2", InstagramUrl = "instagram_url_2", LinkedinUrl = "linkedin_url_2", Phone = 22222222, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Organization { Id = 3, Name = "Organization 3", Email = "Email3@mail.com", Address = "Address 3", WelcomeText = "WelcomeText 3", AboutUsText = "AboutUsText 3", Image = "image_3", FacebookUrl = "facebook_url_3", InstagramUrl = "instagram_url_3", LinkedinUrl = "linkedin_url_3", Phone = 33333333, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Organization { Id = 4, Name = "Organization 4", Email = "Email4@mail.com", Address = "Address 4", WelcomeText = "WelcomeText 4", AboutUsText = "AboutUsText 4", Image = "image_4", FacebookUrl = "facebook_url_4", InstagramUrl = "instagram_url_4", LinkedinUrl = "linkedin_url_4", Phone = 44444444, IsDeleted = false, LastModified = DateTime.UtcNow }
+                );
+
             modelBuilder.Entity<Activities>()
                 .HasData(
                     new Activities { Id = 1, Name = "Activities 01", Image = "url_img", Content = "this is a content - activities 01", IsDeleted = false, LastModified = DateTime.UtcNow },
@@ -69,6 +77,7 @@ namespace OngProject.DataAccess
                     new Contacts { Id = 4, Name = "ContactName04", Email = "contact04@mail.com", Message = "message04", Phone = 44444444, IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
 
+
             modelBuilder.Entity<User>()
                 .HasData(
                     new User { Id = 1, FirstName = "UserFirstName01", LastName = "UserLastName01", Email = "user01@email.com", Password = "user01password", Photo = "user01photo.jpg", RoleId = 2, IsDeleted = false, LastModified = DateTime.UtcNow},
@@ -76,6 +85,15 @@ namespace OngProject.DataAccess
                     new User { Id = 3, FirstName = "UserFirstName03", LastName = "UserLastName03", Email = "user03@email.com", Password = "user03password", Photo = "user03photo.jpg", RoleId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
                     new User { Id = 4, FirstName = "UserFirstName04", LastName = "UserLastName04", Email = "user04@email.com", Password = "user04password", Photo = "user04photo.jpg", RoleId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
                     new User { Id = 5, FirstName = "UserFirstName05", LastName = "UserLastName05", Email = "user5@email.com", Password = "user05password", Photo = "user05photo.jpg", RoleId = 2, IsDeleted = false, LastModified = DateTime.UtcNow }
+                );
+
+            modelBuilder.Entity<Slides>()
+                .HasData(
+                    new Slides { Id = 1, Text = "Lorem ipsum lorem ipsum 1", ImageUrl = "www.sadasd.asdasd 1", Order = 1, OrganizationId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Slides { Id = 2, Text = "Lorem ipsum lorem ipsum 2", ImageUrl = "www.sadasd.asdasd 2", Order = 2, OrganizationId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Slides { Id = 3, Text = "Lorem ipsum lorem ipsum 3", ImageUrl = "www.sadasd.asdasd 3", Order = 3, OrganizationId = 3, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new Slides { Id = 4, Text = "Lorem ipsum lorem ipsum 4", ImageUrl = "www.sadasd.asdasd 4", Order = 4, OrganizationId = 4, IsDeleted = false, LastModified = DateTime.UtcNow }
+
                 );
         }
     }

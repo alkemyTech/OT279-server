@@ -38,8 +38,9 @@ namespace OngProject.Core.Business
             _authBusiness = authBusiness;
         }
 
-        public async Task<bool> Delete(int id)
+        public Task<bool> Delete(int id)
         {
+
             var user = await _unitOfWork.UserRepository.GetById(id);
             if(user != null)
             {
@@ -55,6 +56,7 @@ namespace OngProject.Core.Business
                 return true;
             }
             return false;
+
         }
 
         public async Task<List<ViewUserDTO>> GetAll()
