@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using OngProject.Core.Models.DTOs.TestimonialDTO;
 using OngProject.Entities;
 using System.Threading.Tasks;
 
@@ -34,31 +35,29 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTestimonials([FromBody] Testimonials testDTO)
+        public async Task<IActionResult> CreateTestimonials([FromForm] TestimonialInsertDto testDTO)
         {
-
-            var test = await _service.Insert(testDTO);
-
-            if (test != null)
+            try
             {
+                var test = await _service.Insert(testDTO);
                 return Ok(test);
             }
-            else
+            catch (System.Exception err)
             {
-                return NotFound();
+                return NotFound(err.Message);
             }
-
         }
 
         [HttpDelete]
         public async Task<IActionResult> RemoveTestimonials([FromQuery(Name = "id")] int id)
         {
 
-            bool test = await _service.Delete(id);
+            var testimonials = await _service.GetById(id);
 
-            if (test)
+            if (testimonials != null)
             {
-                return Ok();
+                var flag = await _service.DeleteTestimonials(testimonials);
+                return Ok(flag);
             }
             else
             {

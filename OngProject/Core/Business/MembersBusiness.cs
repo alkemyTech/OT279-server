@@ -31,9 +31,11 @@ namespace OngProject.Core.Business
 
             return membersDTOList;
         }
-        public Task<Members> GetMemberById()
+        public async Task<Members> GetMemberById(int id)
         {
-            throw new NotImplementedException();
+            var members = await _unitOfWork.MembersRepository.GetById(id);
+
+            return members;
         }
         public async Task<bool> CreateMember(MembersDTO memberDTO)
         {
@@ -63,10 +65,23 @@ namespace OngProject.Core.Business
             }
             return false;
         }
-        public Task<bool> DeleteMember()
+        public async Task<bool> DeleteMember(Members members)
         {
-            throw new NotImplementedException();
+            bool flag = false;
+            try
+               {
+                    await _unitOfWork.MembersRepository.Delete(members);
+                    _unitOfWork.SaveChanges();
+                    flag = true;
+               }
+            catch (Exception ex)
+            {
+                    throw ex;
+            }
+
+            return flag;
         }
+
         public Task<Members> UpdateMember()
         {
             throw new NotImplementedException();

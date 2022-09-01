@@ -1,7 +1,10 @@
-﻿using OngProject.Core.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
+using OngProject.Core.Interfaces;
 using OngProject.Core.Models.DTOs;
+using OngProject.Core.Models.DTOs.CategoriesDTO;
 using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,27 +23,48 @@ namespace OngProject.Core.Business
             throw new System.NotImplementedException();
         }
 
-        public async Task<List<CategoriesGetDTO>> GetAllCategories()
+        public async Task<List<GetNameCategoriesDTO>> GetAllCategories()
         {
-            var categoriesDTO = new List<CategoriesGetDTO>();
+            var categoriesDTO = new List<GetNameCategoriesDTO>();
             var categories = await _unitOfWork.CategoriesRepository.GetAll();
 
             foreach(var category in categories)
             {
-                categoriesDTO.Add(new CategoriesGetDTO { Name = category.Name });
+                categoriesDTO.Add(new GetNameCategoriesDTO { Name = category.Name });
             }
 
             return categoriesDTO;
         }
 
-        public Task<Category> GetCategoryById(int id)
+
+        public async Task<GetCategoriesDTO> GetCategoryById(int id)
         {
-            throw new System.NotImplementedException();
+            var Categorias = await _unitOfWork.CategoriesRepository.GetById(id);
+            
+            if(Categorias != null)
+            {
+                GetCategoriesDTO listaCategorias = new GetCategoriesDTO
+                {
+                    Name = Categorias.Name,
+                    Image = Categorias.Image,
+                    Description = Categorias.Description
+                };
+                return listaCategorias;
+            }
+            return null;
         }
 
-        public Task<bool> RemoveCategory(int id)
+        public async Task<bool> RemoveCategory(int id)
         {
-            throw new System.NotImplementedException();
+            var existing = await _unitOfWork.CategoriesRepository.GetById(id);
+
+            if (existing == null)
+                throw new Exception("Category not found.");
+
+            await _unitOfWork.CategoriesRepository.Delete(existing);
+            _unitOfWork.SaveChanges();
+
+            return true;
         }
 
         public Task<Category> UpdateCategory(int id, Category categoryDTO)

@@ -49,21 +49,18 @@ namespace OngProject.Controllers
 
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> RemoveCategory([FromQuery(Name = "id")] int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveCategory(int id)
         {
-
-            bool category = await _service.RemoveCategory(id);
-
-            if (category)
+            try
             {
+                bool category = await _service.RemoveCategory(id);
                 return Ok();
             }
-            else
+            catch (System.Exception err)
             {
-                return NotFound();
+                return NotFound(err.Message);
             }
-
         }
 
         [HttpPut]

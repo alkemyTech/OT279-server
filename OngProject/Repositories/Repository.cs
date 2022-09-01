@@ -18,14 +18,19 @@ namespace OngProject.Repositories
             _context = context;
         }
 
-        public async Task Delete(T entity)
+        public async Task<bool> Delete(T entity)
         {
             T existing = await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == entity.Id);
 
             if (existing == null)
-                return;
+                return false;
+            else {
 
-            _context.Set<T>().Remove(existing);
+                //_context.Set<T>().Remove(existing);
+                entity.IsDeleted = true;
+                this.Update(entity);
+                return true;
+            }
         }
 
         public async Task<IEnumerable<T>> GetAll()
