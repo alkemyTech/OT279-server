@@ -48,7 +48,9 @@ namespace OngProject.Core.Business
                         InstagramUrl = memberDTO.InstagramUrl,
                         LinkedinUrl = memberDTO.LinkedinUrl,
                         Image = memberDTO.Image,
-                        Description = memberDTO.Description
+                        Description = memberDTO.Description,
+                        IsDeleted = false,
+                        LastModified = DateTime.UtcNow
                     };
                     await _unitOfWork.MembersRepository.Insert(newMember);
                     _unitOfWork.SaveChanges();

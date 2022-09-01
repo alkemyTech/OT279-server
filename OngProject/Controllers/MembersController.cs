@@ -33,18 +33,13 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateMember(MembersDTO memberDTO, string name)
+        public async Task<IActionResult> CreateMember(MembersDTO memberDTO)
         {
-            if(name != null && name != "" && memberDTO.Name == name)
-            {
-                var newMember = await _membersBusiness.CreateMember(memberDTO);
-                if(newMember)
-                    return Ok("Member created");
-                else
-                    return NotFound("Something went wrong");
-            }
+            var newMember = await _membersBusiness.CreateMember(memberDTO);
+            if (newMember)
+                return Ok("Member created " + newMember);
             else
-                return NotFound("The name is required");
+                return NotFound("Something went wrong");
 
         }
 
