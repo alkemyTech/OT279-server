@@ -1,5 +1,6 @@
 ﻿using OngProject.Core.Interfaces;
 using OngProject.Core.Mapper;
+using OngProject.Core.Models.DTOs;
 using OngProject.Entities;
 using OngProject.Repositories;
 using OngProject.Repositories.Interfaces;
@@ -17,10 +18,10 @@ namespace OngProject.Core.Business
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<ContactsDTO>> GetAllContacts()
+        public async Task<List<ContactDTO>> GetAllContacts()
         {
             List<Contacts> contactsList;
-            List<ContactsDTO> contactsDTOList = new List<ContactsDTO>();
+            List<ContactDTO> contactsDTOList = new List<ContactDTO>();
 
             contactsList = (List<Contacts>) await _unitOfWork.ContactsRepository.GetAll();
 
@@ -31,5 +32,18 @@ namespace OngProject.Core.Business
 
             return contactsDTOList;
         }
+
+        public async Task<ContactDTO> CreateContact(ContactCreateDTO contactDto)
+        {
+            var contact = ContactsMapper.FromContactCreateDtoToContact(contactDto);
+
+            await _unitOfWork.ContactsRepository.Insert(contact);
+            _unitOfWork.SaveChanges();
+
+            var dto = ContactsMapper.ContactsToContactsDTO(contact);
+
+            return dto;
+        }
+
     }
 }

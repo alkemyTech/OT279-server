@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using OngProject.Core.Models.DTOs;
+using OngProject.Entities;
 using System;
 using System.Threading.Tasks;
 
@@ -25,6 +27,20 @@ namespace OngProject.Controllers
             if (contactsDTO != null)
             {
                 return Ok(contactsDTO);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostContacts([FromForm] ContactCreateDTO contactDto)
+        {
+            var contact = await _contactsBusiness.CreateContact(contactDto);
+            if(contact != null)
+            {
+                return Ok(contact);
             }
             else
             {
