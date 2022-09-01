@@ -35,20 +35,17 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTestimonials([FromBody] TestimonialInsertDto testDTO)
+        public async Task<IActionResult> CreateTestimonials([FromForm] TestimonialInsertDto testDTO)
         {
-
-            var test = await _service.Insert(testDTO);
-
-            if (test != null)
+            try
             {
+                var test = await _service.Insert(testDTO);
                 return Ok(test);
             }
-            else
+            catch (System.Exception err)
             {
-                return NotFound();
+                return NotFound(err.Message);
             }
-
         }
 
         [HttpDelete]

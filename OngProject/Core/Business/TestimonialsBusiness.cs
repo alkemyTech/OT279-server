@@ -2,6 +2,7 @@
 using OngProject.Core.Models.DTOs.TestimonialDTO;
 using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
+using System;
 using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
@@ -9,9 +10,11 @@ namespace OngProject.Core.Business
     public class TestimonialsBusiness : ITestimonialsBusiness
     {
         private readonly IUnitOfWork _unitOfWork;
-        public TestimonialsBusiness(IUnitOfWork unitOfWork)
+        private readonly IAmazonS3Client _amazonS3Client;
+        public TestimonialsBusiness(IUnitOfWork unitOfWork, IAmazonS3Client amazonS3Client)
         {
             _unitOfWork = unitOfWork;
+            _amazonS3Client = amazonS3Client;
         }
 
         public Task<bool> Delete(int id)
@@ -31,10 +34,21 @@ namespace OngProject.Core.Business
 
         public async Task<Testimonials> Insert(TestimonialInsertDto testimonialsDto)
         {
+            var imageUrl = string.Empty;
+
+            try
+            {
+                imageUrl = await _amazonS3Client.UploadObject(testimonialsDto.Image);
+            }
+            catch (System.Exception)
+            {
+                throw new Exception("Cannot save the image on Amazon S3");
+            }
+
             var testimonial = new Testimonials()
             {
                 Name = testimonialsDto.Name,
-                //Image = testimonialsDto.Image,
+                Image = imageUrl,
                 Content = testimonialsDto.Content,
             };
 

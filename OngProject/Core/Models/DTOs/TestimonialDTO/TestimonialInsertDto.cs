@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace OngProject.Core.Models.DTOs.TestimonialDTO
 {
@@ -8,7 +9,8 @@ namespace OngProject.Core.Models.DTOs.TestimonialDTO
         [MaxLength(255)]
         public string Name { get; set; }
 
-        public string Image { get; set; }
+        [Required]
+        public IFormFile Image { get; set; }
 
         [Required(ErrorMessage = "Testimonial needs a Content")]
         [MaxLength(65535)]
