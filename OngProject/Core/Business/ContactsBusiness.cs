@@ -13,9 +13,11 @@ namespace OngProject.Core.Business
     public class ContactsBusiness : IContactsBusiness
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ContactsBusiness(IUnitOfWork unitOfWork)
+        private readonly ISendGridBusiness _sendGridBusiness;
+        public ContactsBusiness(IUnitOfWork unitOfWork, ISendGridBusiness sendGridBusiness)
         {
             _unitOfWork = unitOfWork;
+            _sendGridBusiness = sendGridBusiness;
         }
 
         public async Task<List<ContactDTO>> GetAllContacts()
@@ -39,6 +41,8 @@ namespace OngProject.Core.Business
 
             await _unitOfWork.ContactsRepository.Insert(contact);
             _unitOfWork.SaveChanges();
+
+            await _sendGridBusiness.ContactEmail(contact.Email);
 
             var dto = ContactsMapper.ContactsToContactsDTO(contact);
 
