@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using OngProject.Core.Models.DTOs;
 using OngProject.Entities;
 using System.Threading.Tasks;
 
@@ -34,7 +35,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateActivities([FromBody] Activities activitiesDTO)
+        public async Task<IActionResult> CreateActivities([FromQuery] ActivitiesCreateDTO activitiesDTO)
         {
 
             var activities = await _service.CreateActivities(activitiesDTO);
