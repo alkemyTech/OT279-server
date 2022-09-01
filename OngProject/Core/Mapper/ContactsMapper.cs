@@ -1,4 +1,5 @@
-﻿using OngProject.Entities;
+﻿using OngProject.Core.Models.DTOs;
+using OngProject.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace OngProject.Core.Mapper
     public class ContactsMapper
     {
 
-        public static ContactsDTO ContactsToContactsDTO(Contacts contacts)
+        public static ContactDTO ContactsToContactsDTO(Contacts contacts)
         {
-            ContactsDTO contactsDTO = new ContactsDTO()
+            ContactDTO contactsDTO = new ContactDTO()
             {
                 Name = contacts.Name,
                 Phone = contacts.Phone,
@@ -19,6 +20,18 @@ namespace OngProject.Core.Mapper
                 Message = contacts.Message
             };       
             return contactsDTO;           
+        }
+
+        public static Contacts FromContactCreateDtoToContact(ContactCreateDTO contactDto)
+        {
+            var contact = new Contacts
+            {
+                Name = contactDto.Name,
+                Phone = contactDto.Phone,
+                Email = contactDto.Email,
+                Message = contactDto.Message
+            };
+            return contact;
         }
     }
 }
