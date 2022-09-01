@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using OngProject.Entities;
 using System;
 using System.Threading.Tasks;
 
@@ -32,9 +33,14 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateMember()
+        public async Task<IActionResult> CreateMember(MembersDTO memberDTO)
         {
-            throw new NotImplementedException();
+            var newMember = await _membersBusiness.CreateMember(memberDTO);
+            if (newMember)
+                return Ok("Member created " + newMember);
+            else
+                return NotFound("Something went wrong");
+
         }
 
         [HttpDelete]

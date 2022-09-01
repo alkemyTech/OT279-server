@@ -40,7 +40,6 @@ namespace OngProject.Core.Business
 
         public Task<bool> Delete(int id)
         {
-
             var user = await _unitOfWork.UserRepository.GetById(id);
             if(user != null)
             {

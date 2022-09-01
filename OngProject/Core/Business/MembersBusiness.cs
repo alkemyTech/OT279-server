@@ -37,9 +37,33 @@ namespace OngProject.Core.Business
 
             return members;
         }
-        public Task<Members> CreateMember()
+        public async Task<bool> CreateMember(MembersDTO memberDTO)
         {
-            throw new NotImplementedException();
+            if(memberDTO.Name != null && memberDTO.Name != "")
+            {
+                try
+                {
+                    Members newMember = new Members()
+                    {
+                        Name = memberDTO.Name,
+                        FacebookUrl = memberDTO.FacebookUrl,
+                        InstagramUrl = memberDTO.InstagramUrl,
+                        LinkedinUrl = memberDTO.LinkedinUrl,
+                        Image = memberDTO.Image,
+                        Description = memberDTO.Description,
+                        IsDeleted = false,
+                        LastModified = DateTime.UtcNow
+                    };
+                    await _unitOfWork.MembersRepository.Insert(newMember);
+                    _unitOfWork.SaveChanges();
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+                return true;
+            }
+            return false;
         }
         public async Task<bool> DeleteMember(Members members)
         {
