@@ -97,7 +97,7 @@ namespace OngProject.Repositories
         }
 
 
-        public IRepository<Testimonials> TestiomonialsRepository
+        public IRepository<Testimonials> TestimonialsRepository
         {
             get
             {
@@ -106,8 +106,8 @@ namespace OngProject.Repositories
                     _testimonialsRepository = new Repository<Testimonials>(_context);
                 }
                 return _testimonialsRepository;
-             }
             }
+        }
 
         public IRepository<Activities> ActivitiesRepository
         {

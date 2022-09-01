@@ -9,8 +9,8 @@ namespace OngProject.Core.Interfaces
     {
         Task<List<Testimonials>> GetAll();
         Task<Testimonials> GetById(int id);
+        public Task<bool> DeleteTestimonials(Testimonials testimonials);
         Task<Testimonials> Insert(TestimonialInsertDto testimonialsDto);
-        Task<bool> Delete(int id);
         Task<Testimonials> Update(int id, Testimonials testimonials);
     }
 }

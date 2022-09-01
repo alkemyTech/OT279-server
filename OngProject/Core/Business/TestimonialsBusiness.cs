@@ -19,7 +19,25 @@ namespace OngProject.Core.Business
 
         public Task<bool> Delete(int id)
         {
-            throw new System.NotImplementedException();
+            _unitOfWork = unitOfWork;
+        }
+
+
+        public async Task<bool> DeleteTestimonials(Testimonials testimonials)
+        {
+            bool flag = false;
+            try
+            {
+                await _unitOfWork.TestimonialsRepository.Delete(testimonials);
+                _unitOfWork.SaveChanges();
+                flag = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return flag;
         }
 
         public Task<System.Collections.Generic.List<Testimonials>> GetAll()
@@ -27,9 +45,11 @@ namespace OngProject.Core.Business
             throw new System.NotImplementedException();
         }
 
-        public Task<Testimonials> GetById(int id)
+        public async Task<Testimonials> GetById(int id)
         {
-            throw new System.NotImplementedException();
+            var testimonials = await _unitOfWork.TestimonialsRepository.GetById(id);
+
+            return testimonials;
         }
 
         public async Task<Testimonials> Insert(TestimonialInsertDto testimonialsDto)
