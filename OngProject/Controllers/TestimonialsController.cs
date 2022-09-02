@@ -48,7 +48,7 @@ namespace OngProject.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("/testimonials/")]
         public async Task<IActionResult> RemoveTestimonials([FromQuery(Name = "id")] int id)
         {
 
