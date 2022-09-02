@@ -2,6 +2,7 @@
 using OngProject.Core.Interfaces;
 using OngProject.Core.Models.DTOs;
 using OngProject.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace OngProject.Controllers
@@ -17,10 +18,20 @@ namespace OngProject.Controllers
             _organizationsService = service;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllOrganization()
+        [HttpGet("/api/organization/public")]
+        
+        public  async Task<IActionResult> GetAllOrganization()
         {
-            return NoContent();
+            try
+            {
+                var organization = await _organizationsService.GetAllOrganization();
+                if(organization.Count > 0) return Ok(organization);
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         [HttpGet("{id}")]

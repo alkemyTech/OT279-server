@@ -1,5 +1,7 @@
 ﻿using OngProject.Core.Interfaces;
+using OngProject.Core.Mapper;
 using OngProject.Core.Models.DTOs;
+using OngProject.Core.Models.DTOs.OrganizationDTO;
 using OngProject.Entities;
 using OngProject.Repositories;
 using OngProject.Repositories.Interfaces;
@@ -10,21 +12,28 @@ namespace OngProject.Core.Business
 {
     public class OrganizationsBusiness : IOrganizationsBusiness
     {
-        //private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        //public OrganizationsService(UnitOfWork unitOfWork)
-        //{
-        //    _unitOfWork = unitOfWork;
-        //}
+        public OrganizationsBusiness(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
 
         public Task<bool> DeleteOrganization(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<List<Organization>> GetAllOrganization()
+        public async Task<List<GetOrganizationDto>> GetAllOrganization()
         {
-            throw new System.NotImplementedException();
+             var organization = await _unitOfWork.OrganizationRepository.GetAll();
+            List<GetOrganizationDto> listDto = new ();
+            foreach (var item in organization)
+            {
+                GetOrganizationDto dto = OrganizationMapper.OrganizationToGetOrganizationDTO(item);
+                listDto.Add(dto);
+            }
+            return listDto;
         }
 
         public Task<Organization> GetByIdOrganization(int id)
