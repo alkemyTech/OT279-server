@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using OngProject.Core.Interfaces;
 using System;
+using System.IO;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace OngProject.Core.Business
 {
@@ -27,32 +27,38 @@ namespace OngProject.Core.Business
             var existing = await _s3Client.DoesS3BucketExistAsync(_bucketName);
 
             if (!existing)
-                throw new System.Exception($"Bucket {_bucketName} does not exist.");
+                throw new Exception($"Bucket {_bucketName} does not exist.");
 
             return await _s3Client.GetObjectAsync(_bucketName, objectName);
         }
 
         public async Task<string> UploadObject(IFormFile file)
         {
+           return await UploadObject(file.OpenReadStream());
+        }
+
+        public async Task<string> UploadObject(Stream stream)
+        {
+            return await UploadObject(stream, Guid.NewGuid().ToString());
+        }
+
+        public async Task<string> UploadObject(Stream stream, string fileName)
+        {
             var existing = await _s3Client.DoesS3BucketExistAsync(_bucketName);
 
             if (!existing)
-                throw new System.Exception($"Bucket {_bucketName} does not exist.");
-
-            var uniqueObjectName = Guid.NewGuid().ToString();
+                throw new Exception($"Bucket {_bucketName} does not exist.");
 
             var request = new PutObjectRequest()
             {
                 BucketName = _bucketName,
-                Key = uniqueObjectName,
-                InputStream = file.OpenReadStream(),
+                Key = fileName,
+                InputStream = stream,
                 //  ↓↓ Pone los archivos subidos al bucket con acceso publico
                 CannedACL = new S3CannedACL("public-read")
             };
-
-            request.Metadata.Add("Content-Type", file.ContentType);
             await _s3Client.PutObjectAsync(request);
-            return $"https://{_bucketName}.s3.amazonaws.com/{uniqueObjectName}";
+            return $"https://{_bucketName}.s3.amazonaws.com/{fileName}";
         }
 
         public async Task DeleteObject(string objectName)
@@ -60,7 +66,7 @@ namespace OngProject.Core.Business
             var existing = await _s3Client.DoesS3BucketExistAsync(_bucketName);
 
             if (!existing)
-                throw new System.Exception($"Bucket {_bucketName} does not exist.");
+                throw new Exception($"Bucket {_bucketName} does not exist.");
 
             //var arr = url.Split('/');
             //var objectName = arr[arr.Length - 1];
