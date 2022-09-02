@@ -28,7 +28,7 @@ namespace OngProject.Core.Business
             _organizationBusiness = organizationBusiness;
         }
 
-        public async Task CreateSlide(SlideDTO slideDTO)
+        public async Task<SlideDTO> CreateSlide(SlideDTO slideDTO)
         {
             var fileName = Guid.NewGuid().ToString();
             try
@@ -38,7 +38,7 @@ namespace OngProject.Core.Business
 
                 if (slideDTO.Order == null || slideDTO.Order == 0)
                 {
-                    var lastSlide =  await _context.Slides.OrderByDescending(s=> s.LastModified).FirstOrDefaultAsync();
+                    var lastSlide =  await _context.Slides.OrderByDescending(s=> s.LastModified).FirstAsync();
                     slideDTO.Order = lastSlide.Order;
                 }
 
@@ -58,10 +58,12 @@ namespace OngProject.Core.Business
 
                 await _unitOfWork.SlidesRepository.Insert(slide);
                 await _unitOfWork.Complete();
+                return new SlideDTO(slide);
             }
             catch (Exception e)
             {
-                await _amazonS3Client.DeleteObject(fileName);
+                throw new Exception(e.Message);
+                //await _amazonS3Client.DeleteObject(fileName);
             }
         }
 

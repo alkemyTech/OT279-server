@@ -55,8 +55,15 @@ namespace OngProject.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateSlide([FromBody] SlideDTO slidesDTO)
         {
-            await _service.CreateSlide(slidesDTO);
-            return NoContent();
+            try
+            {
+                var result = await _service.CreateSlide(slidesDTO);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]

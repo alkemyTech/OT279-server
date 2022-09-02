@@ -12,7 +12,7 @@ namespace OngProject.Core.Interfaces
     {
         public Task<IEnumerable<SlidesOrderImageDTO>> GetAllSlides();
         public Task<SlideDTO> GetSlideById(int id);
-        public Task CreateSlide(SlideDTO slide);
+        public Task<SlideDTO> CreateSlide(SlideDTO slide);
         public Task<bool> RemoveSlide(int id);
         public Task<Slides> UpdateSlide(int id, Slides slideDTO);
 
