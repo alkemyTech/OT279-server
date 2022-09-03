@@ -12,14 +12,29 @@ namespace OngProject.Core.Business
 {
     public class NewsBusiness : INewsBusiness
     {
+        private readonly IAmazonS3Client _amazonS3Client;
         private readonly IUnitOfWork _unitOfWork;
-        public NewsBusiness(IUnitOfWork unitOfWork)
+        public NewsBusiness(IUnitOfWork unitOfWork, IAmazonS3Client amazonS3Client)
         {
             _unitOfWork = unitOfWork;
+            _amazonS3Client = amazonS3Client;
         }
-        public Task<News> CreateNews(News news)
+        public async Task<News> CreateNews(InserNewDto newDto)
         {
-            throw new System.NotImplementedException();
+            string imgUrl = await _amazonS3Client.UploadObject(newDto.Image);
+           
+            News news = new News
+            {
+                Name = newDto.Name,
+                Content = newDto.Content,
+                Image = imgUrl,
+                CategoryId = newDto.CategoryId
+            };
+              await _unitOfWork.NewsRepository.Insert(news);
+             _unitOfWork.SaveChanges();
+
+            return news;
+
         }
 
         public Task<List<News>> GetAllNews()
