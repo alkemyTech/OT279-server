@@ -16,7 +16,6 @@ namespace OngProject.Core.Models.DTOs.NewsDTO
         [Required(ErrorMessage = "Image is required")]
         [MaxLength(255)]
         public string Image { get; set; }
-        public DateTime LastModified { get; set; }
 
     }
 }

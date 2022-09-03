@@ -12,8 +12,6 @@ namespace OngProject.Core.Mapper
                 Name = news.Name,
                 Content = news.Content,
                 Image = news.Image,
-                LastModified = news.LastModified
-
             };
             return getNewsDtoDto;
         }
