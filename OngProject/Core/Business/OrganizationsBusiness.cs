@@ -36,9 +36,9 @@ namespace OngProject.Core.Business
             return listDto;
         }
 
-        public Task<Organization> GetByIdOrganization(int id)
+        public async Task<Organization> GetByIdOrganization(int id)
         {
-            throw new System.NotImplementedException();
+            return await _unitOfWork.OrganizationRepository.GetById(id);   
         }
 
         public Task<Organization> InsertOrganization(Organization organization)
