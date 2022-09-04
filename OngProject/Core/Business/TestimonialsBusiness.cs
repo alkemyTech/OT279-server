@@ -17,27 +17,22 @@ namespace OngProject.Core.Business
             _amazonS3Client = amazonS3Client;
         }
 
-        public Task<bool> Delete(int id)
-        {
-            _unitOfWork = unitOfWork;
-        }
-
 
         public async Task<bool> DeleteTestimonials(Testimonials testimonials)
         {
-            bool flag = false;
+            
             try
             {
                 await _unitOfWork.TestimonialsRepository.Delete(testimonials);
                 _unitOfWork.SaveChanges();
-                flag = true;
+                return true;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
 
-            return flag;
+            return false;
         }
 
         public Task<System.Collections.Generic.List<Testimonials>> GetAll()
@@ -72,7 +67,7 @@ namespace OngProject.Core.Business
                 Content = testimonialsDto.Content,
             };
 
-            await _unitOfWork.TestiomonialsRepository.Insert(testimonial);
+            await _unitOfWork.TestimonialsRepository.Insert(testimonial);
             _unitOfWork.SaveChanges();
 
             return testimonial;
