@@ -102,6 +102,14 @@ namespace OngProject.DataAccess
                     new Comments { Id = 3, Body = "Lorem ipsum Lorem ipsum Lorem ipsum 3", NewsId = 3, UserId = 3, IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Comments { Id = 4, Body = "Lorem ipsum Lorem ipsum Lorem ipsum 4", NewsId = 4, UserId = 4, IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
+
+            modelBuilder.Entity<Comments>()
+               .HasData(
+                   new Comments { Id = 1, UserId = 1, Body = "Body Comment 1", NewsId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
+                   new Comments { Id = 2, UserId = 1, Body = "Body Comment 2", NewsId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
+                   new Comments { Id = 3, UserId = 2, Body = "Body Comment 3", NewsId = 1, IsDeleted = false, LastModified = DateTime.UtcNow }
+
+               );
         }
     }
 }

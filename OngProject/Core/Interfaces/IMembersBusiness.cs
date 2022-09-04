@@ -8,7 +8,7 @@ namespace OngProject.Core.Interfaces
     {
         public Task<List<MembersDTO>> GetAllMembers();
         public Task<bool> CreateMember(MembersDTO memberDTO);
-        public Task<bool> DeleteMember();
+        public Task<bool> DeleteMember(Members members);
         public Task<Members> GetMemberById(int id);
         public Task<Members> UpdateMember();
     }

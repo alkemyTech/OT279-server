@@ -1,7 +1,9 @@
 ﻿using OngProject.Core.Interfaces;
 using OngProject.Core.Models.DTOs;
+using OngProject.Core.Models.DTOs.UserDTO;
 using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,9 +18,18 @@ namespace OngProject.Core.Business
             _unitOfWork = unitOfWork;
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> DeleteComments(Comments comments)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                await _unitOfWork.CommentsRepository.Delete(comments);
+                _unitOfWork.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public async Task<IEnumerable<CommentGetDto>> GetAll()
@@ -41,9 +52,11 @@ namespace OngProject.Core.Business
             return listComment;
         }
 
-        public Task<Comments> GetById(int id)
+        public async Task<Comments> GetById(int id)
         {
-            throw new System.NotImplementedException();
+            var comments = await _unitOfWork.CommentsRepository.GetById(id);
+
+            return comments;
         }
 
         public Task<Comments> Insert(Comments Comments)

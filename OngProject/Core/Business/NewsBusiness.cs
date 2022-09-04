@@ -7,19 +7,35 @@ using System.Linq;
 using OngProject.Core.Models.DTOs;
 using OngProject.Core.Mapper;
 using System;
+using OngProject.Core.Models.DTOs.NewsDTO;
 
 namespace OngProject.Core.Business
 {
     public class NewsBusiness : INewsBusiness
     {
+        private readonly IAmazonS3Client _amazonS3Client;
         private readonly IUnitOfWork _unitOfWork;
-        public NewsBusiness(IUnitOfWork unitOfWork)
+        public NewsBusiness(IUnitOfWork unitOfWork, IAmazonS3Client amazonS3Client)
         {
             _unitOfWork = unitOfWork;
+            _amazonS3Client = amazonS3Client;
         }
-        public Task<News> CreateNews(News news)
+        public async Task<News> CreateNews(InserNewDto newDto)
         {
-            throw new System.NotImplementedException();
+            string imgUrl = await _amazonS3Client.UploadObject(newDto.Image);
+           
+            News news = new News
+            {
+                Name = newDto.Name,
+                Content = newDto.Content,
+                Image = imgUrl,
+                CategoryId = newDto.CategoryId
+            };
+              await _unitOfWork.NewsRepository.Insert(news);
+             _unitOfWork.SaveChanges();
+
+            return news;
+
         }
 
         public Task<List<News>> GetAllNews()
@@ -27,9 +43,11 @@ namespace OngProject.Core.Business
             throw new System.NotImplementedException();
         }
 
-        public Task<News> GetNewsById(int id)
+        public async Task<GetNewsDto> GetNewsById(int id)
         {
-            throw new System.NotImplementedException();
+           var newsById = await _unitOfWork.NewsRepository.GetById(id);
+            var newsDto = NewsMapper.NewsToGetNewsDTO(newsById);
+            return newsDto;
         }
 
         public async Task<IEnumerable<CommentGetDto>> GetNewsByIdComments(int id)

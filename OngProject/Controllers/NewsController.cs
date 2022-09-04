@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using OngProject.Core.Models.DTOs;
 using OngProject.Entities;
 using System.Threading.Tasks;
 
@@ -35,14 +36,12 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateNews([FromBody] News newsDTO)
+        public async Task<IActionResult> CreateNews([FromForm] InserNewDto inserNewDto)
         {
-
-            var news = await _service.CreateNews(newsDTO);
-
+            var news = await _service.CreateNews(inserNewDto);
             if (news != null)
             {
-                return Ok(news);
+                return Ok(new {message= "News  saved successfully" });
             }
             else
             {

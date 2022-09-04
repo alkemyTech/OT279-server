@@ -11,7 +11,9 @@ namespace OngProject.Core.Interfaces
         // Almacena un archivo en un Bucket(Carpeta remota)
         // Devuelve el nuevo nombre del archivo asignado automáticamente.
         // Dicho nombre puede ser usado para ser guardado en la base de datos local.
-        Task<string> UploadObject(IFormFile file);
+        Task<string> UploadObject(Stream stream);
+        Task<string> UploadObject(Stream stream, string fileName);
+        Task<string> UploadObject(IFormFile formFile);
 
         Task<GetObjectResponse> GetObject(string objectName);
 
