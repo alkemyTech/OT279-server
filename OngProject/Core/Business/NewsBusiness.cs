@@ -7,6 +7,7 @@ using System.Linq;
 using OngProject.Core.Models.DTOs;
 using OngProject.Core.Mapper;
 using System;
+using OngProject.Core.Models.DTOs.NewsDTO;
 
 namespace OngProject.Core.Business
 {
@@ -27,9 +28,11 @@ namespace OngProject.Core.Business
             throw new System.NotImplementedException();
         }
 
-        public Task<News> GetNewsById(int id)
+        public async Task<GetNewsDto> GetNewsById(int id)
         {
-            throw new System.NotImplementedException();
+           var newsById = await _unitOfWork.NewsRepository.GetById(id);
+            var newsDto = NewsMapper.NewsToGetNewsDTO(newsById);
+            return newsDto;
         }
 
         public async Task<IEnumerable<CommentGetDto>> GetNewsByIdComments(int id)
