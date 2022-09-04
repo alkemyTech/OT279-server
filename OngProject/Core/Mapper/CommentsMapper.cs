@@ -14,5 +14,16 @@ namespace OngProject.Core.Mapper
             };
             return commentGetDto;
         }
+
+        public Comments CommentCreateDTOToComments(CommentCreateDTO comment)
+        {
+            var comments = new Comments()
+            {
+                Body = comment.Body,
+                NewsId = comment.NewsId,
+                UserId = comment.UserId
+            };
+            return comments;
+        }
     }
 }
