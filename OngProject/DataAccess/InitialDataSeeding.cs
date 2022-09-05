@@ -93,7 +93,6 @@ namespace OngProject.DataAccess
                     new Slides { Id = 2, Text = "Lorem ipsum lorem ipsum 2", ImageUrl = "www.sadasd.asdasd 2", Order = 2, OrganizationId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Slides { Id = 3, Text = "Lorem ipsum lorem ipsum 3", ImageUrl = "www.sadasd.asdasd 3", Order = 3, OrganizationId = 3, IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Slides { Id = 4, Text = "Lorem ipsum lorem ipsum 4", ImageUrl = "www.sadasd.asdasd 4", Order = 4, OrganizationId = 4, IsDeleted = false, LastModified = DateTime.UtcNow }
-
                 );
 
             modelBuilder.Entity<Comments>()
@@ -101,7 +100,6 @@ namespace OngProject.DataAccess
                    new Comments { Id = 1, UserId = 1, Body = "Body Comment 1", NewsId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
                    new Comments { Id = 2, UserId = 1, Body = "Body Comment 2", NewsId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
                    new Comments { Id = 3, UserId = 2, Body = "Body Comment 3", NewsId = 1, IsDeleted = false, LastModified = DateTime.UtcNow }
-
                );
         }
     }

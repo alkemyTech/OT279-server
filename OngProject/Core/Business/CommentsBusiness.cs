@@ -1,4 +1,5 @@
 ﻿using OngProject.Core.Interfaces;
+using OngProject.Core.Mapper;
 using OngProject.Core.Models.DTOs;
 using OngProject.Core.Models.DTOs.UserDTO;
 using OngProject.Entities;
@@ -59,9 +60,27 @@ namespace OngProject.Core.Business
             return comments;
         }
 
-        public Task<Comments> Insert(Comments Comments)
+        public async Task<Comments> Insert(CommentCreateDTO commentCreateDTO)
         {
-            throw new System.NotImplementedException();
+            var mapper = new CommentsMapper();
+            var comment = mapper.CommentCreateDTOToComments(commentCreateDTO);
+
+            var user = await _unitOfWork.UserRepository.GetById(comment.UserId);
+
+            if(user != null)
+            {
+                var news = await _unitOfWork.NewsRepository.GetById(comment.NewsId);
+
+                if (news != null)
+                {
+                    await _unitOfWork.CommentsRepository.Insert(comment);
+                    _unitOfWork.SaveChanges();
+                    return comment;
+                }
+
+                return null;
+            }
+            return null;
         }
 
         public Task<Comments> Update(int id, Comments Comments)

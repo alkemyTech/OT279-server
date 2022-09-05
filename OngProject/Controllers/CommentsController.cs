@@ -10,8 +10,8 @@ using System.Linq;
 
 namespace OngProject.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class CommentsController : ControllerBase
     {
         private readonly ICommentsBusiness _commentsBusiness;
@@ -74,6 +74,17 @@ namespace OngProject.Controllers
             {
                 return BadRequest(ex);
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateComment([FromBody] CommentCreateDTO commentCreateDTO)
+        {
+            var comment = await _commentsBusiness.Insert(commentCreateDTO);
+            if (comment != null)
+            {
+                return Ok();
+            }
+            return BadRequest();
         }
     }
 }
