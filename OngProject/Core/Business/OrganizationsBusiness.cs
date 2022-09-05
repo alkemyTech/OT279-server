@@ -6,6 +6,7 @@ using OngProject.Entities;
 using OngProject.Repositories;
 using OngProject.Repositories.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
@@ -26,13 +27,24 @@ namespace OngProject.Core.Business
 
         public async Task<List<GetOrganizationDto>> GetAllOrganization()
         {
-            var organization = await _unitOfWork.OrganizationRepository.GetAll();
-            var mapper = new OrganizationMapper();
-            List<GetOrganizationDto> listDto = new ();
-            foreach (var item in organization)
+            var listOrganizations = await _unitOfWork.OrganizationRepository.GetAll();
+            var listSlides = await _unitOfWork.SlidesRepository.GetAll();
+
+            var orderedListSlides = listSlides.OrderBy(s => s.Order);
+
+            List<GetOrganizationDto> listDto = new List<GetOrganizationDto>();
+      
+            foreach (var organization in listOrganizations)
             {
-                GetOrganizationDto dto = mapper.OrganizationToGetOrganizationDTO(item);
-                listDto.Add(dto);
+                var organizacionDto = new GetOrganizationDto(organization);
+                foreach (var slide in orderedListSlides)
+                {
+                    if (slide.OrganizationId == organization.Id)
+                    {
+                        organizacionDto._listSlides.Add(new SlideDTO(slide));
+                    }
+                }
+                listDto.Add(organizacionDto);
             }
             return listDto;
         }
