@@ -12,12 +12,10 @@ namespace OngProject.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthBusiness _authBusiness;
         private readonly IUsersBusiness _UserBusiness;
 
         public AuthController (IAuthBusiness authBusiness, IUsersBusiness UserBusiness)
         {
-            _authBusiness = authBusiness;
             _UserBusiness = UserBusiness;
         }
 
