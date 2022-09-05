@@ -58,7 +58,7 @@ namespace OngProject.Controllers
                 {
                     //var userDB = await _service.GetByEmail(user.Email);
                     //var token = _authBusiness.GetToken(userDB);
-                    await _sendGridBusiness.WelcomeEmail(userDTO.Email);
+                    //await _sendGridBusiness.WelcomeEmail(userDTO.Email);
                     return Ok(token);
                 }
                 else
