@@ -69,9 +69,10 @@ namespace OngProject.Core.Business
             return _listAux;
         }
 
-        public Task<User> GetById(int id)
+        public async Task<User> GetById(int id)
         {
-            throw new NotImplementedException();
+            var user = await _unitOfWork.UserRepository.GetById(id);
+            return user;
         }
 
         public async Task<string> Insert(UserRegisterDTO userDTO)
