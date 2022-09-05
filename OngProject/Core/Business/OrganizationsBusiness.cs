@@ -26,11 +26,12 @@ namespace OngProject.Core.Business
 
         public async Task<List<GetOrganizationDto>> GetAllOrganization()
         {
-             var organization = await _unitOfWork.OrganizationRepository.GetAll();
+            var organization = await _unitOfWork.OrganizationRepository.GetAll();
+            var mapper = new OrganizationMapper();
             List<GetOrganizationDto> listDto = new ();
             foreach (var item in organization)
             {
-                GetOrganizationDto dto = OrganizationMapper.OrganizationToGetOrganizationDTO(item);
+                GetOrganizationDto dto = mapper.OrganizationToGetOrganizationDTO(item);
                 listDto.Add(dto);
             }
             return listDto;
