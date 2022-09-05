@@ -14,7 +14,7 @@ namespace OngProject.Controllers
     {
         private readonly IUsersBusiness _UserBusiness;
 
-        public AuthController (IAuthBusiness authBusiness, IUsersBusiness UserBusiness)
+        public AuthController(IAuthBusiness authBusiness, IUsersBusiness UserBusiness)
         {
             _UserBusiness = UserBusiness;
         }
@@ -28,19 +28,18 @@ namespace OngProject.Controllers
             var user = await _UserBusiness.GetById(userId);
             if (user != null)
             {
-                    ViewUserDTO viewUser = new(user)
+                ViewUserDTO viewUser = new(user)
                 {
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Email = user.Email,
                     Photo = user.Photo,
-                    Role = user.Role
-
+                    RoleId = user.RoleId
                 };
                 return Ok(viewUser);
             }
             return NotFound();
-            
+
         }
 
     }

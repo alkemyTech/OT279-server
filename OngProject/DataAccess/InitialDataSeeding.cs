@@ -77,14 +77,14 @@ namespace OngProject.DataAccess
                     new Contacts { Id = 4, Name = "ContactName04", Email = "contact04@mail.com", Message = "message04", Phone = 44444444, IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
 
-
+            // passwords = user01password, user02password, user03password, user04password, user05password
             modelBuilder.Entity<User>()
                 .HasData(
-                    new User { Id = 1, FirstName = "UserFirstName01", LastName = "UserLastName01", Email = "user01@email.com", Password = "user01password", Photo = "user01photo.jpg", RoleId = 2, IsDeleted = false, LastModified = DateTime.UtcNow},
-                    new User { Id = 2, FirstName = "UserFirstName02", LastName = "UserLastName02", Email = "user02@email.com", Password = "user02password", Photo = "user02photo.jpg", RoleId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new User { Id = 3, FirstName = "UserFirstName03", LastName = "UserLastName03", Email = "user03@email.com", Password = "user03password", Photo = "user03photo.jpg", RoleId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new User { Id = 4, FirstName = "UserFirstName04", LastName = "UserLastName04", Email = "user04@email.com", Password = "user04password", Photo = "user04photo.jpg", RoleId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
-                    new User { Id = 5, FirstName = "UserFirstName05", LastName = "UserLastName05", Email = "user5@email.com", Password = "user05password", Photo = "user05photo.jpg", RoleId = 2, IsDeleted = false, LastModified = DateTime.UtcNow }
+                    new User { Id = 1, FirstName = "UserFirstName01", LastName = "UserLastName01", Email = "user01@email.com", Password = "855f48ff90dfd663decf85f9d1423d05fe84c4ad84287b4a328d248aa44bbaeb", Photo = "user01photo.jpg", RoleId = 2, IsDeleted = false, LastModified = DateTime.UtcNow},
+                    new User { Id = 2, FirstName = "UserFirstName02", LastName = "UserLastName02", Email = "user02@email.com", Password = "3fb52b701d90223d8d103666adcc20c9e5b403ad15feaddc4523c67badb9abde", Photo = "user02photo.jpg", RoleId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new User { Id = 3, FirstName = "UserFirstName03", LastName = "UserLastName03", Email = "user03@email.com", Password = "806e06b9ba12aa0ec23c7a9acbc73edc42acc207bc1cfcd258d1746e011376dc", Photo = "user03photo.jpg", RoleId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new User { Id = 4, FirstName = "UserFirstName04", LastName = "UserLastName04", Email = "user04@email.com", Password = "b7ede7c12d6324f339cd49509fdfbeefde2ccecdaa53ea2f274602ff37280e01", Photo = "user04photo.jpg", RoleId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
+                    new User { Id = 5, FirstName = "UserFirstName05", LastName = "UserLastName05", Email = "user5@email.com", Password = "af43cca886229cc4ab166a723e7ca9e3834b9f4747f055cc61eca0fa09f35d08", Photo = "user05photo.jpg", RoleId = 2, IsDeleted = false, LastModified = DateTime.UtcNow }
                 );
 
             modelBuilder.Entity<Slides>()
@@ -93,7 +93,6 @@ namespace OngProject.DataAccess
                     new Slides { Id = 2, Text = "Lorem ipsum lorem ipsum 2", ImageUrl = "www.sadasd.asdasd 2", Order = 2, OrganizationId = 2, IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Slides { Id = 3, Text = "Lorem ipsum lorem ipsum 3", ImageUrl = "www.sadasd.asdasd 3", Order = 3, OrganizationId = 3, IsDeleted = false, LastModified = DateTime.UtcNow },
                     new Slides { Id = 4, Text = "Lorem ipsum lorem ipsum 4", ImageUrl = "www.sadasd.asdasd 4", Order = 4, OrganizationId = 4, IsDeleted = false, LastModified = DateTime.UtcNow }
-
                 );
 
             modelBuilder.Entity<Comments>()
@@ -101,7 +100,6 @@ namespace OngProject.DataAccess
                    new Comments { Id = 1, UserId = 1, Body = "Body Comment 1", NewsId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
                    new Comments { Id = 2, UserId = 1, Body = "Body Comment 2", NewsId = 1, IsDeleted = false, LastModified = DateTime.UtcNow },
                    new Comments { Id = 3, UserId = 2, Body = "Body Comment 3", NewsId = 1, IsDeleted = false, LastModified = DateTime.UtcNow }
-
                );
         }
     }

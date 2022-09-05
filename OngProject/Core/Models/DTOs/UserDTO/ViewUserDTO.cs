@@ -8,7 +8,7 @@ namespace OngProject.Core.Models.DTOs.UserDTO
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Photo { get; set; }
-        public Role Role { get; set; }
+        public int RoleId { get; set; }
 
 
         public ViewUserDTO(User u)
@@ -17,7 +17,7 @@ namespace OngProject.Core.Models.DTOs.UserDTO
             LastName = u.LastName;
             Email = u.Email;
             Photo = u.Photo;
-            Role = u.Role;
+            RoleId = u.RoleId;
         }
     }
 }
