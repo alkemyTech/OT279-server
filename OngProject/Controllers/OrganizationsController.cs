@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using OngProject.Core.Mapper;
 using OngProject.Core.Models.DTOs;
 using OngProject.Entities;
 using System;
@@ -22,16 +23,8 @@ namespace OngProject.Controllers
         
         public  async Task<IActionResult> GetAllOrganization()
         {
-            try
-            {
-                var organization = await _organizationsService.GetAllOrganization();
-                if(organization.Count > 0) return Ok(organization);
-                return NotFound();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            var organizations = await _organizationsService.GetAllOrganization();
+            return Ok(organizations);
         }
 
         [HttpGet("{id}")]
