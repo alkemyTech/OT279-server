@@ -11,7 +11,7 @@ namespace OngProject.Core.Interfaces
     {
         public Task<List<GetNameCategoriesDTO>> GetAllCategories();
         public Task<GetCategoriesDTO> GetCategoryById(int id);
-        public Task<Category> CreateCategory(Category category);
+        public Task<GetCategoriesDTO> CreateCategory(CreateCategoriesDTO category);
         public Task<bool> RemoveCategory(int id);
         public Task<Category> UpdateCategory(int id, Category categoryDTO);
     }
