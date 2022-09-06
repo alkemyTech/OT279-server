@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using OngProject.Core.Mapper;
 using OngProject.Core.Models.DTOs;
 using OngProject.Core.Models.DTOs.CategoriesDTO;
 using OngProject.Entities;
@@ -13,14 +14,34 @@ namespace OngProject.Core.Business
     public class CategoriesBusiness : ICategoriesBusiness
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IAmazonS3Client _amazonClient;
 
-        public CategoriesBusiness(IUnitOfWork unitOfWork)
+        public CategoriesBusiness(IUnitOfWork unitOfWork, IAmazonS3Client amazonClient)
         {
             this._unitOfWork = unitOfWork;
+            _amazonClient = amazonClient;
         }
-        public Task<Category> CreateCategory(Category category)
+        public async Task<GetCategoriesDTO> CreateCategory(CreateCategoriesDTO categoryDTO)
         {
-            throw new System.NotImplementedException();
+            var mapper = new CategoriesMapper();
+            var category = mapper.CreateCategoryByDTO(categoryDTO);
+
+            if(categoryDTO.Image != null)
+            {
+                category.Image = await _amazonClient.UploadObject(categoryDTO.Image);
+            }
+            else
+            {
+                category.Image = null;
+            }
+            
+
+            await _unitOfWork.CategoriesRepository.Insert(category);
+            _unitOfWork.SaveChanges();
+
+            var dto = mapper.GetCategories(category);
+            return dto;
+
         }
 
         public async Task<List<GetNameCategoriesDTO>> GetAllCategories()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using OngProject.Core.Models.DTOs.CategoriesDTO;
 using OngProject.Entities;
 using System.Threading.Tasks;
 
@@ -33,7 +34,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory([FromBody] Category categoryDTO)
+        public async Task<IActionResult> CreateCategory([FromQuery] CreateCategoriesDTO categoryDTO)
         {
 
             var category = await _service.CreateCategory(categoryDTO);
