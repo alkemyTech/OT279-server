@@ -26,10 +26,15 @@ namespace OngProject.Core.Business
             var mapper = new CategoriesMapper();
             var category = mapper.CreateCategoryByDTO(categoryDTO);
 
-            if(categoryDTO != null)
+            if(categoryDTO.Image != null)
             {
                 category.Image = await _amazonClient.UploadObject(categoryDTO.Image);
             }
+            else
+            {
+                category.Image = null;
+            }
+            
 
             await _unitOfWork.CategoriesRepository.Insert(category);
             _unitOfWork.SaveChanges();
