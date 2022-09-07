@@ -1,5 +1,6 @@
-﻿using OngProject.Core.Models.DTOs;
+﻿using OngProject.Core.Models.DTOs.ActivitiesDTO;
 using OngProject.Entities;
+using System.Collections.Generic;
 
 namespace OngProject.Core.Mapper
 {
@@ -25,5 +26,15 @@ namespace OngProject.Core.Mapper
             };
             return dto;
         }
+
+        public Activities UpdateActivities(Activities currentActivities, ActivitiesCreateDTO activitiesToUpdate, string newImageActivity)
+        {
+            currentActivities.Name = activitiesToUpdate.Name;
+            currentActivities.Image = newImageActivity;
+            currentActivities.Content = activitiesToUpdate.Content;
+            return currentActivities;
+        }
+
+        
     }
 }
