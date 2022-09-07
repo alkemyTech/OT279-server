@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using OngProject.Core.Models.DTOs.UserDTO;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System;
+using OngProject.Core.Models.DTOs.CommentsDTO;
 
 namespace OngProject.Controllers
 {
@@ -85,6 +87,12 @@ namespace OngProject.Controllers
                 return Ok();
             }
             return BadRequest();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateComment([FromRoute] int id, [FromBody] CommentUpdateDto commentDto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

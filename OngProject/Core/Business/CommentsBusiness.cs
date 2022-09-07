@@ -1,6 +1,7 @@
 ﻿using OngProject.Core.Interfaces;
 using OngProject.Core.Mapper;
 using OngProject.Core.Models.DTOs;
+using OngProject.Core.Models.DTOs.CommentsDTO;
 using OngProject.Core.Models.DTOs.UserDTO;
 using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
@@ -83,9 +84,21 @@ namespace OngProject.Core.Business
             return null;
         }
 
-        public Task<Comments> Update(int id, Comments Comments)
+        public async Task<Comments> Update(int id, CommentUpdateDto Comments)
         {
+            var existing = await _unitOfWork.CommentsRepository.GetById(id);
+
+            if (existing == null)
+                throw new Exception("Comment Not Found.");
+
+
             throw new System.NotImplementedException();
+        }
+
+        private async Task<ViewUserDTO> GetUser()
+        {
+
+            throw new NotImplementedException();
         }
     }
 }
