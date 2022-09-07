@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
-using OngProject.Core.Models.DTOs;
+using OngProject.Core.Mapper;
+using OngProject.Core.Models.DTOs.ActivitiesDTO;
 using OngProject.Entities;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace OngProject.Controllers
     [ApiController]
     public class ActivitiesController : ControllerBase
     {
-        private IActivitiesBusiness _service;
+        private readonly IActivitiesBusiness _service;
         public ActivitiesController(IActivitiesBusiness service)
         {
             _service = service;
@@ -69,16 +70,19 @@ namespace OngProject.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateActivities([FromQuery(Name = "id")] int id, [FromBody] Activities activitiesDTO)
+        public async Task<IActionResult> UpdateActivities([FromQuery(Name = "id")] int id, [FromQuery] ActivitiesCreateDTO activitiesDTO)
         {
-            var activities = await _service.UpdateActivities(id, activitiesDTO);
-            if (activities != null)
+            var existActivityByID = await _service.GetActivitiesById(id);
+            if (existActivityByID != null)
             {
-                return Ok(activities);
+                var activitiesUpdated = await _service.UpdateActivities(id, activitiesDTO);
+                ActivitiesMapper mapper = new();
+                var dto = mapper.FromActivitiesToActivitiesDisplayDto(activitiesUpdated);
+                return Ok(dto);
             }
             else
             {
-                return NotFound(400);
+                return NotFound("No se encontro una actividad con ese ID");
             }
         }
 
@@ -90,7 +94,9 @@ namespace OngProject.Controllers
 
             if (activities != null)
             {
-                return Ok(activities);
+                ActivitiesMapper mapper = new();
+                var activity = mapper.FromActivitiesToActivitiesDisplayDto(activities);
+                return Ok(activity);
             }
             else
             {

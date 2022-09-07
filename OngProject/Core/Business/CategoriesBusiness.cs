@@ -88,9 +88,30 @@ namespace OngProject.Core.Business
             return true;
         }
 
-        public Task<Category> UpdateCategory(int id, Category categoryDTO)
+        public async Task<Category> UpdateCategory(int id, CategoryUpdateDto categoryDTO)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var existing = await _unitOfWork.CategoriesRepository.GetById(id);
+
+                if (existing == null)
+                    throw new Exception("Category Not Found.");
+
+                existing.Name = categoryDTO.Name;
+                existing.Description = categoryDTO.Description;
+                // Keep same category image if none has been set in DTO.
+                existing.Image = categoryDTO.Image == null ? existing.Image : await _amazonClient.UploadObject(categoryDTO.Image);
+                existing.LastModified = DateTime.UtcNow;
+
+                _unitOfWork.CategoriesRepository.Update(existing);
+                _unitOfWork.SaveChanges();
+
+                return existing;
+            }
+            catch (Exception er)
+            {
+                throw new Exception(er.Message);
+            }
         }
     }
 }

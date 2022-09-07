@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OngProject.Core.Models.DTOs
+namespace OngProject.Core.Models.DTOs.ActivitiesDTO
 {
     public class ActivitiesDisplayDTO
     {

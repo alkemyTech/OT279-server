@@ -1,6 +1,6 @@
 ﻿using OngProject.Core.Interfaces;
 using OngProject.Core.Mapper;
-using OngProject.Core.Models.DTOs;
+using OngProject.Core.Models.DTOs.ActivitiesDTO;
 using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
 using System.Collections.Generic;
@@ -41,14 +41,21 @@ namespace OngProject.Core.Business
             return null;
         }
 
-        public Task<Activities> GetActivitiesById(int id)
+        public async Task<Activities> GetActivitiesById(int id)
         {
-            throw new System.NotImplementedException();
+            var activityById = await _unitOfWork.ActivitiesRepository.GetById(id);
+            return activityById;
         }
 
-        public Task<List<Activities>> GetAllActivities()
+        public async Task<List<ActivitiesDisplayDTO>> GetAllActivities()
         {
-            throw new System.NotImplementedException();
+            List<ActivitiesDisplayDTO> listActivities = new();
+            var activities = await _unitOfWork.ActivitiesRepository.GetAll();
+            foreach(var activity in activities)
+            {
+                listActivities.Add(new ActivitiesDisplayDTO { Name = activity.Name, Content = activity.Content, Image = activity.Image });
+            }
+            return listActivities;
         }
 
         public Task<bool> RemoveActivities(int id)
@@ -56,9 +63,18 @@ namespace OngProject.Core.Business
             throw new System.NotImplementedException();
         }
 
-        public Task<Activities> UpdateActivities(int id, Activities activities)
+        public async Task<Activities> UpdateActivities(int id, ActivitiesCreateDTO activitiesToUpdate)
         {
-            throw new System.NotImplementedException();
+            ActivitiesMapper mapper = new();
+            var curretActivity = await GetActivitiesById(id);            
+            var newImageActivity = await _amazonClient.UploadObject(activitiesToUpdate.Image);
+            var ActivityUpdated = mapper.UpdateActivities(curretActivity,activitiesToUpdate, newImageActivity);
+
+            _unitOfWork.ActivitiesRepository.Update(ActivityUpdated);
+            _unitOfWork.SaveChanges();
+
+            return ActivityUpdated;
+
         }
     }
 }
