@@ -86,25 +86,5 @@ namespace OngProject.Controllers
             }
             return BadRequest();
         }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateComment([FromRoute] int id, [FromBody] CommentUpdateDto commentDto)
-        {
-            try
-            {
-                var comment = await _commentsBusiness.Update(id, commentDto);
-                return Ok();
-            }
-            catch (Exception er)
-            {
-                if(er.Message.Contains("Not Found"))
-                    return NotFound(er.Message);
-
-                if (er.Message.Contains("Forbidden"))
-                    return Forbid();
-
-                return BadRequest(er.Message);
-            }
-        }
     }
 }
