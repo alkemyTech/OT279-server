@@ -81,7 +81,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateSlide([FromQuery(Name = "id")] int id, [FromBody] Slides slidesDTO)
+        public async Task<IActionResult> UpdateSlide([FromQuery(Name = "id")] int id, [FromBody] SlideUpdateDTO slidesDTO)
         {
             var slide = await _service.UpdateSlide(id, slidesDTO);
             if (slide != null)

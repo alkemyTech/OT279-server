@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using OngProject.Core.Interfaces;
+using OngProject.Core.Mapper;
 using OngProject.Core.Models.DTOs;
 using OngProject.DataAccess;
 using OngProject.Entities;
@@ -107,9 +108,35 @@ namespace OngProject.Core.Business
             return true;
         }
 
-        public Task<Slides> UpdateSlide(int id, Slides slideDTO)
+        public async Task<Slides> UpdateSlide(int id, SlideUpdateDTO slideupdateDTO)
         {
-            throw new NotImplementedException();
+            var mapper = new SlideMapper();
+            var slide = await _unitOfWork.SlidesRepository.GetById(id);
+
+            // Delete old image
+            if(slideupdateDTO.Image != null)
+            {
+                await _amazonS3Client.DeleteObject(slide.ImageUrl);
+            }
+
+            slide = mapper.FromSlideUpdateDtoToSlide(slideupdateDTO);
+
+            // Upload image with image name generated on mapper
+            if(slideupdateDTO.Image != null)
+            {
+                slide.ImageUrl = await _amazonS3Client.UploadObject(slideupdateDTO.Image);
+            }
+
+            if(slideupdateDTO.Order != null)
+            {
+                var slides = await _unitOfWork.SlidesRepository.GetAll();
+                slide.Order = slides.Last().Order + 1;
+            }
+
+            _unitOfWork.SlidesRepository.Update(slide);
+            _unitOfWork.SaveChanges();
+
+            return slide;
         }
     }
 }
