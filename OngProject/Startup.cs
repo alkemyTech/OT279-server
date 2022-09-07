@@ -2,6 +2,7 @@ using Amazon.S3;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,8 @@ namespace OngProject
             services.AddScoped<ISendGridBusiness, SendGridHelper>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            // Make sure only a HttpContextAccessor is available in the whole project.
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             // AWS stuff.
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());

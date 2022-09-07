@@ -1,4 +1,5 @@
 ﻿using OngProject.Core.Models.DTOs;
+using OngProject.Core.Models.DTOs.CommentsDTO;
 using OngProject.Core.Models.DTOs.UserDTO;
 using OngProject.Entities;
 using System.Collections.Generic;
@@ -12,6 +13,6 @@ namespace OngProject.Core.Interfaces
         Task<Comments> GetById(int id);
         Task<Comments> Insert(CommentCreateDTO commentCreateDTO);
         Task<bool> DeleteComments(Comments comments);
-        Task<Comments> Update(int id, Comments Comments);
+        Task<Comments> Update(int id, CommentUpdateDto Comments);
     }
 }

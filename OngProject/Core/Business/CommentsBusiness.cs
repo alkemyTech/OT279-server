@@ -1,12 +1,16 @@
-﻿using OngProject.Core.Interfaces;
+﻿using Microsoft.AspNetCore.Http;
+using OngProject.Core.Interfaces;
 using OngProject.Core.Mapper;
 using OngProject.Core.Models.DTOs;
+using OngProject.Core.Models.DTOs.CommentsDTO;
 using OngProject.Core.Models.DTOs.UserDTO;
+using OngProject.DataAccess;
 using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
@@ -14,9 +18,13 @@ namespace OngProject.Core.Business
     public class CommentsBusiness : ICommentsBusiness
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CommentsBusiness(IUnitOfWork unitOfWork)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly OngDbContext _dbContext;
+
+        public CommentsBusiness(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, OngDbContext dbContext)
         {
             _unitOfWork = unitOfWork;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<bool> DeleteComments(Comments comments)
@@ -83,9 +91,44 @@ namespace OngProject.Core.Business
             return null;
         }
 
-        public Task<Comments> Update(int id, Comments Comments)
+        public async Task<Comments> Update(int id, CommentUpdateDto Comments)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var existing = await _unitOfWork.CommentsRepository.GetById(id);
+
+                if (existing == null)
+                    throw new Exception("Comment Not Found.");
+
+                GetUser(out int userId, out string userRole);
+
+                if (existing.UserId != userId && userRole != "Admin")
+                    throw new Exception("Operation Forbidden.");
+
+                existing.Body = Comments.Body;
+
+                _unitOfWork.CommentsRepository.Update(existing);
+                _unitOfWork.SaveChanges();
+
+                return existing;
+            }
+            catch (Exception er)
+            { 
+                throw new Exception(er.Message);
+            }
+        }
+
+        private void GetUser(out int userId, out string userRole)
+        {
+            try
+            {
+                userId = int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+                userRole = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
+            }
+            catch (Exception er)
+            {
+                throw new Exception(er.Message);
+            }
         }
     }
 }
