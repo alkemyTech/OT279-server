@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using OngProject.Core.Interfaces;
 using OngProject.Core.Models.DTOs.CategoriesDTO;
 using OngProject.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace OngProject.Controllers
@@ -64,18 +66,22 @@ namespace OngProject.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateCategory([FromQuery(Name = "id")] int id, [FromBody] Category categoryDTO)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCategory([FromRoute] int id, [FromForm] CategoryUpdateDto categoryDTO)
         {
-            var category = await _service.UpdateCategory(id, categoryDTO);
-            if (category != null)
+            try
             {
+                var category = await _service.UpdateCategory(id, categoryDTO);
                 return Ok(category);
             }
-            else
+            catch (Exception er)
             {
-                return NotFound(400);
+                if (er.Message.Contains("Not Found"))
+                    return NotFound(er.Message);
+
+                return BadRequest(er.Message);
             }
+
         }
 
         [HttpGet("id")]
