@@ -14,8 +14,8 @@ namespace OngProject.Core.Interfaces
 
         public Task<Organization> InsertOrganization(Organization organization);
 
-        public Task<Organization> UpdateOrganization(int id, Organization organization);
+        public Task<UpdateOrganizationDTO> UpdateOrganization(int id, UpdateOrganizationDTO organization);
 
-        public Task<bool> DeleteOrganization(int id);
+        public Task<bool> DeleteOrganization(int id);     
     }
 }
