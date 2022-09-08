@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
 using OngProject.Core.Models.DTOs;
+using OngProject.Core.Models.DTOs.NewsDTO;
 using OngProject.Entities;
 using System.Threading.Tasks;
 
@@ -67,17 +68,25 @@ namespace OngProject.Controllers
 
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateNews([FromQuery(Name = "id")] int id, [FromBody] News newsDTO)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateNews([FromRoute] int id, [FromForm] InserNewDto newsDTO)
         {
-            var news = await _service.UpdateNews(id, newsDTO);
-            if (news != null)
+            try
             {
-                return Ok(news);
+                var news = await _service.UpdateNews(id, newsDTO);
+                if (news != null)
+                {
+                    return Ok(news);
+                }
+                else
+                {
+                    return NotFound(400);
+                }
             }
-            else
+            catch (System.Exception ex)
             {
-                return NotFound(400);
+
+                return BadRequest(ex);
             }
         }
 

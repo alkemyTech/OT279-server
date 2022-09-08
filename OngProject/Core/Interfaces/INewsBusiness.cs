@@ -13,6 +13,6 @@ namespace OngProject.Core.Interfaces
         Task<IEnumerable<CommentGetDto>> GetNewsByIdComments(int id);
         Task<News> CreateNews(InserNewDto newDto);
         public Task<bool> RemoveNews(int id);
-        public Task<News> UpdateNews(int id, News news);
+        public Task<GetNewsDto> UpdateNews(int id, InserNewDto newsDto);
     }
 }
