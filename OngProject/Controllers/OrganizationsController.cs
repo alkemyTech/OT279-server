@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
 using OngProject.Core.Mapper;
 using OngProject.Core.Models.DTOs;
+using OngProject.Core.Models.DTOs.OrganizationDTO;
 using OngProject.Entities;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OngProject.Controllers
@@ -20,11 +23,33 @@ namespace OngProject.Controllers
         }
 
         [HttpGet("/api/organization/public")]
-        
-        public  async Task<IActionResult> GetAllOrganization()
+
+        public async Task<IActionResult> GetAllOrganization()
         {
             var organizations = await _organizationsService.GetAllOrganization();
             return Ok(organizations);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost("organization/public/{id}")]
+        public async Task<IActionResult> UpdateOrganization(int id, [FromBody] UpdateOrganizationDTO updateOrganizationDTO)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)));
+                }
+                else
+                {
+                    var result = await _organizationsService.UpdateOrganization(id, updateOrganizationDTO);
+                    return Ok(result);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("{id}")]
