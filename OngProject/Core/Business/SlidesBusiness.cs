@@ -34,18 +34,19 @@ namespace OngProject.Core.Business
             var fileName = Guid.NewGuid().ToString();
             try
             {
-                MemoryStream fileStream = new MemoryStream(Convert.FromBase64String(slideDTO.ImageBase64.Split(",", 2)[1]));        
+                MemoryStream fileStream = new MemoryStream(Convert.FromBase64String(slideDTO.ImageBase64.Split(",", 2)[1]));
                 var url = await _amazonS3Client.UploadObject(fileStream);
 
                 if (slideDTO.Order == null || slideDTO.Order == 0)
                 {
-                    var lastSlide =  await _context.Slides.OrderByDescending(s=> s.LastModified).FirstAsync();
+                    var lastSlide = await _context.Slides.OrderByDescending(s => s.LastModified).FirstAsync();
                     slideDTO.Order = lastSlide.Order;
                 }
 
                 var organization = await _organizationBusiness.GetByIdOrganization(slideDTO.OrganizationId);
-                
-                if (organization == null) {
+
+                if (organization == null)
+                {
                     throw new Exception("Ingreso un 'ID' de una organizacion inexistente");
                 }
 
@@ -108,35 +109,33 @@ namespace OngProject.Core.Business
             return true;
         }
 
-        public async Task<Slides> UpdateSlide(int id, SlideUpdateDTO slideupdateDTO)
+        public async Task<SlideDTO> UpdateSlide(int id, SlideUpdateDTO slideDTO)
         {
             var mapper = new SlideMapper();
-            var slide = await _unitOfWork.SlidesRepository.GetById(id);
-
-            // Delete old image
-            if(slideupdateDTO.Image != null)
+            try
             {
-                await _amazonS3Client.DeleteObject(slide.ImageUrl);
+                var existingSlide = await _unitOfWork.SlidesRepository.GetById(id);
+
+                if (existingSlide != null)
+                {
+                    existingSlide.Text = slideDTO.Text;
+                    existingSlide.OrganizationId = slideDTO.OrganizationId;
+                    existingSlide.ImageUrl = await _amazonS3Client.UploadObject(slideDTO.Image);
+                    existingSlide.Order = slideDTO.Order;
+
+                    _unitOfWork.SlidesRepository.Update(existingSlide);
+                    _unitOfWork.SaveChanges();
+
+                    var dto = mapper.FromSlidesToSlidesDto(existingSlide);
+                    return dto;
+                }
+                return null;
             }
-
-            slide = mapper.FromSlideUpdateDtoToSlide(slideupdateDTO);
-
-            // Upload image with image name generated on mapper
-            if(slideupdateDTO.Image != null)
+            catch (Exception e)
             {
-                slide.ImageUrl = await _amazonS3Client.UploadObject(slideupdateDTO.Image);
+                throw new Exception(e.Message);
             }
-
-            if(slideupdateDTO.Order != null)
-            {
-                var slides = await _unitOfWork.SlidesRepository.GetAll();
-                slide.Order = slides.Last().Order + 1;
-            }
-
-            _unitOfWork.SlidesRepository.Update(slide);
-            _unitOfWork.SaveChanges();
-
-            return slide;
         }
+
     }
 }
