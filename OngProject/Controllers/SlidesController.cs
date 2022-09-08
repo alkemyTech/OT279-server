@@ -66,6 +66,7 @@ namespace OngProject.Controllers
             }
         }
 
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveSlide(int id)
         {
@@ -80,8 +81,8 @@ namespace OngProject.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateSlide([FromQuery(Name = "id")] int id, [FromBody] Slides slidesDTO)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateSlide([FromRoute] int id, [FromForm] SlideUpdateDTO slidesDTO)
         {
             var slide = await _service.UpdateSlide(id, slidesDTO);
             if (slide != null)
