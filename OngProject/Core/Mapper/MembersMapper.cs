@@ -25,5 +25,19 @@ namespace OngProject.Core.Mapper
            
         }
 
+        public MembersDisplayDTO FromMembersToMembersDisplayDTO(Members members)
+        {
+            var dto = new MembersDisplayDTO
+            {
+                Name = members.Name,
+                FacebookUrl = members.FacebookUrl,
+                InstagramUrl = members.InstagramUrl,
+                LinkedinUrl = members.LinkedinUrl,
+                Image = members.Image,
+                Description = members.Description
+            };
+            return dto;
+        }
+
     }
 }
