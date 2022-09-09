@@ -12,9 +12,12 @@ namespace OngProject.Core.Business
     public class MembersBusiness : IMembersBusiness
     {
         private readonly IUnitOfWork _unitOfWork;
-        public MembersBusiness(IUnitOfWork unitOfWork)
+        private readonly IAmazonS3Client _amazonS3Client;
+
+        public MembersBusiness(IUnitOfWork unitOfWork, IAmazonS3Client amazonS3Client)
         {
             _unitOfWork = unitOfWork;
+            _amazonS3Client = amazonS3Client;
         }
 
         public async Task<List<MembersDTO>> GetAllMembers()
@@ -82,9 +85,21 @@ namespace OngProject.Core.Business
             return flag;
         }
 
-        public Task<Members> UpdateMember()
+        public async Task<Members> UpdateMembers(int id, MembersUpdateDTO membersToUpdate)
         {
-            throw new NotImplementedException();
+
+            var currentMember = await GetMemberById(id);
+            currentMember.Image = membersToUpdate == null ? currentMember.Image : await _amazonS3Client.UploadObject(membersToUpdate.Image);
+            currentMember.Description = membersToUpdate.Description;
+            currentMember.Name = membersToUpdate.Name;
+            currentMember.FacebookUrl = membersToUpdate.FacebookUrl;
+            currentMember.InstagramUrl = membersToUpdate.InstagramUrl;
+            currentMember.LinkedinUrl = membersToUpdate.LinkedinUrl;
+            currentMember.LastModified = DateTime.UtcNow;
+            _unitOfWork.MembersRepository.Update(currentMember);
+            _unitOfWork.SaveChanges();
+
+            return currentMember;
         }
     }
 }

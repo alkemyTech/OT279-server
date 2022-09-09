@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using OngProject.Core.Mapper;
 using OngProject.Entities;
 using System;
 using System.Threading.Tasks;
@@ -59,16 +60,37 @@ namespace OngProject.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateMember()
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateMembers([FromRoute] int id, [FromForm] MembersUpdateDTO membersUpdateDTO)
         {
-            throw new NotImplementedException();
+            var member = await _membersBusiness.GetMemberById(id);
+            if (member != null)
+            {
+                var memberUpdated = await _membersBusiness.UpdateMembers(id, membersUpdateDTO);
+                MembersMapper mapper = new();
+                var membersDTO = mapper.FromMembersToMembersDisplayDTO(memberUpdated);
+                return Ok(membersDTO);
+            }
+            else
+            {
+                return NotFound("No se encontro un miembro con ese ID");
+            }
         }
 
         [HttpGet("id")]
-        public async Task<IActionResult> GetMemberById()
+        public async Task<IActionResult> GetMemberById([FromQuery(Name = "id")] int id)
         {
-            throw new NotImplementedException();
+            var member = await _membersBusiness.GetMemberById(id);
+
+            if (member != null)
+            {
+                return Ok(member);
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
     }
 }

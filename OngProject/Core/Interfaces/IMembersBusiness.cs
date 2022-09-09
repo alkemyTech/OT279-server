@@ -10,6 +10,6 @@ namespace OngProject.Core.Interfaces
         public Task<bool> CreateMember(MembersDTO memberDTO);
         public Task<bool> DeleteMember(Members members);
         public Task<Members> GetMemberById(int id);
-        public Task<Members> UpdateMember();
+        public Task<Members> UpdateMembers(int id, MembersUpdateDTO membersUpdateDTO);
     }
 }
