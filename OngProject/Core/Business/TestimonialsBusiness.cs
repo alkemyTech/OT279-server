@@ -1,4 +1,5 @@
 ﻿using OngProject.Core.Interfaces;
+using OngProject.Core.Mapper;
 using OngProject.Core.Models.DTOs.TestimonialDTO;
 using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
@@ -27,12 +28,11 @@ namespace OngProject.Core.Business
                 _unitOfWork.SaveChanges();
                 return true;
             }
-            catch (Exception ex)
+            catch (System.Exception)
             {
-                throw ex;
+                throw new Exception("Cannot delete Testimonial");
             }
 
-            return false;
         }
 
         public Task<System.Collections.Generic.List<Testimonials>> GetAll()
@@ -73,9 +73,18 @@ namespace OngProject.Core.Business
             return testimonial;
         }
 
-        public Task<Testimonials> Update(int id, Testimonials testimonials)
+        public async Task<Testimonials> UpdateTestimonials(int id, TestimonialUpdateDto testimonialsToUpdate)
         {
-            throw new System.NotImplementedException();
+            
+            var currentTestimonial = await GetById(id);
+            currentTestimonial.Image = testimonialsToUpdate == null ? currentTestimonial.Image : await _amazonS3Client.UploadObject(testimonialsToUpdate.Image);
+            currentTestimonial.Content = testimonialsToUpdate.Content;
+            currentTestimonial.Name = testimonialsToUpdate.Name;
+            currentTestimonial.LastModified = DateTime.UtcNow;
+            _unitOfWork.TestimonialsRepository.Update(currentTestimonial);
+            _unitOfWork.SaveChanges();
+
+            return currentTestimonial;
         }
     }
 }
