@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
+using OngProject.Core.Mapper;
 using OngProject.Core.Models.DTOs.TestimonialDTO;
 using OngProject.Entities;
 using System.Threading.Tasks;
@@ -66,17 +67,20 @@ namespace OngProject.Controllers
 
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateTestimonials([FromQuery(Name = "id")] int id, [FromBody] Testimonials testDTO)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateTestimonials([FromRoute] int id, [FromForm] TestimonialUpdateDto testDTO)
         {
-            var test = await _service.Update(id, testDTO);
-            if (test != null)
+            var testimonial = await _service.GetById(id);
+            if (testimonial != null)
             {
-                return Ok(test);
+                var testimonialUpdated = await _service.UpdateTestimonials(id, testDTO);
+                TestimonialsMapper mapper = new();
+                var testimonialDTO = mapper.FromTestimonialsToTestimonialsDisplayDTO(testimonialUpdated);
+                return Ok(testimonialDTO);
             }
             else
             {
-                return NotFound(400);
+                return NotFound("No se encontro un testimonio con ese ID");
             }
         }
 
