@@ -1,4 +1,5 @@
-﻿using OngProject.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using OngProject.Entities;
 
 namespace OngProject.Core.Models.DTOs.UserDTO
 {
@@ -10,7 +11,7 @@ namespace OngProject.Core.Models.DTOs.UserDTO
         public string Photo { get; set; }
         public int RoleId  { get; set; }
 
-
+        public ViewUserDTO() { }
         public ViewUserDTO(User u)
         {
             FirstName = u.FirstName;
