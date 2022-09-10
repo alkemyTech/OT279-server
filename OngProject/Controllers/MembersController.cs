@@ -24,7 +24,6 @@ namespace OngProject.Controllers
         {
             var host = HttpContext.Request.Host.Value;
             var path = HttpContext.Request.Path.Value;
-            var ab = HttpContext.Request.PathBase;
             var membersDTO = await _membersBusiness.GetAllMembers();
             if (membersDTO != null)
             {
