@@ -43,7 +43,7 @@ namespace OngProject.Core.Interfaces
         ///     Entity a actualizar en la base de datos
         /// </param>
 
-        Task<User> Update(int id, User user);
+        Task<User> Update(int id, UserUpdateDTO userDTO);
         
         /// <summary>
         ///     Obtiene un usuario en especifico

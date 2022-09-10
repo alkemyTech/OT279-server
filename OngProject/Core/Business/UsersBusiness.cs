@@ -30,12 +30,13 @@ namespace OngProject.Core.Business
         private readonly IUnitOfWork _unitOfWork;
         private readonly OngDbContext _context;
         private readonly IAuthBusiness _authBusiness;
-
-        public UsersBusiness(IUnitOfWork unitOfWork, OngDbContext context, IAuthBusiness authBusiness) //no se deberia utilizar OngDbContext
+        private readonly IAmazonS3Client _amazonS3Client;
+        public UsersBusiness(IUnitOfWork unitOfWork, OngDbContext context, IAuthBusiness authBusiness, IAmazonS3Client amazonS3Client) //no se deberia utilizar OngDbContext
         {
             _unitOfWork = unitOfWork;
             _context = context;
             _authBusiness = authBusiness;
+            _amazonS3Client = amazonS3Client;
         }
 
         public async Task<bool> Delete(int id)
@@ -60,11 +61,12 @@ namespace OngProject.Core.Business
 
         public async Task<List<ViewUserDTO>> GetAll()
         {
+      
             var result = await _unitOfWork.UserRepository.GetAll();
             List<ViewUserDTO> _listAux = new List<ViewUserDTO>();
-            foreach (var user in result)
+            foreach (User user in result)
             {
-                _listAux.Add(new ViewUserDTO(user));
+                _listAux.Add(UsersMapper.FromUsersToUsersDisplayDto(user));
             }
             return _listAux;
         }
@@ -113,9 +115,32 @@ namespace OngProject.Core.Business
             return user;
         }
 
-        public Task<User> Update(int id, User user)
+        public async Task<User> Update(int id, UserUpdateDTO userDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var existing = await _unitOfWork.UserRepository.GetById(id);
+
+                if (existing == null)
+                    throw new Exception("User not found.");
+
+                existing.FirstName = userDTO.FirstName;
+                existing.LastName = userDTO.LastName;
+                existing.Email = userDTO.Email;
+                existing.Password = userDTO.Password;
+                // Keep same category image if none has been set in DTO.
+                existing.Photo = userDTO.Photo; //== null ? existing.Photo : await _amazonS3Client.UploadObject(userDTO.Photo);
+                existing.LastModified = DateTime.UtcNow;
+
+                _unitOfWork.UserRepository.Update(existing);
+                _unitOfWork.SaveChanges();
+
+                return existing;
+            }
+            catch (Exception er)
+            {
+                throw new Exception(er.Message);
+            }
         }
     }
 }
