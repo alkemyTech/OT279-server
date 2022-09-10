@@ -18,6 +18,7 @@ using OngProject.Core.Interfaces;
 using OngProject.Core.Mapper;
 using OngProject.DataAccess;
 using OngProject.Entities;
+using OngProject.Middleware;
 using OngProject.Repositories;
 using OngProject.Repositories.Interfaces;
 using System;
@@ -119,6 +120,8 @@ namespace OngProject
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OngProject v1"));
             }
+
+            app.UseMiddleware<PermissionAuthorizationMiddleware>();
 
             app.UseHttpsRedirection();
 
