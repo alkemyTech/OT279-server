@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using OngProject.Core.Helper;
 using OngProject.Core.Interfaces;
+using OngProject.Core.Models.DTOs.PagedListDTO;
+using System.Linq;
 using OngProject.Entities;
 using System;
 using System.Threading.Tasks;
@@ -18,13 +20,17 @@ namespace OngProject.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllMembers()
+        public async Task<IActionResult> GetAllMembers([FromQuery(Name = "numberPage")] int numberPage = 1, [FromQuery(Name = "quantityPage")] int quantityPage = 10)
         {
+            var host = HttpContext.Request.Host.Value;
+            var path = HttpContext.Request.Path.Value;
+            var ab = HttpContext.Request.PathBase;
             var membersDTO = await _membersBusiness.GetAllMembers();
-
             if (membersDTO != null)
             {
-                return Ok(membersDTO);
+                PagedListHelper<MembersDTO> paged = PagedListHelper<MembersDTO>.Create(membersDTO, numberPage, quantityPage);
+                PagedListDTO<MembersDTO> memberList = new(paged,host,path);
+                return Ok(memberList);
             }
             else
             {

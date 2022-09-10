@@ -6,6 +6,7 @@ using OngProject.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace OngProject.Core.Business
 {
@@ -17,7 +18,7 @@ namespace OngProject.Core.Business
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<MembersDTO>> GetAllMembers()
+        public async Task<IQueryable<MembersDTO>> GetAllMembers()
         {
             List<Members> membersList;
             List<MembersDTO> membersDTOList = new List<MembersDTO>();
@@ -28,8 +29,8 @@ namespace OngProject.Core.Business
             {
                 membersDTOList.Add(MembersMapper.MembersToMembersDTO(m));
             }
-
-            return membersDTOList;
+            IQueryable<MembersDTO> members = membersDTOList.AsQueryable();
+            return members;
         }
         public async Task<Members> GetMemberById(int id)
         {
