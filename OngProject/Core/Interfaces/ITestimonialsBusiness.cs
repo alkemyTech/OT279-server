@@ -11,6 +11,6 @@ namespace OngProject.Core.Interfaces
         Task<Testimonials> GetById(int id);
         public Task<bool> DeleteTestimonials(Testimonials testimonials);
         Task<Testimonials> Insert(TestimonialInsertDto testimonialsDto);
-        Task<Testimonials> Update(int id, Testimonials testimonials);
+        Task<Testimonials> UpdateTestimonials(int id, TestimonialUpdateDto testimonials);
     }
 }

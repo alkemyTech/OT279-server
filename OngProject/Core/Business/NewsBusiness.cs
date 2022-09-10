@@ -83,9 +83,21 @@ namespace OngProject.Core.Business
             return false;
         }
 
-        public Task<News> UpdateNews(int id, News news)
+        public async Task<GetNewsDto> UpdateNews(int id, InserNewDto newsDto)
         {
-            throw new System.NotImplementedException();
+            News ExistNews = await _unitOfWork.NewsRepository.GetById(id);
+            if (ExistNews == null) throw new Exception("News Not Found.");
+
+            ExistNews.Name= newsDto.Name;
+            ExistNews.Content = newsDto.Content;
+            ExistNews.Image = await _amazonS3Client.UploadObject(newsDto.Image);
+            ExistNews.CategoryId = newsDto.CategoryId;
+            ExistNews.LastModified = DateTime.UtcNow;
+            
+             _unitOfWork.NewsRepository.Update(ExistNews);
+             _unitOfWork.SaveChanges();
+            GetNewsDto GetNewDto = NewsMapper.NewsToGetNewsDTO(ExistNews);
+            return GetNewDto;
         }
     }
 }
