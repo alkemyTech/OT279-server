@@ -14,7 +14,7 @@ namespace OngProject.Core.Models.DTOs.PagedListDTO
         {
 
             Values = entity;
-            PreviousPage = entity.HasPrevious ? $"https://{host}{path}?numberPage={entity.CurrentPage + 1}&quantityPage={entity.PageSize}" : null;
+            PreviousPage = entity.HasPrevious ? $"https://{host}{path}?numberPage={entity.CurrentPage - 1}&quantityPage={entity.PageSize}" : null;
             NextPage = entity.HasNext ? $"https://{host}{path}?numberPage={entity.CurrentPage + 1}&quantityPage={entity.PageSize}" : null;
         }
     }
