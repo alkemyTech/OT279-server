@@ -18,6 +18,7 @@ using OngProject.Core.Interfaces;
 using OngProject.Core.Mapper;
 using OngProject.DataAccess;
 using OngProject.Entities;
+using OngProject.Middleware;
 using OngProject.Repositories;
 using OngProject.Repositories.Interfaces;
 using System;
@@ -113,6 +114,7 @@ namespace OngProject
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -127,6 +129,8 @@ namespace OngProject
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<AdminMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
