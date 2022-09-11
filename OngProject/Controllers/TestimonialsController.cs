@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OngProject.Core.Helper;
 using OngProject.Core.Interfaces;
 using OngProject.Core.Mapper;
+using OngProject.Core.Models.DTOs.PagedListDTO;
 using OngProject.Core.Models.DTOs.TestimonialDTO;
 using OngProject.Entities;
 using System.Threading.Tasks;
@@ -19,14 +21,18 @@ namespace OngProject.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllTestimonials()
+        public async Task<IActionResult> GetAllTestimonials([FromQuery(Name = "numberPage")] int numberPage = 1, [FromQuery(Name = "quantityPage")] int quantityPage = 10)
         {
+            var host = HttpContext.Request.Host.Value;
+            var path = HttpContext.Request.Path.Value;
 
-            var test = await _service.GetAll();
+            var testDto = await _service.GetAll();
 
-            if (test != null)
+            if (testDto != null)
             {
-                return Ok(test);
+                PagedListHelper<TestimonialsDTO> paged = PagedListHelper<TestimonialsDTO>.Create(testDto, numberPage, quantityPage);
+                PagedListDTO<TestimonialsDTO> testList = new(paged, host, path);
+                return Ok(testList);
             }
             else
             {

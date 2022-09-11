@@ -4,6 +4,8 @@ using OngProject.Core.Models.DTOs.TestimonialDTO;
 using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
@@ -35,9 +37,20 @@ namespace OngProject.Core.Business
 
         }
 
-        public Task<System.Collections.Generic.List<Testimonials>> GetAll()
+        public async Task<IQueryable<TestimonialsDTO>> GetAll()
         {
-            throw new System.NotImplementedException();
+            var mapper = new TestimonialsMapper();
+            List<Testimonials> testList;
+            List<TestimonialsDTO> testDTOList = new List<TestimonialsDTO>();
+
+            testList = (List<Testimonials>) await _unitOfWork.TestimonialsRepository.GetAll();
+
+            foreach (Testimonials t in testList)
+            {
+                testDTOList.Add(mapper.TestimonialsToTestimonialsDTO(t));
+            }
+            IQueryable<TestimonialsDTO> test = testDTOList.AsQueryable();
+            return test;
         }
 
         public async Task<Testimonials> GetById(int id)
