@@ -27,7 +27,7 @@ namespace OngProject.Controllers
             _sendGridBusiness = sendGridBusiness;
         }
 
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         [HttpGet]
         [Route("/users")]
         public async Task<IActionResult> GetAllUsers()
@@ -113,7 +113,7 @@ namespace OngProject.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateUser([FromQuery(Name = "id")] int id, [FromBody] User userDTO)
+        public async Task<IActionResult> UpdateUser([FromQuery(Name = "id")] int id, [FromBody] UserUpdateDTO userDTO)
         {
             var user = await _service.Update(id, userDTO);
             if (user != null)
