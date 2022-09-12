@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
@@ -24,19 +25,25 @@ namespace OngProject.Middleware
         {
             try
             {
-                var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-                if (string.IsNullOrEmpty(token))
-                { 
-                    throw new Exception("Token invalido");
-                }
-                
-                var securityToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
-                if (!securityToken.Claims.Any(claim => claim.Type == ClaimTypes.Role && claim.Value == "Admin")) 
-                { 
-                    //TODO: Validar si el id enviado por parametro es igual al id del usuario enviado en el token.
-                    if (false) 
-                    { 
-                        throw new Exception("El token no es propio");
+                var userId = context.Request.Query["id"];
+                var path = context.Request.Path.ToString();
+                var userPath = "/api/user";
+
+                if (path.ToLower() == userPath)
+                {
+                    var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+                    if (string.IsNullOrEmpty(token))
+                    {
+                        throw new Exception("Token invalido");
+                    }
+                    var securityToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
+
+                    if (!context.User.IsInRole("Admin"))
+                    {
+                        if (!securityToken.Claims.Any(claim => claim.Type == ClaimTypes.NameIdentifier && claim.Value == userId))
+                        {
+                            throw new Exception("El usuario que intentas modificar no es el propio");
+                        }
                     }
                 }
 
@@ -54,7 +61,7 @@ namespace OngProject.Middleware
                 };
                 var result = JsonConvert.SerializeObject(ex.Message, settings);
                 context.Response.ContentType = "application/json";
-                context.Response.StatusCode = (int) HttpStatusCode.Forbidden;
+                context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                 await context.Response.WriteAsync(result);
             }
         }

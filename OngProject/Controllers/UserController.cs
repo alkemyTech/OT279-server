@@ -27,7 +27,7 @@ namespace OngProject.Controllers
             _sendGridBusiness = sendGridBusiness;
         }
 
-        [Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("/users")]
         public async Task<IActionResult> GetAllUsers()
@@ -42,6 +42,7 @@ namespace OngProject.Controllers
                 return NoContent();
             }
         }
+
 
         [HttpPost("/auth/register")]
         public async Task<IActionResult> CreateUser([FromBody] UserRegisterDTO userDTO)
