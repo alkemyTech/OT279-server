@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OngProject.Core.Helper;
 using OngProject.Core.Interfaces;
 using OngProject.Core.Models.DTOs;
 using OngProject.Core.Models.DTOs.NewsDTO;
+using OngProject.Core.Models.DTOs.PagedListDTO;
 using OngProject.Entities;
 using System.Threading.Tasks;
 
@@ -20,14 +22,17 @@ namespace OngProject.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllNews()
+        public async Task<IActionResult> GetAllNews([FromQuery(Name = "numberPage")] int numberPage = 1, [FromQuery(Name = "quantityPage")] int quantityPage = 10)
         {
+            var host = HttpContext.Request.Host.Value;
+            var path = HttpContext.Request.Path.Value;
+            var newsDTO = await _service.GetAllNews();
 
-            var news = await _service.GetAllNews();
-
-            if (news != null)
+            if (newsDTO != null)
             {
-                return Ok(news);
+                PagedListHelper<GetNewsDto> page = PagedListHelper<GetNewsDto>.Create(newsDTO, numberPage, quantityPage);
+                PagedListDTO<GetNewsDto> listNews = new(page, host, path);
+                return Ok(listNews);
             }
             else
             {

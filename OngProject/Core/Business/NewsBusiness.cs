@@ -38,9 +38,16 @@ namespace OngProject.Core.Business
 
         }
 
-        public Task<List<News>> GetAllNews()
+        public async Task<IQueryable<GetNewsDto>> GetAllNews()
         {
-            throw new System.NotImplementedException();
+            List<News> listNews = (List<News>) await _unitOfWork.NewsRepository.GetAll();
+            List<GetNewsDto> listNewsDto = new ();
+            foreach (News nws in listNews)
+            {
+                listNewsDto.Add(NewsMapper.NewsToGetNewsDTO(nws));
+            }
+            IQueryable<GetNewsDto> list = listNewsDto.AsQueryable();
+            return list;
         }
 
         public async Task<GetNewsDto> GetNewsById(int id)
