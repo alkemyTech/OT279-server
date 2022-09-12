@@ -27,6 +27,17 @@ namespace OngProject.Core.Mapper
             return currentTestimonials;
         }
 
-        
+        public TestimonialsDTO TestimonialsToTestimonialsDTO(Testimonials test)
+        {
+            var testDTO = new TestimonialsDTO()
+            {
+                Name = test.Name,
+                Image = test.Image,
+                Content = test.Content
+            };
+            return testDTO;
+        }
+
+
     }
 }
