@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 using OngProject.Core.Interfaces;
 using OngProject.Entities;
 using OngProject.Core.Models.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OngProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+
     public class SlidesController : ControllerBase
     {
 

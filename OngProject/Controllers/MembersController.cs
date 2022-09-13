@@ -7,11 +7,14 @@ using OngProject.Entities;
 using System;
 using System.Threading.Tasks;
 using OngProject.Core.Mapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OngProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+
     public class MembersController : ControllerBase
     {
         private readonly IMembersBusiness _membersBusiness;
