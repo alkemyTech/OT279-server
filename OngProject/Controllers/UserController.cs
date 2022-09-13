@@ -27,7 +27,7 @@ namespace OngProject.Controllers
             _sendGridBusiness = sendGridBusiness;
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Administrador")]
         [HttpGet]
         [Route("/users")]
         public async Task<IActionResult> GetAllUsers()
