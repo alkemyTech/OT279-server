@@ -7,6 +7,7 @@ using OngProject.Entities;
 using OngProject.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OngProject.Core.Business
@@ -44,17 +45,17 @@ namespace OngProject.Core.Business
 
         }
 
-        public async Task<List<GetNameCategoriesDTO>> GetAllCategories()
+        public async Task<IQueryable<GetNameCategoriesDTO>> GetAllCategories()
         {
             var categoriesDTO = new List<GetNameCategoriesDTO>();
-            var categories = await _unitOfWork.CategoriesRepository.GetAll();
+            var categoriesList = await _unitOfWork.CategoriesRepository.GetAll();
 
-            foreach(var category in categories)
+            foreach(var category in categoriesList)
             {
                 categoriesDTO.Add(new GetNameCategoriesDTO { Name = category.Name });
             }
-
-            return categoriesDTO;
+            IQueryable<GetNameCategoriesDTO> categories = categoriesDTO.AsQueryable();
+            return categories;
         }
 
 
