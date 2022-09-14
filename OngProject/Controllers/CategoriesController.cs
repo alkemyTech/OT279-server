@@ -51,6 +51,10 @@ namespace OngProject.Controllers
             {
                 PagedListHelper<GetNameCategoriesDTO> paged = PagedListHelper<GetNameCategoriesDTO>.Create(categoryDTO, numberPage, quantityPage);
                 PagedListDTO<GetNameCategoriesDTO> testList = new(paged, host, path);
+                if(testList.totalPage < numberPage)
+                {
+                    return Ok("Pagina Actual inexistente");
+                }
                 return Ok(testList);
             }
             else

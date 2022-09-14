@@ -35,6 +35,10 @@ namespace OngProject.Controllers
             {
                 PagedListHelper<GetNewsDto> page = PagedListHelper<GetNewsDto>.Create(newsDTO, numberPage, quantityPage);
                 PagedListDTO<GetNewsDto> listNews = new(page, host, path);
+                if (listNews.totalPage < numberPage)
+                {
+                    return Ok("Pagina Actual inexistente");
+                }
                 return Ok(listNews);
             }
             else

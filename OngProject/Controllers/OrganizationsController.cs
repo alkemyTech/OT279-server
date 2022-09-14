@@ -32,9 +32,20 @@ namespace OngProject.Controllers
             return Ok(organizations);
         }
 
-        [Authorize(Roles = "Admin")]
-        [HttpPost("organization/public/{id}")]
-        public async Task<IActionResult> UpdateOrganization(int id, [FromBody] UpdateOrganizationDTO updateOrganizationDTO)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdOrganization(int id)
+        {
+            return NoContent();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> InsertOrganization([FromBody] Organization organization)
+        {
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateOrganization(int id, [FromQuery] UpdateOrganizationDTO updateOrganizationDTO)
         {
             try
             {
@@ -52,24 +63,6 @@ namespace OngProject.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetByIdOrganization(int id)
-        {
-            return NoContent();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> InsertOrganization([FromBody] Organization organization)
-        {
-            return NoContent();
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateOrganization(int id, [FromBody] Organization organization)
-        {
-            return NoContent();
         }
 
         [HttpDelete("{id}")]
