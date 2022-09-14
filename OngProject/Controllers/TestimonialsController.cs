@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Helper;
 using OngProject.Core.Interfaces;
@@ -12,6 +13,8 @@ namespace OngProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+
     public class TestimonialsController : ControllerBase
     {
         private readonly ITestimonialsBusiness _service;
@@ -32,6 +35,10 @@ namespace OngProject.Controllers
             {
                 PagedListHelper<TestimonialsDTO> paged = PagedListHelper<TestimonialsDTO>.Create(testDto, numberPage, quantityPage);
                 PagedListDTO<TestimonialsDTO> testList = new(paged, host, path);
+                if (testList.totalPage < numberPage)
+                {
+                    return Ok("Pagina Actual inexistente");
+                }
                 return Ok(testList);
             }
             else

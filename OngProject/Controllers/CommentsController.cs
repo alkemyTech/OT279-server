@@ -9,11 +9,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System;
 using OngProject.Core.Models.DTOs.CommentsDTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OngProject.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
+
     public class CommentsController : ControllerBase
     {
         private readonly ICommentsBusiness _commentsBusiness;

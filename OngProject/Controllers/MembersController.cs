@@ -7,11 +7,14 @@ using OngProject.Entities;
 using System;
 using System.Threading.Tasks;
 using OngProject.Core.Mapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OngProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+
     public class MembersController : ControllerBase
     {
         private readonly IMembersBusiness _membersBusiness;
@@ -30,6 +33,10 @@ namespace OngProject.Controllers
             {
                 PagedListHelper<MembersDTO> paged = PagedListHelper<MembersDTO>.Create(membersDTO, numberPage, quantityPage);
                 PagedListDTO<MembersDTO> memberList = new(paged,host,path);
+                if (memberList.totalPage < numberPage)
+                {
+                    return Ok("Pagina Actual inexistente");
+                }
                 return Ok(memberList);
             }
             else

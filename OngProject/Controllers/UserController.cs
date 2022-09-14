@@ -14,6 +14,7 @@ namespace OngProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class UserController : ControllerBase
     {
         private readonly IUsersBusiness _service;
@@ -42,6 +43,7 @@ namespace OngProject.Controllers
                 return NoContent();
             }
         }
+
 
         [HttpPost("/auth/register")]
         public async Task<IActionResult> CreateUser([FromBody] UserRegisterDTO userDTO)
