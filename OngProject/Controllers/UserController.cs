@@ -44,8 +44,17 @@ namespace OngProject.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Registra un nuevo usuario en el sistema y le envia un mensaje de bienvenida a su correo.
+        /// </summary>
+        /// <param name="userDto">DTO con información básica y necesaria para registrar a un usuario.</param>
+        /// <returns>JWT string con los claims básicos del usuario.</returns>
+        /// 
+        /// <response code="403">Si el email a registrar ya existe.</response>
+        /// <response code="200">Si el usuario se registró exitosamente.</response>
         [HttpPost("/auth/register")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateUser([FromBody] UserRegisterDTO userDTO)
         {
             if (!ModelState.IsValid)
@@ -58,19 +67,27 @@ namespace OngProject.Controllers
 
                 if (token != "")
                 {
-                    //var userDB = await _service.GetByEmail(user.Email);
-                    //var token = _authBusiness.GetToken(userDB);
                     await _sendGridBusiness.WelcomeEmail(userDTO.Email);
                     return Ok(token);
                 }
                 else
                 {
-                    return NotFound();
+                    return Forbid();
                 }
             }
         }
 
+        /// <summary>
+        /// Loguea un usuario existente en sistema, dandole acceso los recursos según privilegios..
+        /// </summary>
+        /// <param name="userLoginDto">DTO con información básica y necesaria para loguear a un usuario.</param>
+        /// <returns>JWT string con los claims básicos del usuario.</returns>
+        /// 
+        /// <response code="200">Si el usuario se logueó exitosamente.</response>
+        /// <response code="400">Si el email o password no fueron introducidos o si el usuario no existe.</response>
         [HttpPost("/auth/login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> LoginUser([FromBody] UserLoginDTO userLoginDTO)
         {
             // 1. Valida si el campo email y password fueron enviados correctamente en la peticion
