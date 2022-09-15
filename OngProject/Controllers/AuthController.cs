@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using OngProject.Core.Interfaces;
 using OngProject.Core.Models.DTOs.UserDTO;
 using OngProject.Entities;
@@ -20,7 +21,18 @@ namespace OngProject.Controllers
             _UserBusiness = UserBusiness;
         }
 
+
+        /// <summary>
+        /// Retorna el usuario autenticado poseedor del JSON Web Token (JWT).
+        /// </summary>
+        /// <param name="strToken">The user's JWT</param>
+        /// <returns>Dto con datos básicos del Usuario autenticado.</returns>
+        /// 
+        /// <response code="404">Si el usuarion no fue encontrado.</response>
+        /// <response code="200">Si el elusuario fue encontrado y está autenticado.</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [Route("me")]
         public async Task<IActionResult> getUserByAuth(string strToken)
         {
