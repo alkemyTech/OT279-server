@@ -23,7 +23,7 @@ namespace OngProject.Controllers
 
         //[Authorize(Roles = "Administrador")]
         [HttpGet]
-        public async Task<IActionResult> GetAllMembers()
+        public async Task<IActionResult> GetAllContacts()
         {
             var contactsDTO = await _contactsBusiness.GetAllContacts();
 
@@ -38,10 +38,10 @@ namespace OngProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostContacts([FromForm] ContactCreateDTO contactDto)
+        public async Task<IActionResult> PostContacts(ContactCreateDTO contactDto)
         {
             var contact = await _contactsBusiness.CreateContact(contactDto);
-            if(contact != null)
+            if(contact)
             {
                 return Ok(contact);
             }

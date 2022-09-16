@@ -35,18 +35,30 @@ namespace OngProject.Core.Business
             return contactsDTOList;
         }
 
-        public async Task<ContactDTO> CreateContact(ContactCreateDTO contactDto)
+        public async Task<bool> CreateContact(ContactCreateDTO contactDto)
         {
-            var contact = ContactsMapper.FromContactCreateDtoToContact(contactDto);
+            if(contactDto.Name != null)
+            {
+                try
+                {
+                    var contact = ContactsMapper.FromContactCreateDtoToContact(contactDto);
 
-            await _unitOfWork.ContactsRepository.Insert(contact);
-            _unitOfWork.SaveChanges();
+                    await _unitOfWork.ContactsRepository.Insert(contact);
+                    _unitOfWork.SaveChanges();
 
-            await _sendGridBusiness.ContactEmail(contact.Email);
+                    await _sendGridBusiness.ContactEmail(contact.Email);
 
-            var dto = ContactsMapper.ContactsToContactsDTO(contact);
+                    var dto = ContactsMapper.ContactsToContactsDTO(contact);
 
-            return dto;
+                    return true;
+                }
+                catch(Exception ex)
+                {
+                    return false;
+                }
+            }
+            return false;
+
         }
 
     }
