@@ -1,12 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OngProject.Core.Helper;
 using OngProject.Core.Interfaces;
 using OngProject.Core.Models.DTOs.UserDTO;
-using OngProject.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,9 +23,26 @@ namespace OngProject.Controllers
             _sendGridBusiness = sendGridBusiness;
         }
 
-        //[Authorize(Roles = "Administrador")]
+        /// <summary>
+        ///     Get all users information.
+        /// </summary>
+        /// <remarks>
+        ///     Get the information about all the users stored in the database.
+        /// </remarks>
+        /// <response code="200">OK. Returns users information.</response>  
+        /// <response code="400">Bad request. Invalid request received.</response>    
+        /// <response code="401">Unauthorized. Invalid JWT Token or it wasn't provided.</response>     
+        /// <response code="403">Forbidden. You do not have the permissions to perform this action.</response>
+        /// <response code="404">Not Found. Server couldn't find any user.</response> 
+        /// <response code="500">Internal Server Error.</response>
         [HttpGet]
         [Route("/users")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllUsers()
         {
             var _listUsers = await _service.GetAll();
@@ -117,7 +129,26 @@ namespace OngProject.Controllers
             }
         }
 
-        [HttpDelete]
+        /// <summary>
+        ///     Deletes an user.
+        /// </summary>
+        /// <remarks>
+        ///     Deletes the user in the database.
+        /// </remarks>
+        /// <param name="id">User ID that will be deleted.</param>
+        /// <response code="200">OK. Returns a result object.</response>  
+        /// <response code="400">Bad request. User couldn't be updated.</response>    
+        /// <response code="401">Unauthorized. Invalid JWT Token or it wasn't provided.</response>     
+        /// <response code="403">Forbidden. You do not have the permissions to perform this action.</response>
+        /// <response code="404">Not Found. Server couldn't find any user with the ID provided.</response> 
+        /// <response code="500">Internal Server Error.</response>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> RemoveUser([FromQuery(Name = "id")] int id)
         {
             bool user = await _service.Delete(id);
@@ -131,7 +162,27 @@ namespace OngProject.Controllers
             }
         }
 
-        [HttpPut]
+        /// <summary>
+        ///     Updates an user information.
+        /// </summary>
+        /// <remarks>
+        ///     Updates an user information with the values provided.
+        /// </remarks>
+        /// <param name="id">User ID that will be updated.</param>
+        /// <param name="userDTO">Dto that allow to update the user</param>
+        /// <response code="200">OK. Returns a result object.</response>  
+        /// <response code="400">Bad request. User couldn't be updated.</response>    
+        /// <response code="401">Unauthorized. Invalid JWT Token or it wasn't provided.</response>     
+        /// <response code="403">Forbidden. You do not have the permissions to perform this action.</response>
+        /// <response code="404">Not Found. Server couldn't find any user with the ID provided.</response> 
+        /// <response code="500">Internal Server Error.</response>
+        [HttpPut("id")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateUser([FromQuery(Name = "id")] int id, [FromBody] UserUpdateDTO userDTO)
         {
             var user = await _service.Update(id, userDTO);
@@ -145,7 +196,22 @@ namespace OngProject.Controllers
             }
         }
 
-        [HttpGet("id")]
+        /// <summary>
+        ///     Gets an user information.
+        /// </summary>
+        /// <remarks>
+        ///     Gets information about the user.
+        /// </remarks>
+        /// <param name="id">User id that will be searched.</param>        
+        /// <response code="200">OK. Returns user information.</response> 
+        /// <response code="400">BadRequest. Invalid request received.</response> 
+        /// <response code="404">Not found. Server couldn't find the user.</response> 
+        /// <response code="500">Internal Server Error.</response> 
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetUserById([FromQuery(Name = "id")] int id)
         {
             var user = await _service.GetById(id);
