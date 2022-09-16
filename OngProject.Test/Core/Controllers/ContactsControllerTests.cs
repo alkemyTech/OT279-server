@@ -67,28 +67,6 @@ namespace OngProject.Test.Core.Controllers
                 .BeOfType<NotFoundResult>();
         }
 
-        // Use real data from in-memory database
-        [Fact]
-        public async void CreateContact_OnSuccess_ReturnsStatusCode200()
-        {
-            // Arrange
-            IUnitOfWork unitOfWork = new TestHelper().GetUnitOfWork();
-            var sendGridMock = new Mock<ISendGridBusiness>();
-            IContactsBusiness contactsBussiness = new ContactsBusiness(unitOfWork, sendGridMock.Object);
-
-            var sut = new ContactsController(contactsBussiness);
-            sut.ControllerContext = new ControllerContext();
-            sut.ControllerContext.HttpContext = new DefaultHttpContext();
-
-            // Act
-            var result = (OkObjectResult)await sut.GetAllContacts();
-
-            // Assert
-            result
-                .Should()
-                .BeOfType<OkObjectResult>();
-        }
-
         [Fact]
         public async void CreateContact_OnSucess_ReturnsStatusCode200()
         {
