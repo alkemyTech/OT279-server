@@ -63,7 +63,8 @@ namespace OngProject.Core.Business
                 }
                 catch(Exception ex)
                 {
-                    throw ex;
+                    return false;
+                    //throw ex;
                 }
                 return true;
             }
