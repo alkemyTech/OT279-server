@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using OngProject.Core.Helper;
@@ -7,6 +8,7 @@ using OngProject.Core.Models.DTOs.CategoriesDTO;
 using OngProject.Core.Models.DTOs.PagedListDTO;
 using OngProject.Entities;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace OngProject.Controllers
@@ -22,24 +24,21 @@ namespace OngProject.Controllers
         {
             _service = service;
         }
-
+        /// <summary>
+        /// Get a list of all categories
+        /// </summary>
+        /// <param name="numberPage">Page number</param>
+        /// <param name="quantityPage">Number of filtered records</param>
+        /// <returns></returns>
+        /// <response code="200">OK. Returns Categories information.</response>  
+        /// <response code="400">BadRequest. Invalid request received.</response> 
+        /// <response code="401">Unauthoried.</response> 
+        /// <response code="404">Not found. Server couldn't find the Categories.</response> 
         [HttpGet]
-        //public async Task<IActionResult> GetAllCategories()
-        //{
-
-        //    var categories = await _service.GetAllCategories();
-
-        //    if (categories != null)
-        //    {
-        //        return Ok(categories);
-        //    }
-        //    else
-        //    {
-        //        return NotFound();
-        //    }
-
-        //}
-
+        [ProducesResponseType(StatusCodes.Status200OK,Type=typeof(List<GetNameCategoriesDTO>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllCategories([FromQuery(Name = "numberPage")] int numberPage = 1, [FromQuery(Name = "quantityPage")] int quantityPage = 10)
         {
             var host = HttpContext.Request.Host.Value;
@@ -63,8 +62,21 @@ namespace OngProject.Controllers
             }
 
         }
-
+        /// <summary>
+        /// Create a new category
+        /// </summary>
+        /// <param name="categoryDTO"> Name Category</param>
+        /// <returns></returns>
+        ///
+        /// <response code="200">OK. Returns the new saved category.</response>  
+        /// <response code="400">BadRequest. Invalid request received.</response> 
+        /// <response code="401">Unauthoried.</response> 
+       
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetCategoriesDTO))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+      
         public async Task<IActionResult> CreateCategory([FromQuery] CreateCategoriesDTO categoryDTO)
         {
 
@@ -80,8 +92,18 @@ namespace OngProject.Controllers
             }
 
         }
-
+        /// <summary>
+        /// Delete a Category by ID
+        /// </summary>
+        /// <param name="id">Category id to remove</param>
+        /// <returns></returns>
+        /// <response code="200">OK. return an OK as response.</response>  
+        /// <response code="400">BadRequest. Invalid request received.</response> 
+        /// <response code="401">Unauthoried.</response> 
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> RemoveCategory(int id)
         {
             try
@@ -94,8 +116,19 @@ namespace OngProject.Controllers
                 return NotFound(err.Message);
             }
         }
-
+        /// <summary>
+        /// Update a Category
+        /// </summary>
+        /// <param name="id">Category ID to update</param>
+        /// <param name="categoryDTO"></param>
+        /// <returns></returns>
+        /// <response code="200">OK. Return the updated category.</response>  
+        /// <response code="400">BadRequest. Invalid request received.</response> 
+        /// <response code="401">Unauthoried.</response> 
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Category))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> UpdateCategory([FromRoute] int id, [FromForm] CategoryUpdateDto categoryDTO)
         {
             try
@@ -112,8 +145,18 @@ namespace OngProject.Controllers
             }
 
         }
-
+        /// <summary>
+        /// Get a category by an ID
+        /// </summary>
+        /// <param name="id">Category ID</param>
+        /// <returns></returns>
+        /// <response code="200">OK. Return a category by ID.</response>  
+        /// <response code="400">BadRequest. Invalid request received.</response> 
+        /// <response code="401">Unauthoried.</response> 
         [HttpGet("id")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetCategoriesDTO))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetCategoryById([FromQuery(Name = "id")] int id)
         {
 
