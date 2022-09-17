@@ -63,6 +63,7 @@ namespace OngProject.Core.Business
            Activities activity= await _unitOfWork.ActivitiesRepository.GetById(id);
             if (activity == null) return false;
             bool result = await _unitOfWork.ActivitiesRepository.Delete(activity);
+            _unitOfWork.SaveChanges();
             return result;
         }
 
