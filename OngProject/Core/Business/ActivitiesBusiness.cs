@@ -58,9 +58,12 @@ namespace OngProject.Core.Business
             return listActivities;
         }
 
-        public Task<bool> RemoveActivities(int id)
+        public async Task<bool> RemoveActivities(int id)
         {
-            throw new System.NotImplementedException();
+           Activities activity= await _unitOfWork.ActivitiesRepository.GetById(id);
+            if (activity == null) return false;
+            bool result = await _unitOfWork.ActivitiesRepository.Delete(activity);
+            return result;
         }
 
         public async Task<Activities> UpdateActivities(int id, ActivitiesCreateDTO activitiesToUpdate)

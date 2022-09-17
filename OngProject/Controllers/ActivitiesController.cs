@@ -108,7 +108,7 @@ namespace OngProject.Controllers
 
             bool activities = await _service.RemoveActivities(id);
 
-            if (activities)
+            if (activities!=false)
             {
                 return Ok();
             }
