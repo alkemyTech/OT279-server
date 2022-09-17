@@ -95,7 +95,7 @@ namespace OngProject
                 c.AddSecurityDefinition("Bearer",
                     new OpenApiSecurityScheme
                     {
-                        Description = "Autenticación JWT (Bearer)",
+                        Description = "AutenticaciÃ³n JWT (Bearer)",
                         Type = SecuritySchemeType.Http,
                         Scheme = "bearer"
                     });

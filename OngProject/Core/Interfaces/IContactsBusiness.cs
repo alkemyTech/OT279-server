@@ -8,6 +8,6 @@ namespace OngProject.Core.Interfaces
     public interface IContactsBusiness
     {
         public Task<List<ContactDTO>> GetAllContacts();
-        Task<ContactDTO> CreateContact(ContactCreateDTO contactDto);
+        Task<bool> CreateContact(ContactCreateDTO contactDto);
     }
 }
