@@ -30,5 +30,10 @@ namespace OngProject.Test
         {
             return new UnitOfWork(_ongDbContext);
         }
+
+        public OngDbContext GetOngDbContext()
+        {
+            return _ongDbContext;
+        }
     }
 }
