@@ -103,12 +103,12 @@ namespace OngProject.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> RemoveActivities([FromQuery(Name = "id")] int id)
+        public async Task<IActionResult> RemoveActivities([FromRoute] int id)
         {
 
             bool activities = await _service.RemoveActivities(id);
 
-            if (activities)
+            if (activities!=false)
             {
                 return Ok();
             }
@@ -138,7 +138,7 @@ namespace OngProject.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateActivities([FromQuery(Name = "id")] int id, [FromQuery] ActivitiesCreateDTO activitiesDTO)
+        public async Task<IActionResult> UpdateActivities([FromRoute] int id, [FromQuery] ActivitiesCreateDTO activitiesDTO)
         {
             var existActivityByID = await _service.GetActivitiesById(id);
             if (existActivityByID != null)
@@ -170,7 +170,7 @@ namespace OngProject.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetActivitiesById([FromQuery(Name = "id")] int id)
+        public async Task<IActionResult> GetActivitiesById([FromRoute] int id)
         {
 
             var activities = await _service.GetActivitiesById(id);

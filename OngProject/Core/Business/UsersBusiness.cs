@@ -31,6 +31,7 @@ namespace OngProject.Core.Business
         private readonly OngDbContext _context;
         private readonly IAuthBusiness _authBusiness;
         private readonly IAmazonS3Client _amazonS3Client;
+
         public UsersBusiness(IUnitOfWork unitOfWork, OngDbContext context, IAuthBusiness authBusiness, IAmazonS3Client amazonS3Client) //no se deberia utilizar OngDbContext
         {
             _unitOfWork = unitOfWork;
