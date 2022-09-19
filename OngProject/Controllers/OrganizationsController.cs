@@ -29,19 +29,38 @@ namespace OngProject.Controllers
         public async Task<IActionResult> GetAllOrganization()
         {
             var organizations = await _organizationsService.GetAllOrganization();
-            return Ok(organizations);
+            if (organizations.Count() > 0)
+                return Ok(organizations);
+            else return NotFound();
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetByIdOrganization(int id)
+        [HttpGet("id")]
+        public async Task<IActionResult> GetByIdOrganization([FromQuery(Name = "id")] int id)
         {
-            return NoContent();
+            var organization = await _organizationsService.GetByIdOrganization(id);
+
+            if (organization != null)
+            {
+                return Ok(organization);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertOrganization([FromBody] Organization organization)
+        public async Task<IActionResult> InsertOrganization([FromBody] CreateOrganizationDTO organizationDTO)
         {
-            return NoContent();
+            if (organizationDTO.Name != null)
+            {
+                var newOrganization = await _organizationsService.InsertOrganization(organizationDTO);
+                if (newOrganization != null)
+                    return Ok("Member created " + newOrganization);
+                else
+                    return NotFound("Something went wrong");
+            }
+            else return NotFound();
         }
 
         [HttpPut("{id}")]
@@ -66,9 +85,19 @@ namespace OngProject.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrganization(int id)
+        public async Task<IActionResult> DeleteOrganization([FromQuery(Name = "id")] int id)
         {
-            return NoContent();
+            var organization = await _organizationsService.GetByIdOrganization(id);
+
+            if (organization != null)
+            {
+                var flag = await _organizationsService.DeleteOrganization(organization.Id);
+                return Ok(flag);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
 

@@ -12,7 +12,7 @@ namespace OngProject.Core.Interfaces
 
         public Task<Organization> GetByIdOrganization(int id);
 
-        public Task<Organization> InsertOrganization(Organization organization);
+        public Task<OrganizationDisplayDTO> InsertOrganization(CreateOrganizationDTO organization);
 
         public Task<UpdateOrganizationDTO> UpdateOrganization(int id, UpdateOrganizationDTO organization);
 
