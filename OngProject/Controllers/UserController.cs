@@ -46,13 +46,13 @@ namespace OngProject.Controllers
         public async Task<IActionResult> GetAllUsers()
         {
             var _listUsers = await _service.GetAll();
-            if (_listUsers.Count > 0)
+            if (_listUsers != null)
             {
                 return Ok(_listUsers);
             }
             else
             {
-                return NoContent();
+                return NotFound();
             }
         }
 
@@ -192,7 +192,7 @@ namespace OngProject.Controllers
             }
             else
             {
-                return NotFound(400);
+                return NotFound();
             }
         }
 

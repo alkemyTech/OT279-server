@@ -123,7 +123,7 @@ namespace OngProject.Core.Business
                 var existing = await _unitOfWork.UserRepository.GetById(id);
 
                 if (existing == null)
-                    throw new Exception("User not found.");
+                    return null;
 
                 existing.FirstName = userDTO.FirstName;
                 existing.LastName = userDTO.LastName;
