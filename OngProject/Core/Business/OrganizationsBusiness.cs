@@ -15,15 +15,22 @@ namespace OngProject.Core.Business
     public class OrganizationsBusiness : IOrganizationsBusiness
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IAmazonS3Client _amazonClient;
 
-        public OrganizationsBusiness(IUnitOfWork unitOfWork)
+        public OrganizationsBusiness(IUnitOfWork unitOfWork, IAmazonS3Client amazonS3Client)
         {
             _unitOfWork = unitOfWork;
+            _amazonClient = amazonS3Client;
+
         }
 
-        public Task<bool> DeleteOrganization(int id)
+        public async Task<bool> DeleteOrganization(int id)
         {
-            throw new NotImplementedException();
+            Organization organization = await _unitOfWork.OrganizationRepository.GetById(id);
+            if (organization == null) return false;
+            bool result = await _unitOfWork.OrganizationRepository.Delete(organization);
+            _unitOfWork.SaveChanges();
+            return result;
         }
 
         public async Task<List<GetOrganizationDto>> GetAllOrganization()
@@ -55,9 +62,26 @@ namespace OngProject.Core.Business
             return await _unitOfWork.OrganizationRepository.GetById(id);
         }
 
-        public Task<Organization> InsertOrganization(Organization organization)
+        public async Task<OrganizationDisplayDTO> InsertOrganization(CreateOrganizationDTO organizationDTO)
         {
-            throw new NotImplementedException();
+            if (organizationDTO != null)
+            {
+                var mapper = new OrganizationMapper();
+                var organization = mapper.FromCreateOrganizationDTOToOrganization(organizationDTO);
+
+                if (organization != null)
+                {
+                    organization.Image = await _amazonClient.UploadObject(organizationDTO.Image);
+                }
+
+                await _unitOfWork.OrganizationRepository.Insert(organization);
+                _unitOfWork.SaveChanges();
+
+                var dto = mapper.FromOrganizationToOrganizationDisplayDTO(organization);
+
+                return dto;
+            }
+            return null;
         }
 
         public async Task<UpdateOrganizationDTO> UpdateOrganization(int id, UpdateOrganizationDTO organizationDTO)
@@ -76,7 +100,7 @@ namespace OngProject.Core.Business
                 }
 
                 organizationToUpdate.Name = organizationDTO.Name;
-                organizationToUpdate.Image = organizationDTO.Image;
+                organizationToUpdate.Image = organizationDTO.Image.ToString();
                 organizationToUpdate.Address = organizationDTO.Address;
                 organizationToUpdate.Phone = organizationDTO.Phone;
                 organizationToUpdate.Email = organizationDTO.Email;
